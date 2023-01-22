@@ -1,5 +1,3 @@
-import { Fragment, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
 import { Square } from './Square.jsx';
 import { Button } from './Button.jsx';
 
@@ -8,7 +6,9 @@ export function WinnerModal({ winner, resetGame }) {
   const winnerText = winner === false ? 'Tie' : 'Winner!';
   return (
     <>
-      <div className="relative z-10">
+      <div
+        className="relative z-10"
+      >
         <div className="fixed inset-0 bg-black/50 dark:bg-black/70 transition-opacity backdrop-blur-sm dark:backdrop-blur" />
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">

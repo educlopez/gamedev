@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { motion } from 'framer-motion';
 import { Square } from '@/components/Square.jsx';
-import { TURNS, FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
+import {
+  TURNS,
+  FADE_DOWN_ANIMATION_VARIANTS,
+  FADE_IN_ANIMATION_CARD
+} from '@/lib/constants.js';
 import { checkWinnerFrom, checkEndGame } from '@/logic/board.js';
 import { WinnerModal } from '@/components/WinnerModal.jsx';
 import { saveGameToStorage, resetGameStorage } from '@/logic/storage/index.js';
@@ -63,8 +67,14 @@ function Home() {
     <>
       <Head>
         <title>TicTacToe</title>
-       <meta name="description" content="Play the classic game of Tic Tac Toe online with a modern twist! Our web game is built using Tailwind CSS and Next.js, providing a sleek and responsive design for hours of fun."/>
-        <meta name="keywords" content="tic tac toe, online game, tailwind css, next.js, web game"/>
+        <meta
+          name="description"
+          content="Play the classic game of Tic Tac Toe online with a modern twist! Our web game is built using Tailwind CSS and Next.js, providing a sleek and responsive design for hours of fun."
+        />
+        <meta
+          name="keywords"
+          content="tic tac toe, online game, tailwind css, next.js, web game"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -115,7 +125,7 @@ function Home() {
           Reset Game
         </Button>
       </motion.div>
-      <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
+      <motion.div {...FADE_IN_ANIMATION_CARD}>
         <WinnerModal resetGame={resetGame} winner={winner} />
       </motion.div>
     </>
