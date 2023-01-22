@@ -98,7 +98,6 @@ export function Navigation(props) {
   return (
     <nav {...props}>
       <ul role="list">
-        <TopLevelNavItem href="/">Home</TopLevelNavItem>
         <TopLevelNavItem
           href="https://github.com/educlopez/movie-list"
           target="_blank"

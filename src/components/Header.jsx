@@ -71,9 +71,8 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TopLevelNavItem href="/">Home</TopLevelNavItem>
             <TopLevelNavItem
-              href="https://github.com/educlopez/movie-list"
+              href="https://github.com/educlopez/tic-tac-toe"
               target="_blank"
               rel="noopener noreferrer"
             >
