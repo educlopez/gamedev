@@ -1,20 +1,23 @@
-import { useEffect, useRef } from 'react';
-import { Layout } from '@/components/Layout';
-import '@/styles/tailwind.css';
-import 'focus-visible';
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react'
+
+import { Layout } from '@/components/Layout'
+import '@/styles/tailwind.css'
+import 'focus-visible'
+import { Analytics } from '@vercel/analytics/react'
+import { motion } from 'framer-motion'
+
 function usePrevious(value) {
-  let ref = useRef();
+  let ref = useRef()
 
   useEffect(() => {
-    ref.current = value;
-  }, [value]);
+    ref.current = value
+  }, [value])
 
-  return ref.current;
+  return ref.current
 }
 
 export default function App({ Component, pageProps, router }) {
-  let previousPathname = usePrevious(router.pathname);
+  let previousPathname = usePrevious(router.pathname)
 
   return (
     <>
@@ -27,19 +30,20 @@ export default function App({ Component, pageProps, router }) {
           hidden: {},
           show: {
             transition: {
-              staggerChildren: 0.15
-            }
-          }
+              staggerChildren: 0.15,
+            },
+          },
         }}
       >
         <div className="relative">
           <main>
             <Layout {...pageProps}>
               <Component previousPathname={previousPathname} {...pageProps} />
+              <Analytics />
             </Layout>
           </main>
         </div>
       </motion.div>
     </>
-  );
+  )
 }

@@ -1,67 +1,69 @@
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import confetti from 'canvas-confetti';
-import { motion } from 'framer-motion';
-import { Square } from '@/components/Square.jsx';
+import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import { checkEndGame, checkWinnerFrom } from '@/logic/board.js'
+import { resetGameStorage, saveGameToStorage } from '@/logic/storage/index.js'
+import confetti from 'canvas-confetti'
+import { motion } from 'framer-motion'
+
 import {
-  TURNS,
   FADE_DOWN_ANIMATION_VARIANTS,
-  FADE_IN_ANIMATION_CARD
-} from '@/lib/constants.js';
-import { checkWinnerFrom, checkEndGame } from '@/logic/board.js';
-import { WinnerModal } from '@/components/WinnerModal.jsx';
-import { saveGameToStorage, resetGameStorage } from '@/logic/storage/index.js';
-import { Button } from '@/components/Button';
+  FADE_IN_ANIMATION_CARD,
+  TURNS,
+} from '@/lib/constants.js'
+import { Button } from '@/components/Button'
+import { Square } from '@/components/Square.jsx'
+import { WinnerModal } from '@/components/WinnerModal.jsx'
+
 function Home() {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turn, setTurn] = useState(TURNS.X);
+  const [board, setBoard] = useState(Array(9).fill(null))
+  const [turn, setTurn] = useState(TURNS.X)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const boardFromStorage = window.localStorage.getItem('board');
-      if (boardFromStorage) setBoard(JSON.parse(boardFromStorage));
+      const boardFromStorage = window.localStorage.getItem('board')
+      if (boardFromStorage) setBoard(JSON.parse(boardFromStorage))
 
-      const turnFromStorage = window.localStorage.getItem('turn');
-      if (turnFromStorage) setTurn(turnFromStorage);
+      const turnFromStorage = window.localStorage.getItem('turn')
+      if (turnFromStorage) setTurn(turnFromStorage)
     }
-  }, []);
+  }, [])
 
   // null es que no hay ganador, false es que hay un empate
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState(null)
 
   const resetGame = () => {
-    setBoard(Array(9).fill(null));
-    setTurn(TURNS.X);
-    setWinner(null);
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
 
-    resetGameStorage();
-  };
+    resetGameStorage()
+  }
 
   const updateBoard = (index) => {
     // no actualizamos esta posición
     // si ya tiene algo
-    if (board[index] || winner) return;
+    if (board[index] || winner) return
     // actualizar el tablero
-    const newBoard = [...board];
-    newBoard[index] = turn;
-    setBoard(newBoard);
+    const newBoard = [...board]
+    newBoard[index] = turn
+    setBoard(newBoard)
     // cambiar el turno
-    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
-    setTurn(newTurn);
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+    setTurn(newTurn)
     // guardar aqui partida
     saveGameToStorage({
       board: newBoard,
-      turn: newTurn
-    });
+      turn: newTurn,
+    })
     // revisar si hay ganador
-    const newWinner = checkWinnerFrom(newBoard);
+    const newWinner = checkWinnerFrom(newBoard)
     if (newWinner) {
-      confetti();
-      setWinner(newWinner);
+      confetti()
+      setWinner(newWinner)
     } else if (checkEndGame(newBoard)) {
-      setWinner(false); // empate
+      setWinner(false) // empate
     }
-  };
+  }
 
   return (
     <>
@@ -79,7 +81,7 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <motion.h1
-        className="text-6xl text-zinc-900 dark:text-white text-center font-bold"
+        className="text-6xl font-bold text-center text-zinc-900 dark:text-white"
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
         TicTacToe
@@ -104,7 +106,7 @@ function Home() {
         </Square>
       </motion.section>
       <motion.section
-        className=" grid gap-4 grid-cols-3 max-w-fit mx-auto"
+        className="grid grid-cols-3 gap-4 mx-auto  max-w-fit"
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
         {board.map((square, index) => {
@@ -117,10 +119,10 @@ function Home() {
             >
               {square}
             </Square>
-          );
+          )
         })}
       </motion.section>
-      <motion.div className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-10">
+      <motion.div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
         <Button onClick={resetGame} variants={FADE_DOWN_ANIMATION_VARIANTS}>
           Reset Game
         </Button>
@@ -129,7 +131,7 @@ function Home() {
         <WinnerModal resetGame={resetGame} winner={winner} />
       </motion.div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home

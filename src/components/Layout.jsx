@@ -1,9 +1,10 @@
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import bgRayLight from '@/images/bg-ray-light.png';
-import bgRayDark from '@/images/bg-ray-dark.png';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
+import Image from 'next/image'
+import bgRayDark from '@/images/bg-ray-dark.png'
+import bgRayLight from '@/images/bg-ray-light.png'
+import { motion } from 'framer-motion'
+
+import { Footer } from '@/components/Footer'
+import { Header } from '@/components/Header'
 
 export function Layout({ children = [] }) {
   return (
@@ -30,5 +31,5 @@ export function Layout({ children = [] }) {
         </div>
       </div>
     </>
-  );
+  )
 }

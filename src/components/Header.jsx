@@ -1,17 +1,16 @@
-import { forwardRef } from 'react';
-import Link from 'next/link';
-import clsx from 'clsx';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { forwardRef } from 'react'
+import Link from 'next/link'
+import clsx from 'clsx'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
-import { Button } from '@/components/Button';
-import { Logo } from '@/components/Logo';
+import { Button } from '@/components/Button'
+import { Logo } from '@/components/Logo'
 import {
   MobileNavigation,
-  useIsInsideMobileNavigation
-} from '@/components/MobileNavigation';
-import { useMobileNavigationStore } from '@/components/MobileNavigation';
-import { ModeToggle } from '@/components/ModeToggle';
-
+  useIsInsideMobileNavigation,
+  useMobileNavigationStore,
+} from '@/components/MobileNavigation'
+import { ModeToggle } from '@/components/ModeToggle'
 
 function TopLevelNavItem({ href, children, target, rel }) {
   return (
@@ -25,16 +24,16 @@ function TopLevelNavItem({ href, children, target, rel }) {
         {children}
       </Link>
     </li>
-  );
+  )
 }
 
 export const Header = forwardRef(function Header({ className }, ref) {
-  let { isOpen: mobileNavIsOpen } = useMobileNavigationStore();
-  let isInsideMobileNavigation = useIsInsideMobileNavigation();
+  let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
+  let isInsideMobileNavigation = useIsInsideMobileNavigation()
 
-  let { scrollY } = useScroll();
-  let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9]);
-  let bgOpacityDark = useTransform(scrollY, [0, 72], [0.2, 0.8]);
+  let { scrollY } = useScroll()
+  let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9])
+  let bgOpacityDark = useTransform(scrollY, [0, 72], [0.2, 0.8])
 
   return (
     <motion.div
@@ -49,7 +48,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
       )}
       style={{
         '--bg-opacity-light': bgOpacityLight,
-        '--bg-opacity-dark': bgOpacityDark
+        '--bg-opacity-dark': bgOpacityDark,
       }}
     >
       <div
@@ -89,5 +88,5 @@ export const Header = forwardRef(function Header({ className }, ref) {
         </div>*/}
       </div>
     </motion.div>
-  );
-});
+  )
+})
