@@ -1,41 +1,19 @@
-import { Fragment, forwardRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Transition } from '@headlessui/react'
-
-import { Button } from '@/components/Button'
-
-function CheckIcon(props) {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" {...props}>
-      <circle cx="10" cy="10" r="10" strokeWidth="0" />
-      <path
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-        d="m6.75 10.813 2.438 2.437c1.218-4.469 4.062-6.5 4.062-6.5"
-      />
-    </svg>
-  )
-}
 
 function TwitterIcon(props) {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" {...props}>
-      <path d="M16.712 6.652c.01.146.01.29.01.436 0 4.449-3.267 9.579-9.242 9.579v-.003a8.963 8.963 0 0 1-4.98-1.509 6.379 6.379 0 0 0 4.807-1.396c-1.39-.027-2.608-.966-3.035-2.337.487.097.99.077 1.467-.059-1.514-.316-2.606-1.696-2.606-3.3v-.041c.45.26.956.404 1.475.42C3.18 7.454 2.74 5.486 3.602 3.947c1.65 2.104 4.083 3.382 6.695 3.517a3.446 3.446 0 0 1 .94-3.217 3.172 3.172 0 0 1 4.596.148 6.38 6.38 0 0 0 2.063-.817 3.357 3.357 0 0 1-1.428 1.861 6.283 6.283 0 0 0 1.865-.53 6.735 6.735 0 0 1-1.62 1.744Z" />
+    <svg aria-hidden="true" {...props}>
+      <path d="M13 5h3v1h1v1h1v1h2v1h-1v1h-1v2h-1v2h-1v1h-1v1h-1v1h-1v1h-2v1H6v-1H4v-1h3v-1h1v-1H7v-1H6v-1h1v-1H5v-1H4v-1h2V9H5V8H4V7h3v1h2v1h2V8h1V6h1V5Z" />
+      <path d="M18 7V6h2v1h-2Z" />
     </svg>
   )
 }
 
 function GitHubIcon(props) {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true" {...props}>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M10 1.667c-4.605 0-8.334 3.823-8.334 8.544 0 3.78 2.385 6.974 5.698 8.106.417.075.573-.182.573-.406 0-.203-.011-.875-.011-1.592-2.093.397-2.635-.522-2.802-1.002-.094-.246-.5-1.005-.854-1.207-.291-.16-.708-.556-.01-.567.656-.01 1.124.62 1.281.876.75 1.292 1.948.93 2.427.705.073-.555.291-.93.531-1.143-1.854-.213-3.791-.95-3.791-4.218 0-.929.322-1.698.854-2.296-.083-.214-.375-1.09.083-2.265 0 0 .698-.224 2.292.876a7.576 7.576 0 0 1 2.083-.288c.709 0 1.417.096 2.084.288 1.593-1.11 2.291-.875 2.291-.875.459 1.174.167 2.05.084 2.263.53.599.854 1.357.854 2.297 0 3.278-1.948 4.005-3.802 4.219.302.266.563.78.563 1.58 0 1.143-.011 2.061-.011 2.35 0 .224.156.491.573.405a8.365 8.365 0 0 0 4.11-3.116 8.707 8.707 0 0 0 1.567-4.99c0-4.721-3.73-8.545-8.334-8.545Z"
-      />
+    <svg aria-hidden="true" {...props}>
+      <path d="M15 5h2v3h1v1h1v4h-1v1h-1v1h-2v1h1v3h-6v-1H7v-2h4v-1H9v-1H8v-1H7V9h1V8h1V5h2v2h4V5ZM7 16H5v-2h2v2Z" />
     </svg>
   )
 }
@@ -44,16 +22,28 @@ function SocialLink({ href, icon: Icon, children, rel, target }) {
   return (
     <Link href={href} className="group" target={target} rel={rel}>
       <span className="sr-only">{children}</span>
-      <Icon className="w-5 h-5 transition fill-zinc-700 group-hover:fill-zinc-900 dark:group-hover:fill-zinc-500" />
+      <Icon className="w-5 h-5 transition fill-gameboy-700 group-hover:fill-gameboy-900 dark:fill-gameboy-400 dark:group-hover:fill-gameboy-100" />
     </Link>
   )
 }
 
 function SmallPrint() {
   return (
-    <div className="flex flex-col items-center justify-between gap-5 pt-8 border-t border-zinc-900/5 dark:border-white/5 sm:flex-row">
-      <p className="text-xs text-zinc-600 dark:text-zinc-400">
-        Made with ♥️ {new Date().getFullYear()} by{' '}
+    <div className="flex flex-col items-center justify-between gap-5 pt-8 border-t border-gameboy-700/20 dark:border-gameboy-100/20 sm:flex-row">
+      <p className="text-xs text-gameboy-700 dark:text-gameboy-400">
+        Made with
+        <svg
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className="inline-flex w-5 h-5 mx-2 fill-gameboy-700 dark:fill-gameboy-400"
+        >
+          <path
+            d="M9 2H5v2H3v2H1v6h2v2h2v2h2v2h2v2h2v2h2v-2h2v-2h2v-2h2v-2h2v-2h2V6h-2V4h-2V2h-4v2h-2v2h-2V4H9V2zm0 2v2h2v2h2V6h2V4h4v2h2v6h-2v2h-2v2h-2v2h-2v2h-2v-2H9v-2H7v-2H5v-2H3V6h2V4h4z"
+            fill="currentColor"
+          />
+        </svg>
+        {new Date().getFullYear()} by{' '}
         <a
           href="https://educalvolopez.com"
           target="_blank"

@@ -19,7 +19,7 @@ function TopLevelNavItem({ href, children, target, rel }) {
         href={href}
         target={target}
         rel={rel}
-        className="text-sm leading-5 transition text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+        className="text-sm leading-5 transition text-gameboy-700 hover:text-gameboy-900 dark:text-gameboy-400 dark:hover:text-gameboy-100"
       >
         {children}
       </Link>
@@ -43,8 +43,8 @@ export const Header = forwardRef(function Header({ className }, ref) {
         'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:z-30 lg:px-8',
         !isInsideMobileNavigation && 'backdrop-blur-sm dark:backdrop-blur',
         isInsideMobileNavigation
-          ? 'bg-white dark:bg-zinc-900'
-          : 'bg-white/[var(--bg-opacity-light)] dark:bg-zinc-900/[var(--bg-opacity-dark)]'
+          ? 'bg-gameboy-400 dark:bg-gameboy-900'
+          : 'bg-gameboy-400/[var(--bg-opacity-light)] dark:bg-gameboy-900/[var(--bg-opacity-dark)]'
       )}
       style={{
         '--bg-opacity-light': bgOpacityLight,
@@ -70,22 +70,29 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TopLevelNavItem
-              href="https://github.com/educlopez/tic-tac-toe"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Github
+            <TopLevelNavItem href="/games/tictactoe">TicTacToe</TopLevelNavItem>
+            <TopLevelNavItem href="/games/memotest">Memotest</TopLevelNavItem>
+            <TopLevelNavItem href="/games/wordsperminute">
+              Words per minute
+            </TopLevelNavItem>
+            <TopLevelNavItem href="/games/whoisthatpokemon">
+              Who&apos;s that pokemon
             </TopLevelNavItem>
           </ul>
         </nav>
-        <div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
+        <div className="hidden min-[416px]:contents">
+          <Button
+            href="https://github.com/educlopez/tic-tac-toe"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Github
+          </Button>
+        </div>
+        <div className="hidden md:block md:h-5 md:w-px md:bg-gameboy-900/10 md:dark:bg-gameboy-100/15" />
         <div className="flex gap-4">
           <ModeToggle />
         </div>
-        {/*<div className="hidden min-[416px]:contents">
-          <Button href="#">Sign in</Button>
-        </div>*/}
       </div>
     </motion.div>
   )

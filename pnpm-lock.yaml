@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@headlessui/react': ^1.7.7
   '@ianvs/prettier-plugin-sort-imports': ^3.7.1
+  '@next/font': ^13.1.6
   '@tailwindcss/typography': ^0.5.4
   '@vercel/analytics': ^0.1.8
   autoprefixer: ^10.4.12
@@ -26,6 +27,7 @@ specifiers:
 dependencies:
   '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@ianvs/prettier-plugin-sort-imports': 3.7.1_prettier@2.8.3
+  '@next/font': 13.1.6
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.4
   '@vercel/analytics': 0.1.8_react@18.2.0
   autoprefixer: 10.4.13
@@ -437,6 +439,10 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
+
+  /@next/font/13.1.6:
+    resolution: {integrity: sha512-AITjmeb1RgX1HKMCiA39ztx2mxeAyxl4ljv2UoSBUGAbFFMg8MO7YAvjHCgFhD39hL7YTbFjol04e/BPBH5RzQ==}
+    dev: false
 
   /@next/swc-android-arm-eabi/13.0.2:
     resolution: {integrity: sha512-X54UQCTFyOGnJP//Z71dPPlp4BCYcQL2ncikKXQcPzVpqPs4C3m+tKC8ivBNH6edAXkppwsLRz1/yQwgSZ9Swg==}

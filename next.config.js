@@ -3,16 +3,20 @@ const nextConfig = {
   pageExtensions: ['jsx', 'js'],
   reactStrictMode: true,
   experimental: {
-    scrollRestoration: true
+    scrollRestoration: true,
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'image.tmdb.org'
-      }
-    ]
-  }
-};
+        hostname: 'icongr.am',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+      },
+    ],
+  },
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

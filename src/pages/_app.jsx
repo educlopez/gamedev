@@ -1,10 +1,15 @@
 import { useEffect, useRef } from 'react'
+import tileBgDark from '@/images/bg-texture-dark.png'
+import tileBgLight from '@/images/bg-texture-light.png'
 
 import { Layout } from '@/components/Layout'
 import '@/styles/tailwind.css'
 import 'focus-visible'
+import { Silkscreen } from '@next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { motion } from 'framer-motion'
+
+const silkscreen = Silkscreen({ weight: ['400', '700'], subsets: ['latin'] })
 
 function usePrevious(value) {
   let ref = useRef()
@@ -21,6 +26,18 @@ export default function App({ Component, pageProps, router }) {
 
   return (
     <>
+      <div
+        className="fixed top-0 left-0 w-full h-full dark:hidden"
+        style={{
+          backgroundImage: `url(${tileBgLight.src})`,
+        }}
+      ></div>
+      <div
+        className="fixed top-0 left-0 hidden w-full h-full dark:block"
+        style={{
+          backgroundImage: `url(${tileBgDark.src})`,
+        }}
+      ></div>
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -36,7 +53,7 @@ export default function App({ Component, pageProps, router }) {
         }}
       >
         <div className="relative">
-          <main>
+          <main className={silkscreen.className}>
             <Layout {...pageProps}>
               <Component previousPathname={previousPathname} {...pageProps} />
               <Analytics />

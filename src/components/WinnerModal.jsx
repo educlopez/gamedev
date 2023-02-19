@@ -7,13 +7,13 @@ export function WinnerModal({ winner, resetGame }) {
   return (
     <>
       <div className="relative z-10">
-        <div className="fixed inset-0 transition-opacity bg-black/50 dark:bg-black/70 backdrop-blur-sm dark:backdrop-blur" />
+        <div className="fixed inset-0 transition-opacity bg-gameboy-900/70 backdrop-blur-sm dark:backdrop-blur" />
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
-            <div className="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:w-full dark:border dark:border-zinc-900 dark:bg-black sm:my-8 sm:max-w-sm sm:p-6">
+            <div className="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform border rounded-lg shadow-xl bg-gameboy-400 sm:w-full border-gameboy-700 dark:border-gameboy-400 dark:bg-gameboy-700 sm:my-8 sm:max-w-sm sm:p-6">
               <div>
                 <div className="text-center">
-                  <p className="mb-3 text-lg font-medium text-zinc-500 dark:text-white">
+                  <p className="mb-3 text-lg font-medium text-gameboy-700 dark:text-gameboy-400">
                     {winnerText}
                   </p>
                   <div className="flex justify-center">

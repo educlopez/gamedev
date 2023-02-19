@@ -1,19 +1,15 @@
 function SunIcon(props) {
   return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
-      <path d="M12.5 10a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
-      <path
-        strokeLinecap="round"
-        d="M10 5.5v-1M13.182 6.818l.707-.707M14.5 10h1M13.182 13.182l.707.707M10 15.5v-1M6.11 13.889l.708-.707M4.5 10h1M6.11 6.111l.708.707"
-      />
+    <svg aria-hidden="true" {...props} viewBox="0 0 24 24">
+      <path d="M13 0h-2v4h2V0ZM0 11v2h4v-2H0Zm24 0v2h-4v-2h4ZM13 24h-2v-4h2v4ZM8 6h8v2H8V6ZM6 8h2v8H6V8Zm2 10v-2h8v2H8Zm10-2h-2V8h2v8Zm2-14h2v2h-2V2Zm0 2v2h-2V4h2Zm2 18h-2v-2h2v2Zm-2-2h-2v-2h2v2ZM4 2H2v2h2v2h2V4H4V2ZM2 22h2v-2h2v-2H4v2H2v2Z" />{' '}
     </svg>
   )
 }
 
 function MoonIcon(props) {
   return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
-      <path d="M15.224 11.724a5.5 5.5 0 0 1-6.949-6.949 5.5 5.5 0 1 0 6.949 6.949Z" />
+    <svg aria-hidden="true" {...props} viewBox="0 0 24 24">
+      <path d="M6 2h8v2h-2v2h-2V4H6V2ZM4 6V4h2v2H4Zm0 10H2V6h2v10Zm2 2H4v-2h2v2Zm2 2H6v-2h2v2Zm10 0v2H8v-2h10Zm2-2v2h-2v-2h2Zm-2-4h2v4h2v-8h-2v2h-2v2Zm-6 0v2h6v-2h-6Zm-2-2h2v2h-2v-2Zm0 0V6H8v6h2Z" />{' '}
     </svg>
   )
 }
@@ -43,12 +39,12 @@ export function ModeToggle() {
   return (
     <button
       type="button"
-      className="flex items-center justify-center w-6 h-6 transition rounded-md hover:bg-zinc-900/5 dark:hover:bg-white/5"
+      className="flex items-center justify-center w-6 h-6 transition rounded-md hover:bg-gameboy-900/5 dark:hover:bg-gameboy-100/5"
       aria-label="Toggle dark mode"
       onClick={toggleMode}
     >
-      <SunIcon className="w-5 h-5 stroke-zinc-900 dark:hidden" />
-      <MoonIcon className="hidden w-5 h-5 stroke-white dark:block" />
+      <SunIcon className="w-5 h-5 fill-gameboy-700 hover:fill-gameboy-900 dark:hidden" />
+      <MoonIcon className="hidden w-5 h-5 fill-gameboy-400 hover:fill-gameboy-100 dark:block" />
     </button>
   )
 }

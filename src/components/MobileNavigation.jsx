@@ -56,11 +56,11 @@ export function MobileNavigation() {
     <IsInsideMobileNavigationContext.Provider value={true}>
       <button
         type="button"
-        className="flex items-center justify-center w-6 h-6 transition rounded-md hover:bg-zinc-900/5 dark:hover:bg-white/5"
+        className="flex items-center justify-center w-6 h-6 transition rounded-md hover:bg-gameboy-900 dark:hover:bg-gameboy-100"
         aria-label="Toggle navigation"
         onClick={toggle}
       >
-        <ToggleIcon className="w-2.5 stroke-zinc-900 dark:stroke-white" />
+        <ToggleIcon className="w-2.5 stroke-gameboy-900 dark:stroke-gameboy-100" />
       </button>
       {!isInsideMobileNavigation && (
         <Transition.Root show={isOpen} as={Fragment}>
@@ -74,7 +74,7 @@ export function MobileNavigation() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 top-14 bg-zinc-400/20 backdrop-blur-sm dark:bg-black/40" />
+              <div className="fixed inset-0 top-14 bg-gameboy-400 backdrop-blur-sm dark:bg-gameboy-900" />
             </Transition.Child>
 
             <Dialog.Panel>
@@ -101,7 +101,7 @@ export function MobileNavigation() {
               >
                 <motion.div
                   layoutScroll
-                  className="fixed left-0 top-14 bottom-0 w-full overflow-y-auto bg-white px-4 pt-6 pb-4 shadow-lg shadow-zinc-900/10 ring-1 ring-zinc-900/7.5 dark:bg-zinc-900 dark:ring-zinc-800 min-[416px]:max-w-sm sm:px-6 sm:pb-10"
+                  className="fixed left-0 top-14 bottom-0 w-full overflow-y-auto bg-gameboy-100 px-4 pt-6 pb-4 shadow-lg shadow-gameboy-900 ring-1 ring-zinc-900/7.5 dark:bg-gameboy-900 dark:ring-gameboy-700 min-[416px]:max-w-sm sm:px-6 sm:pb-10"
                 >
                   <Navigation />
                 </motion.div>

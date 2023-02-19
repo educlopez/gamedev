@@ -18,7 +18,7 @@ function TopLevelNavItem({ href, children, target, rel }) {
     <li className="md:hidden">
       <Link
         href={href}
-        className="block py-1 text-sm transition text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+        className="block py-1 text-sm transition text-gameboy-700 hover:text-gameboy-900 dark:text-gameboy-400 dark:hover:text-gameboy-400"
         target={target}
         rel={rel}
       >
@@ -37,8 +37,8 @@ function NavLink({ href, tag, active, isAnchorLink = false, children }) {
         'flex justify-between gap-2 py-1 pr-3 text-sm transition',
         isAnchorLink ? 'pl-7' : 'pl-4',
         active
-          ? 'text-zinc-900 dark:text-white'
-          : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+          ? 'text-gameboy-900 dark:text-gameboy-400'
+          : 'text-zinc-600 hover:text-gameboy-900 dark:text-zinc-400 dark:hover:text-gameboy-400'
       )}
     >
       <span className="truncate">{children}</span>
@@ -96,18 +96,25 @@ export function Navigation(props) {
   return (
     <nav {...props}>
       <ul role="list">
-        <TopLevelNavItem
-          href="https://github.com/educlopez/movie-list"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Github
+        <TopLevelNavItem href="/games/tictactoe">TicTacToe</TopLevelNavItem>
+        <TopLevelNavItem href="/games/memotest">Memotest</TopLevelNavItem>
+        <TopLevelNavItem href="/games/wordsperminute">
+          Words per minute
         </TopLevelNavItem>
-        {/*<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
-          <Button href="#" variant="filled" className="w-full">
-            Sign in
-        </Button>
-        </li>*/}
+        <TopLevelNavItem href="/games/whoisthatpokemon">
+          Who&apos;s that pokemon
+        </TopLevelNavItem>
+
+        <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
+          <Button
+            href="https://github.com/educlopez/movie-list"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="secondary"
+          >
+            Github
+          </Button>
+        </li>
       </ul>
     </nav>
   )
