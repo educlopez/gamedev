@@ -82,7 +82,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
         </nav>
         <div className="hidden min-[416px]:contents">
           <Button
-            href="https://github.com/educlopez/tic-tac-toe"
+            href="https://github.com/educlopez/gamedev"
             target="_blank"
             rel="noopener noreferrer"
           >

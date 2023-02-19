@@ -107,7 +107,7 @@ export function Navigation(props) {
 
         <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
           <Button
-            href="https://github.com/educlopez/movie-list"
+            href="https://github.com/educlopez/gamedev"
             target="_blank"
             rel="noopener noreferrer"
             variant="secondary"
