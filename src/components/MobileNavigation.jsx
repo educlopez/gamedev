@@ -103,7 +103,7 @@ export function MobileNavigation() {
                   layoutScroll
                   className="fixed left-0 top-14 bottom-0 w-full overflow-y-auto bg-gameboy-100 px-4 pt-6 pb-4 shadow-lg shadow-gameboy-900 ring-1 ring-zinc-900/7.5 dark:bg-gameboy-900 dark:ring-gameboy-700 min-[416px]:max-w-sm sm:px-6 sm:pb-10"
                 >
-                  <Navigation />
+                  <Navigation onClick={close} />
                 </motion.div>
               </Transition.Child>
             </Dialog.Panel>
