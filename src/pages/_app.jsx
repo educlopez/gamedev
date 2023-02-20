@@ -9,7 +9,11 @@ import { Silkscreen } from '@next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { motion } from 'framer-motion'
 
-const silkscreen = Silkscreen({ weight: ['400', '700'], subsets: ['latin'] })
+const silkscreen = Silkscreen({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 function usePrevious(value) {
   let ref = useRef()
