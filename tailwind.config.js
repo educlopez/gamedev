@@ -13,6 +13,9 @@ module.exports = {
           900: '#1F1F1F',
         },
       },
+      fontFamily: {
+        gameboy: 'var(--display-gameboy)',
+      },
     },
     fontSize: {
       xs: ['0.8125rem', { lineHeight: '1.5rem' }],
