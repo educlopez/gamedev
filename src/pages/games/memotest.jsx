@@ -119,7 +119,13 @@ function Memotest() {
                   }
                 >
                   {selected.includes(image) || guessed.includes(image) ? (
-                    <Image src={url} alt="surprise" width={64} height={64} />
+                    <Image
+                      src={url}
+                      alt="surprise"
+                      width={64}
+                      height={64}
+                      priority
+                    />
                   ) : (
                     <svg
                       fill="none"
