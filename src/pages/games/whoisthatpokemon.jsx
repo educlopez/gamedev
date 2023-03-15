@@ -89,6 +89,7 @@ export default function Whoisthatpokemon() {
               alt="pokemon sprite"
               width={96}
               height={96}
+              unoptimized
             />
             <p className="my-4 text-xs text-center text-gameboy-700 dark:text-gameboy-400">
               Remember, if a pokemon have spaces in her name use `-`
