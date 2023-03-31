@@ -40,12 +40,6 @@ export default function Document() {
     <Html className="h-full antialiased" lang="en">
       <Head>
         <script dangerouslySetInnerHTML={{ __html: modeScript }} />
-        <script
-          defer
-          src="https://unpkg.com/@tinybirdco/flock.js"
-          data-host="https://api.tinybird.co"
-          data-token="p.eyJ1IjogIjBhNTljZjQ4LWNhOGMtNDg5NC1iNDgxLTI0ZWE1OGUyNmM3ZSIsICJpZCI6ICI5MjAwZDExOC00NWE0LTQ0ZjQtODYyMy03ZWUxZTM4ZGQwMjkifQ.G1z8AXnHDIjVtlo6sH8USqknKsEzS0NOkbGsEcnlbQo"
-        ></script>
         <meta name="robots" content="all" />
       </Head>
       <body className="flex flex-col h-full antialiased bg-gameboy-100 dark:bg-gameboy-700">
