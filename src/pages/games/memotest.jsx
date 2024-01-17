@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from '@/images/memo/link.png'
-import Luigi from '@/images/memo/luigi.png'
-import Mario from '@/images/memo/mario.png'
-import Pacman from '@/images/memo/pacman.png'
-import Phantom from '@/images/memo/phantom.png'
-import Qbert from '@/images/memo/qbert.png'
-import Spaceinvader from '@/images/memo/spaceinvader.png'
-import Voltorb from '@/images/memo/voltorb.png'
-import confetti from 'canvas-confetti'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from '@/images/memo/link.png';
+import Luigi from '@/images/memo/luigi.png';
+import Mario from '@/images/memo/mario.png';
+import Pacman from '@/images/memo/pacman.png';
+import Phantom from '@/images/memo/phantom.png';
+import Qbert from '@/images/memo/qbert.png';
+import Spaceinvader from '@/images/memo/spaceinvader.png';
+import Voltorb from '@/images/memo/voltorb.png';
+import confetti from 'canvas-confetti';
+import { motion } from 'framer-motion';
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js'
-import { Button } from '@/components/Button'
+
+
+import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
+import { Button } from '@/components/Button';
+
 
 const IMAGES = [
   Voltorb,
@@ -56,6 +59,7 @@ function Memotest() {
         origin: {
           y: 0.6,
         },
+        colors: ['#8D9571', '#1F1F1F', '#4E533E'],
       })
     }
   }, [guessed])

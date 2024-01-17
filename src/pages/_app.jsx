@@ -52,18 +52,22 @@ export default function App({ Component, pageProps, router }) {
       >
         <div className="relative">
           <main className={`${silkscreen.variable}`}>
-            <div
-              className="fixed top-0 left-0 w-full h-full dark:hidden"
-              style={{
-                backgroundImage: `url(${tileBgLight.src})`,
-              }}
-            ></div>
-            <div
-              className="fixed top-0 left-0 hidden w-full h-full dark:block"
-              style={{
-                backgroundImage: `url(${tileBgDark.src})`,
-              }}
-            ></div>
+            <div className="absolute top-0 left-0 w-full h-screen overflow-hidden box-bg">
+              <div className="absolute top-0 left-0 z-0 w-full h-full crt"></div>
+              <div className="noise absolute z-0 inset-[-200%] h-[400%] w-[400%] bg-[url('/images/framernoise.png')] bg-[length:256px] bg-left-top opacity-[10%]"></div>
+              <div
+                className="fixed top-0 left-0 w-full h-full dark:hidden -z-10"
+                style={{
+                  backgroundImage: `url(${tileBgLight.src})`,
+                }}
+              ></div>
+              <div
+                className="fixed top-0 left-0 hidden w-full h-full dark:block -z-10"
+                style={{
+                  backgroundImage: `url(${tileBgDark.src})`,
+                }}
+              ></div>
+            </div>
             <Layout {...pageProps}>
               <Component previousPathname={previousPathname} {...pageProps} />
               <Analytics />

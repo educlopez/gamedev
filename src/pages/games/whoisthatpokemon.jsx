@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
-import confetti from 'canvas-confetti'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import confetti from 'canvas-confetti';
+import { motion } from 'framer-motion';
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js'
-import { Button } from '@/components/Button'
+
+
+import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
+import { Button } from '@/components/Button';
+
 
 export default function Whoisthatpokemon() {
   const [pokemon, setPokemon] = useState({})
   const [pokemonList, setPokemonList] = useState([])
   const [userGuess, setUserGuess] = useState('')
   const [guessMessage, setGuessMessage] = useState('')
+  const [correctGuesses, setCorrectGuesses] = useState(0)
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -46,8 +50,16 @@ export default function Whoisthatpokemon() {
       confetti({
         particleCount: 200,
         spread: 80,
+        colors: ['#8D9571', '#1F1F1F', '#4E533E'],
       })
       setPokemonList([...pokemonList, pokemon.name])
+
+      // Increase the correct guess counter
+      setCorrectGuesses(correctGuesses + 1)
+
+      if (correctGuesses + 1 === 10) {
+        setGuessMessage('You have guessed 10 correct Pokémon. Congratulations!')
+      }
     } else {
       setGuessMessage('Incorrect. Try again.')
     }
@@ -57,6 +69,7 @@ export default function Whoisthatpokemon() {
     setPokemonList([])
     setGuessMessage('')
     setUserGuess('')
+    setCorrectGuesses(0)
   }
 
   return (
@@ -94,9 +107,21 @@ export default function Whoisthatpokemon() {
             <p className="my-4 text-xs text-center text-gameboy-700 dark:text-gameboy-400">
               Remember, if a pokemon have spaces in her name use `-`
             </p>
+            <div className="mb-4 text-center text-gameboy-700 dark:text-gameboy-400">
+              Correct Guesses: {correctGuesses} / 10
+            </div>
             <div>
               {guessMessage ===
               'All pokemons have been guessed, congratulations!' ? (
+                <div>
+                  <p className="text-gameboy-700 dark:text-gameboy-400">
+                    {guessMessage}
+                  </p>
+                  <div className="flex justify-center mt-6">
+                    <Button onClick={resetGame}>Reset Game</Button>
+                  </div>
+                </div>
+              ) : correctGuesses === 10 ? (
                 <div>
                   <p className="text-gameboy-700 dark:text-gameboy-400">
                     {guessMessage}
@@ -121,11 +146,11 @@ export default function Whoisthatpokemon() {
         ) : (
           <p className="text-gameboy-700 dark:text-gameboy-400">Loading...</p>
         )}
-        <div className="flex flex-row flex-wrap flex-auto mt-10">
+        <div className="grid grid-flow-row grid-cols-5 mt-10">
           {pokemonList.map((pokemon) => {
             return (
               <div
-                className="relative grow flex  flex-row justify-center items-center w-auto bg-gameboy-100/50 py-2 pl-2 pr-5 text-sm text-gameboy-700 ring-1 ring-gameboy-400 transition hover:ring-gameboy-700 dark:bg-gameboy-700/50 dark:text-gameboy-400 dark:ring-inset dark:ring-gameboy-400/50 dark:hover:ring-gameboy-100  focus:[&:not(:focus-visible)]:outline-none hover:z-10"
+                className="relative grow flex flex-row justify-center items-center w-auto bg-gameboy-100/50 py-2 pl-2 pr-5 text-sm text-gameboy-700 ring-1 ring-gameboy-400 transition hover:ring-gameboy-700 dark:bg-gameboy-700/50 dark:text-gameboy-400 dark:ring-inset dark:ring-gameboy-400/50 dark:hover:ring-gameboy-100  focus:[&:not(:focus-visible)]:outline-none hover:z-10"
                 key={pokemon}
               >
                 <Image

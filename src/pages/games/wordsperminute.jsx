@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import confetti from 'canvas-confetti'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import confetti from 'canvas-confetti';
+import { motion } from 'framer-motion';
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js'
-import { Button } from '@/components/Button'
+
+
+import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
+import { Button } from '@/components/Button';
+
 
 const WORDS = [
   'Accio',
@@ -65,7 +68,11 @@ export default function WordPerMinute() {
       return () => clearTimeout(timeout)
     }
     if (time === 0 && characterCount > 0) {
-      confetti({ particleCount: 100, spread: 360 })
+      confetti({
+        particleCount: 100,
+        spread: 360,
+        colors: ['#8D9571', '#1F1F1F', '#4E533E'],
+      })
     }
   }, [time, characterCount])
 

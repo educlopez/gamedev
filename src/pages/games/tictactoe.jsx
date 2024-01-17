@@ -1,18 +1,17 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import { checkEndGame, checkWinnerFrom } from '@/logic/board.js'
-import { resetGameStorage, saveGameToStorage } from '@/logic/storage/index.js'
-import confetti from 'canvas-confetti'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { checkEndGame, checkWinnerFrom } from '@/logic/board.js';
+import { resetGameStorage, saveGameToStorage } from '@/logic/storage/index.js';
+import confetti from 'canvas-confetti';
+import { motion } from 'framer-motion';
 
-import {
-  FADE_DOWN_ANIMATION_VARIANTS,
-  FADE_IN_ANIMATION_CARD,
-  TURNS,
-} from '@/lib/constants.js'
-import { Button } from '@/components/Button'
-import { Square } from '@/components/Square.jsx'
-import { WinnerModal } from '@/components/WinnerModal.jsx'
+
+
+import { FADE_DOWN_ANIMATION_VARIANTS, FADE_IN_ANIMATION_CARD, TURNS } from '@/lib/constants.js';
+import { Button } from '@/components/Button';
+import { Square } from '@/components/Square.jsx';
+import { WinnerModal } from '@/components/WinnerModal.jsx';
+
 
 function Tictactoe() {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -58,7 +57,7 @@ function Tictactoe() {
     // revisar si hay ganador
     const newWinner = checkWinnerFrom(newBoard)
     if (newWinner) {
-      confetti()
+      confetti({ colors: ['#8D9571', '#1F1F1F', '#4E533E'] })
       setWinner(newWinner)
     } else if (checkEndGame(newBoard)) {
       setWinner(false) // empate

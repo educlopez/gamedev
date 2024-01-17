@@ -1,3 +1,57 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.noise {
+  animation: bg-animation 0.2s infinite;
+}
+.crt {
+    background-image: url('/images/crt.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@keyframes bg-animation {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -5%);
+  }
+  20% {
+    transform: translate(-10%, 5%);
+  }
+  30% {
+    transform: translate(5%, -10%);
+  }
+  40% {
+    transform: translate(-5%, 15%);
+  }
+  50% {
+    transform: translate(-10%, 5%);
+  }
+  60% {
+    transform: translate(15%, 0);
+  }
+  70% {
+    transform: translate(0, 10%);
+  }
+  80% {
+    transform: translate(-15%, 0);
+  }
+  90% {
+    transform: translate(10%, 5%);
+  }
+  100% {
+    transform: translate(5%, 0);
+  }
+}
+
+.box-bg {
+  background: radial-gradient(
+    circle,
+    rgba(31, 31, 31, 0) 0%,
+    rgb(77 83 60) 50%,
+    rgba(31, 31, 31, 1) 100%
+  );
+}
