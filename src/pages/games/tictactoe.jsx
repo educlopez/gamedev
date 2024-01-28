@@ -64,6 +64,37 @@ function Tictactoe() {
     }
   }
 
+  function saveGameToStorage(gameState) {
+    // Convertir el estado del juego a un string
+    const gameStateString = JSON.stringify(gameState)
+
+    // Guardar el estado del juego en localStorage
+    localStorage.setItem('ticTacToeGameState', gameStateString)
+  }
+
+  function loadGameFromStorage() {
+    // Obtener el estado del juego desde localStorage
+    const gameStateString = localStorage.getItem('ticTacToeGameState')
+
+    // Convertir el string de vuelta a un objeto
+    const gameState = JSON.parse(gameStateString)
+
+    return gameState
+  }
+  function clearSavedGameState() {
+    localStorage.removeItem('ticTacToeGameState')
+  }
+  useEffect(() => {
+    const savedGameState = loadGameFromStorage()
+
+    if (savedGameState) {
+      setBoard(savedGameState.board)
+      setTurn(savedGameState.turn)
+    } else {
+      setBoard(initialBoard)
+      setTurn(TURNS.X)
+    }
+  }, [])
   return (
     <>
       <Head>
