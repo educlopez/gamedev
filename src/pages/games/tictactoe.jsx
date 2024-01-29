@@ -14,6 +14,7 @@ import { WinnerModal } from '@/components/WinnerModal.jsx';
 
 
 function Tictactoe() {
+  const initialBoard = Array(9).fill(null)
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
 
