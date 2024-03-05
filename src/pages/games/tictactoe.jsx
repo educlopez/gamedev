@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { checkEndGame, checkWinnerFrom } from '@/logic/board.js';
-import { resetGameStorage, saveGameToStorage } from '@/logic/storage/index.js';
 import confetti from 'canvas-confetti';
 import { motion } from 'framer-motion';
 
@@ -35,8 +34,9 @@ function Tictactoe() {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
-
-    resetGameStorage()
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem("ticTacToeGameState")
+    }
   }
 
   const updateBoard = (index) => {
@@ -126,12 +126,14 @@ function Tictactoe() {
           isSelected={turn === TURNS.X}
           variants={FADE_DOWN_ANIMATION_VARIANTS}
           onClick="-"
+          isInteractive={false}
         >
           {TURNS.X}
         </Square>
         <Square
           isSelected={turn === TURNS.O}
           variants={FADE_DOWN_ANIMATION_VARIANTS}
+          isInteractive={false}
         >
           {TURNS.O}
         </Square>
