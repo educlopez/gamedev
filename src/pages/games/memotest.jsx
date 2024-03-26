@@ -15,7 +15,8 @@ import { motion } from 'framer-motion';
 
 
 import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
-import { Button } from '@/components/Button';
+import { Text } from '@/components/Text';
+import { Retrobutton } from '@/components/RetroBtn';
 
 
 const IMAGES = [
@@ -88,25 +89,24 @@ function Memotest() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.h1
-        className="text-xl font-bold text-center md:text-6xl text-gameboy-900 dark:text-gameboy-400"
+
+      <motion.div
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        MemoTest
-      </motion.h1>
-
+        <Text title="MemoTest" as='h2' size='h2'/>
+      </motion.div>
       <motion.section
         className="flex justify-center my-10"
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
         {isGameWon ? (
           <div className="flex flex-col items-center justify-center">
-            <p className="text-gameboy-700 dark:text-gameboy-400">
+            <p className="text-gameboy-900">
               Congratulations! You won the game.
             </p>
-            <Button className="mt-4" onClick={handleReset}>
+            <Retrobutton className="mt-4" onClick={handleReset}>
               Reset Game
-            </Button>
+            </Retrobutton>
           </div>
         ) : (
           <ul className="grid grid-cols-4">
@@ -116,7 +116,7 @@ function Memotest() {
               return (
                 <li
                   key={image}
-                  className="p-2 m-1 rounded-md cursor-pointer bg-gameboy-400 dark:bg-gameboy-700 hover:bg-gameboy-700 dark:hover:bg-gameboy-900"
+                  className="p-2 m-1 rounded-md cursor-pointer bg-gameboy-100 hover:bg-gameboy-400"
                   onClick={() =>
                     selected.length < 2 &&
                     setSelected((selected) => selected.concat(image))
@@ -135,7 +135,7 @@ function Memotest() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      className="w-16 h-16 text-gameboy-900 dark:text-gameboy-400"
+                      className="w-16 h-16 text-gameboy-900"
                     >
                       <path
                         d="M6 2h8v2H6V2zM4 6V4h2v2H4zm0 8H2V6h2v8zm2 2H4v-2h2v2zm8 0v2H6v-2h8zm2-2h-2v2h2v2h2v2h2v2h2v-2h-2v-2h-2v-2h-2v-2zm0-8h2v8h-2V6zm0 0V4h-2v2h2z"

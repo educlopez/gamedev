@@ -42,7 +42,7 @@ export default function Document() {
         <script dangerouslySetInnerHTML={{ __html: modeScript }} />
         <meta name="robots" content="all" />
       </Head>
-      <body className="flex flex-col h-full antialiased bg-gameboy-100 dark:bg-gameboy-700">
+      <body className="flex flex-col h-full antialiased pixel-bg">
         <Main />
         <NextScript />
       </body>

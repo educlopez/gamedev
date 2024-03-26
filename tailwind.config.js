@@ -1,16 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx}'],
-  darkMode: 'class',
   plugins: [require('@tailwindcss/typography')],
   theme: {
     extend: {
       colors: {
         gameboy: {
-          100: '#C4CFA1',
-          400: '#8B956D',
-          700: '#4D533C',
-          900: '#1F1F1F',
+          100: '#D4D29B',
+          400: '#78A46A',
+          700: '#5F8449',
+          900: '#584422',
         },
       },
       fontFamily: {

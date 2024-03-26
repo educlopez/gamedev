@@ -6,7 +6,7 @@ import Catridgepokemon from '@/images/games/cartridge-pokemon.png'
 import Catridgetictactoe from '@/images/games/cartridge-tictactoe.png'
 import Catridgewordpreminute from '@/images/games/cartridge-wordsperminute.png'
 import { motion } from 'framer-motion'
-
+import { Text } from '@/components/Text'
 import {
   FADE_DOWN_ANIMATION_VARIANTS,
   FADE_UP_ANIMATION_VARIANTS,
@@ -51,36 +51,33 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.h1
-        className="text-6xl font-bold text-center text-gameboy-900 dark:text-gameboy-400"
+      <motion.div
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        GameDev
-      </motion.h1>
-
+        <Text title="GameDev" as='h1' size='h1'/>
+      </motion.div>
       <div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
-        <motion.p
+        <motion.div
           variants={FADE_UP_ANIMATION_VARIANTS}
-          className="text-gameboy-700 dark:text-gameboy-400"
         >
-          Insert Game
-        </motion.p>
+            <Text title="Insert Game" as='p' size='medium'/>
+        </motion.div>
         <div className="flex flex-wrap items-center justify-center gap-5 mt-6 md:flex-nowrap">
           {Games.map((game, index) => {
             return (
               <Link
                 href={game.url}
                 key={index}
-                className="p-3 text-gameboy-700 dark:text-gameboy-400 group"
+                className="p-3 text-gameboy-900 group"
               >
-                <h3 className="mb-3 text-sm">{game.title}</h3>
+                <Text as='h3' className="mb-3" size="small" title={game.title}/>
                 <motion.div whileHover={{ y: 10 }} whileTap={{ y: 10 }}>
                   <Image
                     src={game.logo}
                     alt={game.title}
                     width={193}
                     priority
-                    className="shadow-xl hover:shadow-lg shadow-gameboy-400/30 dark:shadow-gameboy-900/30"
+                    className="shadow-xl hover:shadow-lg shadow-gameboy-400/30"
                   />
                 </motion.div>
                 <p className="flex items-center justify-center h-10 pt-2 ">

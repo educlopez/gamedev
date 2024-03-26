@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 
 
 import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
-import { Button } from '@/components/Button';
+import { Text } from '@/components/Text';
+import { Retrobutton } from '@/components/RetroBtn';
 
 
 const WORDS = [
@@ -88,26 +89,24 @@ export default function WordPerMinute() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.h1
-        className="text-xl font-bold text-center md:text-6xl text-gameboy-900 dark:text-gameboy-400"
+      <motion.div
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        Words per minute
-      </motion.h1>
-
+        <Text title="Words per minute" as='h2' size='h2'/>
+      </motion.div>
       <motion.section
         className="flex flex-col items-center justify-center gap-5 my-10"
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        <p className="text-center text-gameboy-700 dark:text-gameboy-400">
+        <p className="text-center text-gameboy-900">
           Characters typed: {characterCount} | Error count: {errorCount}
         </p>
         {Boolean(time) && (
-          <p className="p-2 font-sans rounded-sm text-gameboy-700 dark:text-gameboy-400 bg-gameboy-100 dark:bg-gameboy-700">
+          <p className="p-2 font-sans rounded-sm text-gameboy-900 bg-gameboy-100">
             {word}
           </p>
         )}
-        <p className="text-gameboy-700 dark:text-gameboy-400">
+        <p className="text-gameboy-900">
           Remaining time: {time}
         </p>
         {time ? (
@@ -117,14 +116,14 @@ export default function WordPerMinute() {
                 type="text"
                 value={buffer}
                 autoFocus
-                className=" placeholder:text-gameboy-700 dark:placeholder:text-gameboy-400 h-8 w-full items-center gap-2 rounded-sm bg-gameboy-400 p-3 text-sm text-center text-gameboy-900 ring-1 ring-gameboy-700 transition hover:ring-gameboy-900 dark:bg-gameboy-700 dark:text-gameboy-100 dark:ring-inset dark:ring-gameboy-400 dark:hover:ring-gameboy-100 flex focus:[&:not(:focus-visible)]:outline-none"
+                className=" placeholder:text-gameboy-700 h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-sm text-center text-gameboy-900 ring-1 ring-gameboy-700 transition hover:ring-gameboy-900 flex focus:[&:not(:focus-visible)]:outline-none"
                 onChange={(e) => setBuffer(e.target.value)}
               />
             </form>
-            <Button type="submit">Send</Button>
+            <Retrobutton type="submit">Send</Retrobutton>
           </div>
         ) : (
-          <Button
+          <Retrobutton
             onClick={() => {
               setTime(60)
               setCharacterCount(0)
@@ -132,7 +131,7 @@ export default function WordPerMinute() {
             }}
           >
             Play
-          </Button>
+          </Retrobutton>
         )}
       </motion.section>
     </>

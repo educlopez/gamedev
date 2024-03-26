@@ -7,9 +7,10 @@ import { motion } from 'framer-motion';
 
 
 import { FADE_DOWN_ANIMATION_VARIANTS, FADE_IN_ANIMATION_CARD, TURNS } from '@/lib/constants.js';
-import { Button } from '@/components/Button';
 import { Square } from '@/components/Square.jsx';
 import { WinnerModal } from '@/components/WinnerModal.jsx';
+import { Text } from '@/components/Text';
+import { Retrobutton } from '@/components/RetroBtn';
 
 
 function Tictactoe() {
@@ -111,12 +112,11 @@ function Tictactoe() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.h1
-        className="text-xl font-bold text-center md:text-6xl text-gameboy-900 dark:text-gameboy-400"
+      <motion.div
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        TicTacToe
-      </motion.h1>
+        <Text title="TicTacToe" as='h2' size='h2'/>
+      </motion.div>
 
       <motion.section
         className="flex justify-center my-10"
@@ -156,9 +156,9 @@ function Tictactoe() {
         })}
       </motion.section>
       <motion.div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
-        <Button onClick={resetGame} variants={FADE_DOWN_ANIMATION_VARIANTS}>
+        <Retrobutton onClick={resetGame} variants={FADE_DOWN_ANIMATION_VARIANTS}>
           Reset Game
-        </Button>
+        </Retrobutton>
       </motion.div>
       <motion.div {...FADE_IN_ANIMATION_CARD}>
         <WinnerModal resetGame={resetGame} winner={winner} />

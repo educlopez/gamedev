@@ -17,8 +17,8 @@ export const Square = ({
 }) => {
   const className = `w-20 h-20 shadow-xl shadow-slate-900/10 rounded-md grid place-items-center text-4xl ${
     isSelected
-      ? 'bg-gameboy-100 ring-gameboy-700 dark:bg-gameboy-700 dark:ring-gameboy-100  ring-inset ring-2'
-      : 'bg-gameboy-100 dark:bg-gameboy-700'
+      ? 'bg-gameboy-100 ring-gameboy-900  ring-inset ring-2'
+      : 'bg-gameboy-100'
   }`
 
   const handleClick = () => {

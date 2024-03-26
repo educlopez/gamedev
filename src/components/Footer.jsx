@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 function TwitterIcon(props) {
   return (
@@ -22,21 +21,21 @@ function SocialLink({ href, icon: Icon, children, rel, target }) {
   return (
     <Link href={href} className="group" target={target} rel={rel}>
       <span className="sr-only">{children}</span>
-      <Icon className="w-5 h-5 transition fill-gameboy-700 group-hover:fill-gameboy-900 dark:fill-gameboy-400 dark:group-hover:fill-gameboy-100" />
+      <Icon className="w-5 h-5 transition fill-gameboy-900 group-hover:fill-gameboy-900 " />
     </Link>
   )
 }
 
 function SmallPrint() {
   return (
-    <div className="flex flex-col items-center justify-between gap-5 pt-8 border-t border-gameboy-700/20 dark:border-gameboy-100/20 sm:flex-row">
-      <p className="text-xs text-gameboy-700 dark:text-gameboy-400">
+    <div className="flex flex-col items-center justify-between gap-5 pt-8 border-t border-gameboy-700/20 sm:flex-row">
+      <p className="text-xs text-gameboy-900 ">
         Made with
         <svg
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className="inline-flex w-5 h-5 mx-2 fill-gameboy-700 dark:fill-gameboy-400"
+          className="inline-flex w-5 h-5 mx-2 fill-gameboy-900"
         >
           <path
             d="M9 2H5v2H3v2H1v6h2v2h2v2h2v2h2v2h2v2h2v-2h2v-2h2v-2h2v-2h2v-2h2V6h-2V4h-2V2h-4v2h-2v2h-2V4H9V2zm0 2v2h2v2h2V6h2V4h4v2h2v6h-2v2h-2v2h-2v2h-2v2h-2v-2H9v-2H7v-2H5v-2H3V6h2V4h4z"
@@ -75,7 +74,6 @@ function SmallPrint() {
 }
 
 export function Footer() {
-  let router = useRouter()
 
   return (
     <footer className="max-w-2xl pb-16 mx-auto space-y-10 lg:max-w-5xl">

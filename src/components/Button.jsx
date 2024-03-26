@@ -16,9 +16,9 @@ function ArrowIcon(props) {
 
 const variantStyles = {
   primary:
-    'rounded-sm bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-900 dark:bg-gameboy-900 dark:text-gameboy-400  dark:hover:bg-gameboy-400 dark:hover:text-gameboy-700 ',
+    'rounded-sm bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-900',
   secondary:
-    'rounded-sm bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-400 dark:bg-gameboy-700 dark:text-gameboy-100 dark:ring-1 dark:ring-inset dark:ring-gameboy-900 dark:hover:bg-gameboy-700 dark:hover:text-gameboy-400',
+    'rounded-sm bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-400',
 }
 
 export function Button({

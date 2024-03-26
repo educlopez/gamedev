@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+
 import clsx from 'clsx'
-import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
+import { motion, useIsPresent } from 'framer-motion'
 
 import { remToPx } from '@/lib/remToPx'
-import { Button } from '@/components/Button'
-import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
+import { Retrobutton } from './RetroBtn'
+
 
 function useInitialValue(value, condition = true) {
   let initialValue = useRef(value).current
@@ -18,7 +18,7 @@ function TopLevelNavItem({ href, children, target, rel }) {
     <li className="md:hidden">
       <Link
         href={href}
-        className="block py-1 text-sm transition text-gameboy-700 hover:text-gameboy-900 dark:text-gameboy-400 dark:hover:text-gameboy-400"
+        className="block py-1 text-sm transition text-gameboy-700 hover:text-gameboy-900"
         target={target}
         rel={rel}
       >
@@ -37,8 +37,8 @@ function NavLink({ href, tag, active, isAnchorLink = false, children }) {
         'flex justify-between gap-2 py-1 pr-3 text-sm transition',
         isAnchorLink ? 'pl-7' : 'pl-4',
         active
-          ? 'text-gameboy-900 dark:text-gameboy-400'
-          : 'text-zinc-600 hover:text-gameboy-900 dark:text-zinc-400 dark:hover:text-gameboy-400'
+          ? 'text-gameboy-900'
+          : 'text-zinc-600 hover:text-gameboy-900'
       )}
     >
       <span className="truncate">{children}</span>
@@ -68,7 +68,7 @@ function VisibleSectionHighlight({ group, pathname }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: 0.2 } }}
       exit={{ opacity: 0 }}
-      className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform dark:bg-white/2.5"
+      className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform"
       style={{ borderRadius: 8, height, top }}
     />
   )
@@ -106,14 +106,14 @@ export function Navigation(props) {
         </TopLevelNavItem>
 
         <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
-          <Button
+          <Retrobutton
             href="https://github.com/educlopez/gamedev"
             target="_blank"
             rel="noopener noreferrer"
             variant="secondary"
           >
             Github
-          </Button>
+          </Retrobutton>
         </li>
       </ul>
     </nav>

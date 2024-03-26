@@ -7,7 +7,8 @@ import { motion } from 'framer-motion';
 
 
 import { FADE_DOWN_ANIMATION_VARIANTS } from '@/lib/constants.js';
-import { Button } from '@/components/Button';
+import { Text } from '@/components/Text';
+import { Retrobutton } from '@/components/RetroBtn';
 
 
 export default function Whoisthatpokemon() {
@@ -84,13 +85,11 @@ export default function Whoisthatpokemon() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.h1
-        className="text-xl font-bold text-center md:text-6xl text-gameboy-900 dark:text-gameboy-400"
+      <motion.div
         variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        Who&apos;s that pokemon
-      </motion.h1>
-
+        <Text title="Who is that pokemon" as='h2' size='h2'/>
+      </motion.div>
       <motion.section
         className="flex flex-col justify-center my-10"
         variants={FADE_DOWN_ANIMATION_VARIANTS}
@@ -104,30 +103,30 @@ export default function Whoisthatpokemon() {
               height={96}
               unoptimized
             />
-            <p className="my-4 text-xs text-center text-gameboy-700 dark:text-gameboy-400">
+            <p className="my-4 text-xs text-center text-gameboy-900">
               Remember, if a pokemon have spaces in her name use `-`
             </p>
-            <div className="mb-4 text-center text-gameboy-700 dark:text-gameboy-400">
+            <div className="mb-4 text-center text-gameboy-900">
               Correct Guesses: {correctGuesses} / 10
             </div>
             <div>
               {guessMessage ===
               'All pokemons have been guessed, congratulations!' ? (
                 <div>
-                  <p className="text-gameboy-700 dark:text-gameboy-400">
+                  <p className="text-gameboy-900">
                     {guessMessage}
                   </p>
                   <div className="flex justify-center mt-6">
-                    <Button onClick={resetGame}>Reset Game</Button>
+                    <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                   </div>
                 </div>
               ) : correctGuesses === 10 ? (
                 <div>
-                  <p className="text-gameboy-700 dark:text-gameboy-400">
+                  <p className="text-gameboy-900">
                     {guessMessage}
                   </p>
                   <div className="flex justify-center mt-6">
-                    <Button onClick={resetGame}>Reset Game</Button>
+                    <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                   </div>
                 </div>
               ) : (
@@ -137,20 +136,20 @@ export default function Whoisthatpokemon() {
                     placeholder="Enter Pokemon name"
                     value={userGuess}
                     onChange={handleGuess}
-                    className=" placeholder:text-gameboy-700 dark:placeholder:text-gameboy-400 h-8 w-full items-center gap-2 rounded-sm bg-gameboy-400 p-3 text-sm text-center text-gameboy-900 ring-1 ring-gameboy-700 transition hover:ring-gameboy-900 dark:bg-gameboy-700 dark:text-gameboy-100 dark:ring-inset dark:ring-gameboy-400 dark:hover:ring-gameboy-100 flex focus:[&:not(:focus-visible)]:outline-none"
+                    className=" placeholder:text-gameboy-700 h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-sm text-center text-gameboy-900 ring-1 ring-gameboy-700 transition hover:ring-gameboy-900 flex focus:[&:not(:focus-visible)]:outline-none"
                   />
                 </form>
               )}
             </div>
           </div>
         ) : (
-          <p className="text-gameboy-700 dark:text-gameboy-400">Loading...</p>
+          <p className="text-gameboy-900">Loading...</p>
         )}
         <div className="grid grid-flow-row grid-cols-5 mt-10">
           {pokemonList.map((pokemon) => {
             return (
               <div
-                className="relative grow flex flex-row justify-center items-center w-auto bg-gameboy-100/50 py-2 pl-2 pr-5 text-sm text-gameboy-700 ring-1 ring-gameboy-400 transition hover:ring-gameboy-700 dark:bg-gameboy-700/50 dark:text-gameboy-400 dark:ring-inset dark:ring-gameboy-400/50 dark:hover:ring-gameboy-100  focus:[&:not(:focus-visible)]:outline-none hover:z-10"
+                className="relative grow flex flex-row justify-center items-center w-auto bg-gameboy-100/50 py-2 pl-2 pr-5 text-sm text-gameboy-900 ring-1 ring-gameboy-400 transition hover:ring-gameboy-700  focus:[&:not(:focus-visible)]:outline-none hover:z-10"
                 key={pokemon}
               >
                 <Image
