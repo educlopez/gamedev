@@ -1,7 +1,7 @@
 # Gamedev
 Gamedev is a collection of mini-games developed by me as I learn React, Next.js, and possibly migrate JavaScript to TypeScript. At the moment, there are four games available: Tic tac toe, Words per minute, Memotest, and Who is that Pokemon. Each game is currently in development and has a lot of room for improvement.
 
-The project uses Next.js, Tailwind CSS, and Framer Motion, and its user interface is based on the classic Gameboy design with some updated details. I created the Gameboy cartridge images myself, although the illustration for each game was created using Midjourney.
+The project uses Next.js, Tailwind CSS, and Framer Motion, and its user interface is based on the retro game design with some updated details. I created the Gameboy cartridge images myself, although the illustration for each game was created using Midjourney.
 
 ## Available Games
 ### Tic Tac Toe
