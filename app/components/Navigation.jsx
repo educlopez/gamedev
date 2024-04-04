@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { Text } from "@/components/Text"
 
+import { GitHubIcon } from "./Icons"
 import { Retrobutton } from "./RetroBtn"
 
 function TopLevelNavItem({ href, children, target, rel }) {
@@ -9,7 +10,7 @@ function TopLevelNavItem({ href, children, target, rel }) {
     <li className="md:hidden">
       <Link
         href={href}
-        className="block py-1 text-sm transition text-gameboy-700 hover:text-gameboy-900"
+        className="block py-1 text-sm text-gameboy-700 transition hover:text-gameboy-900"
         target={target}
         rel={rel}
       >
@@ -41,6 +42,7 @@ export function Navigation(props) {
             rel="noopener noreferrer"
             variant="secondary"
           >
+            <GitHubIcon className="h-5 w-5 fill-gameboy-900 transition group-hover:fill-gameboy-900 " />
             Github
           </Retrobutton>
         </li>

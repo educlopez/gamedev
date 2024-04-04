@@ -5,7 +5,7 @@ import { gameFont } from "@/logic/fonts"
 import clsx from "clsx"
 
 const sizeStyles = {
-  small: "text-[16px] leading-[18px]",
+  small: "text-[12px] leading-[14px] md:text-[16px] md:leading-[18px]",
   medium: "text-[32px] leading-[40px]",
   h2: "md:text-[70px] md:leading-[80px] text-[32px] leading-[40px]",
   h1: "md:text-[132px] md:leading-[140px] text-[44px] leading-[52px]",
@@ -19,25 +19,25 @@ export function Text({
   ...props
 }) {
   className = clsx(
-    `${gameFont.className} relative uppercase text-[#5F8449]`,
+    `${gameFont.className} relative uppercase text-gameboy-700`,
     sizeStyles[size],
     className
   )
   const [id, setId] = useState("")
 
   useEffect(() => {
-    setId("mask" + Math.floor(Math.random() * 10000))
+    setId(`mask${Math.floor(Math.random() * 10_000)}`)
   }, [])
 
   return (
     <div className={className} {...props}>
-      <Component className={`mx-auto text-original w-max ${size}`}>
+      <Component className={`text-original mx-auto w-max ${size}`}>
         {title}
       </Component>
-      <svg height="100%" width="100%" className="pointer-events-none center">
+      <svg height="100%" width="100%" className="center pointer-events-none">
         <defs>
           <mask height="100%" width="100%" x="0" y="0" id={id}>
-            <rect fill="black" height="100%" width="100%" x="0" y="0"></rect>
+            <rect fill="black" height="100%" width="100%" x="0" y="0" />
             <text
               dominantBaseline="middle"
               fill="white"
@@ -51,7 +51,7 @@ export function Text({
         </defs>
         <text
           dominantBaseline="middle"
-          fill="#D4D29B"
+          className="fill-gameboy-100"
           textAnchor="middle"
           x="50%"
           y="47%"

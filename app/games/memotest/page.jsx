@@ -12,9 +12,7 @@ import Qbert from "@/images/memo/qbert.png"
 import Spaceinvader from "@/images/memo/spaceinvader.png"
 import Voltorb from "@/images/memo/voltorb.png"
 import confetti from "canvas-confetti"
-import { motion } from "framer-motion"
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants.js"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
@@ -89,13 +87,9 @@ function Memotest() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
-        <Text title="MemoTest" as="h2" size="h2" />
-      </motion.div>
-      <motion.section
-        className="flex justify-center my-10"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
+      <Text title="MemoTest" as="h2" size="h2" className="fade-down-ct" />
+
+      <section className="my-10 flex justify-center">
         {isGameWon ? (
           <div className="flex flex-col items-center justify-center">
             <p className="text-gameboy-900">
@@ -113,7 +107,7 @@ function Memotest() {
               return (
                 <li
                   key={image}
-                  className="p-2 m-1 rounded-md cursor-pointer bg-gameboy-100 hover:bg-gameboy-400"
+                  className="m-1 cursor-pointer rounded-md bg-gameboy-100 p-2 hover:bg-gameboy-400"
                   onClick={() =>
                     selected.length < 2 &&
                     setSelected((selected) => selected.concat(image))
@@ -132,7 +126,7 @@ function Memotest() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      className="w-16 h-16 text-gameboy-900"
+                      className="h-16 w-16 text-gameboy-900"
                     >
                       <path
                         d="M6 2h8v2H6V2zM4 6V4h2v2H4zm0 8H2V6h2v8zm2 2H4v-2h2v2zm8 0v2H6v-2h8zm2-2h-2v2h2v2h2v2h2v2h2v-2h-2v-2h-2v-2h-2v-2zm0-8h2v8h-2V6zm0 0V4h-2v2h2z"
@@ -145,7 +139,7 @@ function Memotest() {
             })}
           </ul>
         )}
-      </motion.section>
+      </section>
     </>
   )
 }

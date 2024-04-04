@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react"
 import Head from "next/head"
 import confetti from "canvas-confetti"
-import { motion } from "framer-motion"
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants.js"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
@@ -183,18 +181,20 @@ export default function WordPerMinute() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
-        <Text title="Words per minute" as="h2" size="h2" />
-      </motion.div>
-      <motion.section
-        className="flex flex-col items-center justify-center gap-5 my-10"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
+
+      <Text
+        title="Words per minute"
+        as="h2"
+        size="h2"
+        className="fade-down-ct"
+      />
+
+      <section className="my-10 flex flex-col items-center justify-center gap-5">
         <p className="text-center text-gameboy-900">
           Characters typed: {characterCount} | Error count: {errorCount}
         </p>
         {Boolean(time) && (
-          <p className="p-2 font-sans rounded-sm text-gameboy-900 bg-gameboy-100">
+          <p className="rounded-sm bg-gameboy-100 p-2 font-sans text-gameboy-900">
             {word}
           </p>
         )}
@@ -206,7 +206,7 @@ export default function WordPerMinute() {
                 type="text"
                 value={buffer}
                 autoFocus
-                className=" placeholder:text-gameboy-700 h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-sm text-center text-gameboy-900 ring-1 ring-gameboy-700 transition hover:ring-gameboy-900 flex focus:[&:not(:focus-visible)]:outline-none"
+                className=" flex h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-center text-sm text-gameboy-900 ring-1 ring-gameboy-700 transition placeholder:text-gameboy-700 hover:ring-gameboy-900 focus:[&:not(:focus-visible)]:outline-none"
                 onChange={(e) => setBuffer(e.target.value)}
               />
             </form>
@@ -223,7 +223,7 @@ export default function WordPerMinute() {
             Play
           </Retrobutton>
         )}
-      </motion.section>
+      </section>
     </>
   )
 }

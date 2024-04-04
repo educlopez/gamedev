@@ -4,9 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import confetti from "canvas-confetti"
-import { motion } from "framer-motion"
 
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants.js"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
@@ -97,13 +95,15 @@ export default function Whoisthatpokemon() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
-        <Text title="Who is that pokemon" as="h2" size="h2" />
-      </motion.div>
-      <motion.section
-        className="flex flex-col justify-center my-10"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
+
+      <Text
+        title="Who is that pokemon"
+        as="h2"
+        size="h2"
+        className="fade-down-ct"
+      />
+
+      <section className="my-10 flex flex-col justify-center">
         {pokemon.name ? (
           <div className="flex flex-col items-center justify-center">
             <Image
@@ -113,7 +113,7 @@ export default function Whoisthatpokemon() {
               height={96}
               unoptimized
             />
-            <p className="my-4 text-xs text-center text-gameboy-900">
+            <p className="my-4 text-center text-xs text-gameboy-900">
               Remember, if a pokemon have spaces in her name use `-`
             </p>
             <div className="mb-4 text-center text-gameboy-900">
@@ -124,14 +124,14 @@ export default function Whoisthatpokemon() {
               "All pokemons have been guessed, congratulations!" ? (
                 <div>
                   <p className="text-gameboy-900">{guessMessage}</p>
-                  <div className="flex justify-center mt-6">
+                  <div className="mt-6 flex justify-center">
                     <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                   </div>
                 </div>
               ) : correctGuesses === 10 ? (
                 <div>
                   <p className="text-gameboy-900">{guessMessage}</p>
-                  <div className="flex justify-center mt-6">
+                  <div className="mt-6 flex justify-center">
                     <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export default function Whoisthatpokemon() {
                     placeholder="Enter Pokemon name"
                     value={userGuess}
                     onChange={handleGuess}
-                    className=" placeholder:text-gameboy-700 h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-sm text-center text-gameboy-900 ring-1 ring-gameboy-700 transition hover:ring-gameboy-900 flex focus:[&:not(:focus-visible)]:outline-none"
+                    className=" flex h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-center text-sm text-gameboy-900 ring-1 ring-gameboy-700 transition placeholder:text-gameboy-700 hover:ring-gameboy-900 focus:[&:not(:focus-visible)]:outline-none"
                   />
                 </form>
               )}
@@ -151,11 +151,11 @@ export default function Whoisthatpokemon() {
         ) : (
           <p className="text-gameboy-900">Loading...</p>
         )}
-        <div className="grid grid-flow-row grid-cols-5 mt-10">
+        <div className="mt-10 grid grid-flow-row grid-cols-5">
           {pokemonList.map((pokemon) => {
             return (
               <div
-                className="relative grow flex flex-row justify-center items-center w-auto bg-gameboy-100/50 py-2 pl-2 pr-5 text-sm text-gameboy-900 ring-1 ring-gameboy-400 transition hover:ring-gameboy-700  focus:[&:not(:focus-visible)]:outline-none hover:z-10"
+                className="relative flex w-auto grow flex-row items-center justify-center bg-gameboy-100/50 py-2 pl-2 pr-5 text-sm text-gameboy-900 ring-1 ring-gameboy-400 transition hover:z-10  hover:ring-gameboy-700 focus:[&:not(:focus-visible)]:outline-none"
                 key={pokemon}
               >
                 <Image
@@ -163,14 +163,14 @@ export default function Whoisthatpokemon() {
                   alt={pokemon}
                   width={48}
                   height={36}
-                  className="relative left-0 bottom-2.5"
+                  className="relative bottom-2.5 left-0"
                 />
-                <p className="text-xs text-center capitalize">{pokemon}</p>
+                <p className="text-center text-xs capitalize">{pokemon}</p>
               </div>
             )
           })}
         </div>
-      </motion.section>
+      </section>
     </>
   )
 }

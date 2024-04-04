@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react"
 
 export default function NoiseBackground() {
   const canvasRef = useRef(null)
-  let wWidth, wHeight
+  let wWidth
+  let wHeight
   const noiseData = []
   let frame = 0
   let loopTimeout
@@ -86,7 +87,7 @@ export default function NoiseBackground() {
       ref={canvasRef}
       id="noise"
       aria-label="Efecto de ruido de fondo"
-      className="fixed top-0 z-1 animate-fade-in"
+      className="z-1 animate-fade-in fixed top-0"
     ></canvas>
   )
 }
