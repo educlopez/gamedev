@@ -4,13 +4,9 @@ import { useEffect, useState } from "react"
 import Head from "next/head"
 import { checkEndGame, checkWinnerFrom } from "@/logic/board.js"
 import confetti from "canvas-confetti"
-import { motion } from "framer-motion"
 
-import {
-  FADE_DOWN_ANIMATION_VARIANTS,
-  FADE_IN_ANIMATION_CARD,
-  TURNS,
-} from "@/lib/constants.js"
+import { TURNS } from "@/lib/constants.js"
+import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Square } from "@/components/Square.jsx"
 import { Text } from "@/components/Text"
@@ -118,7 +114,7 @@ function Tictactoe() {
 
       <Text title="TicTacToe" as="h2" size="h2" className="fade-down-ct" />
 
-      <section className="my-10 flex justify-center">
+      <section className="my-10 flex justify-center gap-1">
         <Square isSelected={turn === TURNS.X} onClick="-" isInteractive={false}>
           {TURNS.X}
         </Square>
@@ -126,7 +122,7 @@ function Tictactoe() {
           {TURNS.O}
         </Square>
       </section>
-      <section className="mx-auto grid max-w-fit grid-cols-3 gap-4">
+      <DialogBox className="mx-auto grid max-w-fit grid-cols-3 gap-1">
         {board.map((square, index) => {
           return (
             <Square key={index} index={index} updateBoard={updateBoard}>
@@ -134,7 +130,7 @@ function Tictactoe() {
             </Square>
           )
         })}
-      </section>
+      </DialogBox>
       <div className="mt-10 flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
         <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
       </div>

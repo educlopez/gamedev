@@ -1,10 +1,11 @@
 import React from "react"
 import clsx from "clsx"
 
-const DialogBox = ({ message, className }) => {
+const DialogBox = ({ message, className, children }) => {
   return (
     <div className={clsx(className, "framed primary")}>
-      <span>{message}</span>
+      {message}
+      {children}
     </div>
   )
 }

@@ -1,6 +1,4 @@
-import Image from "next/image"
-import oicon from "@/images/tictactoe/o.png"
-import xicon from "@/images/tictactoe/x.png"
+import { CircleIcon, CrossIcon } from "@/components/Icons"
 
 export const Square = ({
   children,
@@ -9,10 +7,8 @@ export const Square = ({
   index,
   isInteractive = true,
 }) => {
-  const className = `w-20 h-20 shadow-xl shadow-slate-900/10 rounded-md grid place-items-center text-4xl ${
-    isSelected
-      ? "bg-gameboy-100 ring-gameboy-900  ring-inset ring-2"
-      : "bg-gameboy-100"
+  const className = `w-20 h-20 grid place-items-center text-4xl bg-gameboy-100 ring-gameboy-900  ring-inset  ${
+    isSelected ? "ring-4" : " ring-2"
   }`
 
   const handleClick = () => {
@@ -24,9 +20,9 @@ export const Square = ({
   return (
     <div onClick={handleClick} className={className}>
       {children === "X" ? (
-        <Image src={xicon} alt="symbol" width={50} height={50} />
+        <CrossIcon className="w-10" />
       ) : children === "O" ? (
-        <Image src={oicon} alt="symbol" width={50} height={50} />
+        <CircleIcon className="w-10" />
       ) : (
         children
       )}
