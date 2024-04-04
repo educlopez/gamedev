@@ -115,58 +115,31 @@ function Tictactoe() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
-        <Text title="TicTacToe" as="h2" size="h2" />
-      </motion.div>
 
-      <motion.section
-        className="flex justify-center my-10"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
-        <Square
-          isSelected={turn === TURNS.X}
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-          onClick="-"
-          isInteractive={false}
-        >
+      <Text title="TicTacToe" as="h2" size="h2" className="fade-down-ct" />
+
+      <section className="my-10 flex justify-center">
+        <Square isSelected={turn === TURNS.X} onClick="-" isInteractive={false}>
           {TURNS.X}
         </Square>
-        <Square
-          isSelected={turn === TURNS.O}
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-          isInteractive={false}
-        >
+        <Square isSelected={turn === TURNS.O} isInteractive={false}>
           {TURNS.O}
         </Square>
-      </motion.section>
-      <motion.section
-        className="grid grid-cols-3 gap-4 mx-auto max-w-fit"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
+      </section>
+      <section className="mx-auto grid max-w-fit grid-cols-3 gap-4">
         {board.map((square, index) => {
           return (
-            <Square
-              key={index}
-              index={index}
-              updateBoard={updateBoard}
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
+            <Square key={index} index={index} updateBoard={updateBoard}>
               {square}
             </Square>
           )
         })}
-      </motion.section>
-      <motion.div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
-        <Retrobutton
-          onClick={resetGame}
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          Reset Game
-        </Retrobutton>
-      </motion.div>
-      <motion.div {...FADE_IN_ANIMATION_CARD}>
-        <WinnerModal resetGame={resetGame} winner={winner} />
-      </motion.div>
+      </section>
+      <div className="mt-10 flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
+        <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
+      </div>
+
+      <WinnerModal resetGame={resetGame} winner={winner} />
     </>
   )
 }

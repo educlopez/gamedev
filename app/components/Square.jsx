@@ -1,9 +1,6 @@
 import Image from "next/image"
 import oicon from "@/images/tictactoe/o.png"
 import xicon from "@/images/tictactoe/x.png"
-import { motion } from "framer-motion"
-
-import { FADE_UP_ANIMATION_VARIANTS } from "../lib/constants"
 
 export const Square = ({
   children,
@@ -25,11 +22,7 @@ export const Square = ({
   }
 
   return (
-    <motion.div
-      onClick={handleClick}
-      className={className}
-      variants={FADE_UP_ANIMATION_VARIANTS}
-    >
+    <div onClick={handleClick} className={className}>
       {children === "X" ? (
         <Image src={xicon} alt="symbol" width={50} height={50} />
       ) : children === "O" ? (
@@ -37,6 +30,6 @@ export const Square = ({
       ) : (
         children
       )}
-    </motion.div>
+    </div>
   )
 }
