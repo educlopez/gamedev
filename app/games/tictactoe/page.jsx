@@ -111,9 +111,7 @@ function Tictactoe() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Text title="TicTacToe" as="h2" size="h2" className="fade-down-ct" />
-
       <section className="my-10 flex justify-center gap-1">
         <Square isSelected={turn === TURNS.X} onClick="-" isInteractive={false}>
           {TURNS.X}
@@ -134,7 +132,6 @@ function Tictactoe() {
       <div className="mt-10 flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
         <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
       </div>
-
       <WinnerModal resetGame={resetGame} winner={winner} />
     </>
   )

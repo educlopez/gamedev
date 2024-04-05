@@ -116,9 +116,9 @@ export default function Whoisthatpokemon() {
             <p className="my-4 text-center text-xs text-gameboy-900">
               Remember, if a pokemon have spaces in her name use `-`
             </p>
-            <div className="mb-4 text-center text-gameboy-900">
+            <p className="mb-4 text-center text-gameboy-900">
               Correct Guesses: {correctGuesses} / 10
-            </div>
+            </p>
             <div>
               {guessMessage ===
               "All pokemons have been guessed, congratulations!" ? (

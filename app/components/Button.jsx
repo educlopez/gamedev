@@ -1,5 +1,5 @@
 import Link from "next/link"
-import clsx from "clsx"
+import { cn } from "@/utils/cn"
 
 function ArrowIcon(props) {
   return (
@@ -30,7 +30,7 @@ export function Button({
 }) {
   let Component = props.href ? Link : "button"
 
-  className = clsx(
+  className = cn(
     "inline-flex gap-0.5 justify-center overflow-hidden text-sm font-medium transition",
     variantStyles[variant],
     className
@@ -38,7 +38,7 @@ export function Button({
 
   let arrowIcon = (
     <ArrowIcon
-      className={clsx(
+      className={cn(
         "mt-0.5 h-5 w-5",
         variant === "text" && "relative top-px",
         arrow === "left" && "-ml-1 rotate-180",

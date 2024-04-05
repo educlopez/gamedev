@@ -8,7 +8,7 @@ export const Square = ({
   isInteractive = true,
 }) => {
   const className = `w-20 h-20 grid place-items-center text-4xl bg-gameboy-100 ring-gameboy-900  ring-inset  ${
-    isSelected ? "ring-4" : " ring-2"
+    isSelected ? "ring-4" : "ring-2"
   }`
 
   const handleClick = () => {

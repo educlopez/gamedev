@@ -2,137 +2,12 @@
 
 import { useEffect, useState } from "react"
 import Head from "next/head"
+import { WORDS } from "@/games/wordsperminute/words"
 import confetti from "canvas-confetti"
 
+import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
-
-const WORDS = [
-  "Accio",
-  "Expecto patronum",
-  "Wingardium leviosa",
-  "Avada kedavra",
-  "Expelliarmus",
-  "Lumos",
-  "Nox",
-  "Alohomora",
-  "Imperio",
-  "Stupefy",
-  "Riddikulus",
-  "Reducto",
-  "Sectumsempra",
-  "Sonorus",
-  "Tarantallegra",
-  "Verdimillious",
-  "Bombarda",
-  "Confringo",
-  "Engorgio",
-  "Evanesco",
-  "Expulso",
-  "Incendio",
-  "Legilimens",
-  "Obliviate",
-  "Petrificus totalus",
-  "Prior incantato",
-  "Protego",
-  "Reparo",
-  "Rictusempra",
-  "Crucio",
-  "Diffindo",
-  "Episkey",
-  "Finite incantatem",
-  "Geminio",
-  "Homenum revelio",
-  "Impedimenta",
-  "Levicorpus",
-  "Morsmordre",
-  "Orchideous",
-  "Portus",
-  "Quietus",
-  "Relashio",
-  "Scourgify",
-  "Tergeo",
-  "Unbreakable vow",
-  "Vulnera sanentur",
-  "Waddiwasi",
-  "Aparecium",
-  "Brackium emendo",
-  "Colloportus",
-  "Deletrius",
-  "Ennervate",
-  "Ferula",
-  "Glisseo",
-  "Herbifors",
-  "Incendio",
-  "Jelly-legs jinx",
-  "Knockback jinx",
-  "Langlock",
-  "Muffliato",
-  "Nebulus",
-  "Oculus reparo",
-  "Piertotum locomotor",
-  "Quidditch",
-  "Rennervate",
-  "Serpensortia",
-  "Transmogrify",
-  "Undetectable extension charm",
-  "Vipera evanesca",
-  "Wingardium leviosa",
-  "Xenophilius lovegood",
-  "Yaxley",
-  "Zonko’s joke shop",
-  "Aguamenti",
-  "Bubble-head charm",
-  "Caterwauling charm",
-  "Densaugeo",
-  "Erecto",
-  "Flagrate",
-  "Gouging spell",
-  "Hurling hex",
-  "Impervius",
-  "Jinx",
-  "Kreacher",
-  "Liberacorpus",
-  "Meteolojinx recanto",
-  "Nogtail",
-  "Obscuro",
-  "Peskipiksi pesternomi",
-  "Quaffle",
-  "Rufus scrimgeour",
-  "Silencio",
-  "Tutshill tornados",
-  "Unguentine",
-  "Vera verto",
-  "Weasley",
-  "Xenophilius",
-  "Yew",
-  "Zabini",
-  "Anteoculatia",
-  "Bat-bogey hex",
-  "Calvario",
-  "Dissendium",
-  "Everte statum",
-  "Fidelius charm",
-  "Geminio",
-  "Homenum revelio",
-  "Immobulus",
-  "Jelly-fingers curse",
-  "Knut",
-  "Locomotor mortis",
-  "Mobiliarbus",
-  "Nimbus",
-  "Obliteration charm",
-  "Piscifors",
-  "Quirinus quirrell",
-  "Rictusempra",
-  "Slugulus eructo",
-  "Tentaclifors",
-  "Unicorn",
-  "Vipera evanesca",
-  "Waddiwasi",
-  "Xenophilius lovegood",
-  "Yew",
-]
 
 export default function WordPerMinute() {
   const [word, setWord] = useState(
@@ -189,19 +64,16 @@ export default function WordPerMinute() {
         className="fade-down-ct"
       />
 
-      <section className="my-10 flex flex-col items-center justify-center gap-5">
-        <p className="text-center text-gameboy-900">
-          Characters typed: {characterCount} | Error count: {errorCount}
-        </p>
+      <section className="flex flex-col items-center justify-center gap-5 my-10">
         {Boolean(time) && (
-          <p className="rounded-sm bg-gameboy-100 p-2 font-sans text-gameboy-900">
-            {word}
-          </p>
+          <DialogBox className="w-auto text-center" message={word} />
         )}
-        <p className="text-gameboy-900">Remaining time: {time}</p>
         {time ? (
-          <div className="flex flex-col items-center justify-center gap-2">
-            <form onSubmit={handleSubmit}>
+          <>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center justify-center gap-2"
+            >
               <input
                 type="text"
                 value={buffer}
@@ -209,9 +81,17 @@ export default function WordPerMinute() {
                 className=" flex h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-center text-sm text-gameboy-900 ring-1 ring-gameboy-700 transition placeholder:text-gameboy-700 hover:ring-gameboy-900 focus:[&:not(:focus-visible)]:outline-none"
                 onChange={(e) => setBuffer(e.target.value)}
               />
+              <Retrobutton className="mt-4" type="submit">
+                Send
+              </Retrobutton>
             </form>
-            <Retrobutton type="submit">Send</Retrobutton>
-          </div>
+            <DialogBox className="w-auto text-center" clean>
+              <p className="text-center text-gameboy-900">
+                Characters typed: {characterCount} | Error count: {errorCount}
+              </p>
+              <p className="text-gameboy-900">Remaining time: {time}</p>
+            </DialogBox>
+          </>
         ) : (
           <Retrobutton
             onClick={() => {

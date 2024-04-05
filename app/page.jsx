@@ -53,30 +53,31 @@ function Home() {
     <>
       <Text title="GameDev" as="h1" size="h1" className="fade-up-ct" />
 
-      <div className="mt-10 flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
+      <div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
         <DialogBox
-          message="Welcome to GameDev, select and insert one game"
+          as="p"
           className="fade-up-ct"
+          message="Welcome to GameDev, select and insert one game"
         />
 
-        <div className="mt-6 grid grid-cols-2 items-center justify-center gap-5 md:grid-cols-4">
+        <div className="grid items-center justify-center grid-cols-2 gap-5 mt-6 md:grid-cols-4">
           {Games.map((game, index) => {
             return (
               <Link
                 href={game.url}
                 key={index}
-                className="group p-3 text-gameboy-900"
+                className="p-3 group text-gameboy-900"
               >
-                <h3 className="mb-3 hidden text-sm md:block">{game.title}</h3>
+                <h3 className="hidden mb-3 text-sm md:block">{game.title}</h3>
                 <Image
                   src={game.logo}
                   alt={game.title}
                   width={193}
                   priority
-                  className="shadow-xl shadow-gameboy-400/30 transition-all hover:translate-y-3 hover:shadow-lg"
+                  className="transition-all shadow-xl shadow-gameboy-400/30 hover:translate-y-3 hover:shadow-lg"
                 />
-                <p className="flex h-10 items-center justify-center pt-2 ">
-                  <span className="hidden text-center text-sm transition group-hover:block">
+                <p className="flex items-center justify-center h-10 pt-2 ">
+                  <span className="hidden text-sm text-center transition group-hover:block">
                     Insert
                   </span>
                 </p>

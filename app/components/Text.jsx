@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { gameFont } from "@/logic/fonts"
-import clsx from "clsx"
+import { cn } from "@/utils/cn"
 
 const sizeStyles = {
   small: "text-[12px] leading-[14px] md:text-[16px] md:leading-[18px]",
@@ -18,7 +18,7 @@ export function Text({
   className,
   ...props
 }) {
-  className = clsx(
+  className = cn(
     `${gameFont.className} relative uppercase text-gameboy-700`,
     sizeStyles[size],
     className
@@ -34,7 +34,7 @@ export function Text({
       <Component className={`text-original mx-auto w-max ${size}`}>
         {title}
       </Component>
-      <svg height="100%" width="100%" className="center pointer-events-none">
+      <svg height="100%" width="100%" className="pointer-events-none center">
         <defs>
           <mask height="100%" width="100%" x="0" y="0" id={id}>
             <rect fill="black" height="100%" width="100%" x="0" y="0" />

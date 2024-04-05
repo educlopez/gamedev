@@ -15,6 +15,24 @@ export function GitHubIcon(props) {
   )
 }
 
+export function HouseIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 0H12V2H14V4H16V6H18V8H20V10H18V20H11V14H9V20H2V10H0V8H2V6H4V4H6V2H8V0Z"
+        fill="black"
+      />
+    </svg>
+  )
+}
+
 export function MenuIcon(props) {
   return (
     <svg
@@ -62,8 +80,8 @@ export function CircleIcon(props) {
   return (
     <svg viewBox="0 0 87 87" fill="none" {...props}>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M69 0H18V18H1.90735e-06L0 69H18V87H69V69H87V18H69V0ZM69 18V69H18V18H69Z"
         fill="#071821"
       />

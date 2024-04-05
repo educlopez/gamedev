@@ -1,12 +1,20 @@
 import React from "react"
-import clsx from "clsx"
+import { cn } from "@/utils/cn"
 
-const DialogBox = ({ message, className, children }) => {
+const DialogBox = ({
+  message,
+  className,
+  children,
+  as: Component = "div",
+  clean,
+}) => {
   return (
-    <div className={clsx(className, "framed primary")}>
+    <Component
+      className={cn("framed primary", className, clean ? "clean" : "")}
+    >
       {message}
       {children}
-    </div>
+    </Component>
   )
 }
 

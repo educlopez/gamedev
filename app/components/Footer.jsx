@@ -1,20 +1,9 @@
 import Link from "next/link"
 
-import { GitHubIcon, TwitterIcon } from "@/components/Icons"
-
-function SocialLink({ href, icon: Icon, children, rel, target }) {
-  return (
-    <Link href={href} className="group" target={target} rel={rel}>
-      <span className="sr-only">{children}</span>
-      <Icon className="h-5 w-5 fill-gameboy-900 transition group-hover:fill-gameboy-900 " />
-    </Link>
-  )
-}
-
 function SmallPrint() {
   return (
-    <div className="flex flex-col items-center justify-between gap-5 border-t border-gameboy-700/20 pt-8 sm:flex-row">
-      <p className="text-xs text-gameboy-900 ">
+    <div className="flex flex-col items-center justify-between gap-5 pt-8 sm:flex-row">
+      <p className="m-auto w-auto text-center text-xs text-gameboy-900">
         Made with
         <svg
           fill="none"
@@ -28,32 +17,14 @@ function SmallPrint() {
           />
         </svg>
         {new Date().getFullYear()} by{" "}
-        <a
+        <Link
           href="https://educalvolopez.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           Edu calvo
-        </a>
+        </Link>
       </p>
-      <div className="flex gap-4">
-        <SocialLink
-          href="https://twitter.com/educlopez93"
-          target="_blank"
-          rel="noopener noreferrer"
-          icon={TwitterIcon}
-        >
-          Follow us on Twitter
-        </SocialLink>
-        <SocialLink
-          href="https://github.com/educlopez"
-          target="_blank"
-          rel="noopener noreferrer"
-          icon={GitHubIcon}
-        >
-          Follow us on GitHub
-        </SocialLink>
-      </div>
     </div>
   )
 }

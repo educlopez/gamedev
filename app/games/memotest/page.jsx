@@ -13,6 +13,7 @@ import Spaceinvader from "@/images/memo/spaceinvader.png"
 import Voltorb from "@/images/memo/voltorb.png"
 import confetti from "canvas-confetti"
 
+import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
@@ -92,9 +93,11 @@ function Memotest() {
       <section className="my-10 flex justify-center">
         {isGameWon ? (
           <div className="flex flex-col items-center justify-center">
-            <p className="text-gameboy-900">
-              Congratulations! You won the game.
-            </p>
+            <DialogBox
+              as="p"
+              className="text-gameboy-900"
+              message="Congratulations! You won the game."
+            />
             <Retrobutton className="mt-4" onClick={handleReset}>
               Reset Game
             </Retrobutton>
