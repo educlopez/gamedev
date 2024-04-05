@@ -3,32 +3,15 @@
 import { useEffect, useState } from "react"
 import Head from "next/head"
 import Image from "next/image"
-import Link from "@/images/memo/link.png"
-import Luigi from "@/images/memo/luigi.png"
-import Mario from "@/images/memo/mario.png"
-import Pacman from "@/images/memo/pacman.png"
-import Phantom from "@/images/memo/phantom.png"
-import Qbert from "@/images/memo/qbert.png"
-import Spaceinvader from "@/images/memo/spaceinvader.png"
-import Voltorb from "@/images/memo/voltorb.png"
+import { cards } from "@/games/memotest/data"
 import confetti from "canvas-confetti"
 
 import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
-const IMAGES = [
-  Voltorb,
-  Link,
-  Mario,
-  Pacman,
-  Phantom,
-  Qbert,
-  Spaceinvader,
-  Luigi,
-]
-  .flatMap((image) => [`a|${image.src}`, `b|${image.src}`])
-  .sort(() => Math.random() - 0.5)
+const flatCards = cards.flatMap((image) => [`a|${image.src}`, `b|${image.src}`])
+const IMAGES = flatCards.sort(() => Math.random() - 0.5)
 
 function Memotest() {
   const [guessed, setGuessed] = useState([])
@@ -62,6 +45,7 @@ function Memotest() {
       })
     }
   }, [guessed])
+
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
@@ -90,7 +74,7 @@ function Memotest() {
 
       <Text title="MemoTest" as="h2" size="h2" className="fade-down-ct" />
 
-      <section className="my-10 flex justify-center">
+      <section className="flex justify-center my-10">
         {isGameWon ? (
           <div className="flex flex-col items-center justify-center">
             <DialogBox
@@ -110,7 +94,7 @@ function Memotest() {
               return (
                 <li
                   key={image}
-                  className="m-1 cursor-pointer rounded-md bg-gameboy-100 p-2 hover:bg-gameboy-400"
+                  className="p-2 m-1 rounded-md cursor-pointer bg-gameboy-100 hover:bg-gameboy-400"
                   onClick={() =>
                     selected.length < 2 &&
                     setSelected((selected) => selected.concat(image))
@@ -129,7 +113,7 @@ function Memotest() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      className="h-16 w-16 text-gameboy-900"
+                      className="w-16 h-16 text-gameboy-900"
                     >
                       <path
                         d="M6 2h8v2H6V2zM4 6V4h2v2H4zm0 8H2V6h2v8zm2 2H4v-2h2v2zm8 0v2H6v-2h8zm2-2h-2v2h2v2h2v2h2v2h2v-2h-2v-2h-2v-2h-2v-2zm0-8h2v8h-2V6zm0 0V4h-2v2h2z"

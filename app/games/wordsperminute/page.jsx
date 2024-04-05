@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Head from "next/head"
-import { WORDS } from "@/games/wordsperminute/words"
+import { WORDS } from "@/games/wordsperminute/data"
 import confetti from "canvas-confetti"
 
 import DialogBox from "@/components/DialogBox"
