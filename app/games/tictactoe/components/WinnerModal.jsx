@@ -1,6 +1,6 @@
-import { Retrobutton } from "./RetroBtn.jsx"
+import { Retrobutton } from "../../../components/RetroBtn.jsx"
 import { Square } from "./Square.jsx"
-import { Text } from "./Text.jsx"
+import { Text } from "../../../components/Text.jsx"
 
 export function WinnerModal({ winner, resetGame }) {
   if (winner === null) return null

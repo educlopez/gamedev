@@ -17,3 +17,6 @@ export const cards = [
   Spaceinvader,
   Luigi,
 ]
+
+const flatCards = cards.flatMap((image) => [`a|${image.src}`, `b|${image.src}`])
+export const IMAGES = flatCards.sort(() => Math.random() - 0.5)

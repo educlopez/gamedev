@@ -1,64 +1,19 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Head from "next/head"
 import Image from "next/image"
-import { cards } from "@/games/memotest/data"
-import confetti from "canvas-confetti"
+import { IMAGES } from "@/games/memotest/data"
 
 import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
-const flatCards = cards.flatMap((image) => [`a|${image.src}`, `b|${image.src}`])
-const IMAGES = flatCards.sort(() => Math.random() - 0.5)
+import { useGameState } from "./components/useGameState"
 
-function Memotest() {
-  const [guessed, setGuessed] = useState([])
-  const [selected, setSelected] = useState([])
-  const [isGameWon, setIsGameWon] = useState(false)
+export default function Memotest() {
+  const { guessed, selected, isGameWon, setSelected, handleReset } =
+    useGameState()
 
-  useEffect(() => {
-    if (selected.length === 2) {
-      const [firstImage, secondImage] = selected
-
-      if (firstImage.split("|")[1] === secondImage.split("|")[1]) {
-        setGuessed((guessed) => guessed.concat(selected))
-      }
-
-      setTimeout(() => {
-        setSelected([])
-      }, 1000)
-    }
-  }, [selected])
-
-  useEffect(() => {
-    if (guessed.length === IMAGES.length) {
-      setIsGameWon(true)
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: {
-          y: 0.6,
-        },
-        colors: ["#8D9571", "#1F1F1F", "#4E533E"],
-      })
-    }
-  }, [guessed])
-
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[array[i], array[j]] = [array[j], array[i]]
-    }
-  }
-
-  const handleReset = () => {
-    setGuessed([])
-    setSelected([])
-    setIsGameWon(false)
-    shuffle(IMAGES)
-  }
   return (
     <>
       <Head>
@@ -87,14 +42,14 @@ function Memotest() {
             </Retrobutton>
           </div>
         ) : (
-          <ul className="grid grid-cols-4">
+          <ul className="grid grid-cols-4 gap-1">
             {IMAGES.map((image) => {
               const [, url] = image.split("|")
 
               return (
                 <li
                   key={image}
-                  className="p-2 m-1 rounded-md cursor-pointer bg-gameboy-100 hover:bg-gameboy-400"
+                  className="p-2 cursor-pointer select-none bg-gameboy-100 hover:bg-gameboy-400"
                   onClick={() =>
                     selected.length < 2 &&
                     setSelected((selected) => selected.concat(image))
@@ -130,5 +85,3 @@ function Memotest() {
     </>
   )
 }
-
-export default Memotest

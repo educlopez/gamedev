@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react"
 import Head from "next/head"
+import { Square } from "@/games/tictactoe/components/Square.jsx"
+import { WinnerModal } from "@/games/tictactoe/components/WinnerModal.jsx"
 import { checkEndGame, checkWinnerFrom } from "@/logic/board.js"
 import confetti from "canvas-confetti"
 
 import { TURNS } from "@/lib/constants.js"
 import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
-import { Square } from "@/components/Square.jsx"
 import { Text } from "@/components/Text"
-import { WinnerModal } from "@/components/WinnerModal.jsx"
 
 function Tictactoe() {
   const initialBoard = Array(9).fill(null)
