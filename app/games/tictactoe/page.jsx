@@ -9,6 +9,7 @@ import confetti from "canvas-confetti"
 
 import { TURNS } from "@/lib/constants.js"
 import DialogBox from "@/components/DialogBox"
+import { Modal } from "@/components/Modal"
 import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
@@ -112,7 +113,7 @@ function Tictactoe() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Text title="TicTacToe" as="h2" size="h2" className="fade-down-ct" />
-      <section className="my-10 flex justify-center gap-1">
+      <section className="flex justify-center gap-1 my-10">
         <Square isSelected={turn === TURNS.X} onClick="-" isInteractive={false}>
           {TURNS.X}
         </Square>
@@ -120,7 +121,7 @@ function Tictactoe() {
           {TURNS.O}
         </Square>
       </section>
-      <DialogBox className="mx-auto grid max-w-fit grid-cols-3 gap-1">
+      <DialogBox className="grid grid-cols-3 gap-1 mx-auto max-w-fit">
         {board.map((square, index) => {
           return (
             <Square key={index} index={index} updateBoard={updateBoard}>
@@ -129,10 +130,18 @@ function Tictactoe() {
           )
         })}
       </DialogBox>
-      <div className="mt-10 flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
+      <div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
         <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
       </div>
-      <WinnerModal resetGame={resetGame} winner={winner} />
+      {/* <WinnerModal resetGame={resetGame} winner={winner} /> */}
+      {winner !== null && (
+        <Modal
+          titleTop={winner === false ? "Tie" : "Winner!"}
+          reset={resetGame}
+        >
+          {winner !== false && <Square>{winner}</Square>}
+        </Modal>
+      )}
     </>
   )
 }

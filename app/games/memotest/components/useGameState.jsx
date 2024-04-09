@@ -5,7 +5,9 @@ import confetti from "canvas-confetti"
 export function useGameState() {
   const [guessed, setGuessed] = useState([])
   const [selected, setSelected] = useState([])
+  const [play, setPlay] = useState(false)
   const [isGameWon, setIsGameWon] = useState(false)
+  const [time, setTime] = useState(60)
 
   useEffect(() => {
     if (selected.length === 2) {
@@ -41,18 +43,28 @@ export function useGameState() {
       ;[array[i], array[j]] = [array[j], array[i]]
     }
   }
+  useEffect(() => {
+    if (time !== 0 && play == true && !isGameWon) {
+      const timeout = setTimeout(() => setTime(time - 1), 1000)
+      return () => clearTimeout(timeout)
+    }
+  }, [time, isGameWon, play])
 
   const handleReset = () => {
     setGuessed([])
     setSelected([])
+    setPlay(true)
     setIsGameWon(false)
     shuffle(IMAGES)
+    setTime(60)
   }
 
   return {
     guessed,
     selected,
     isGameWon,
+    time,
+    play,
     setGuessed,
     setSelected,
     setIsGameWon,

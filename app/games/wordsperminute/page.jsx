@@ -66,7 +66,7 @@ export default function WordPerMinute() {
 
       <section className="flex flex-col items-center justify-center gap-5 my-10">
         {Boolean(time) && (
-          <DialogBox className="w-auto text-center" message={word} />
+          <DialogBox className="w-auto text-center" message={word} clean />
         )}
         {time ? (
           <>
@@ -85,7 +85,7 @@ export default function WordPerMinute() {
                 Send
               </Retrobutton>
             </form>
-            <DialogBox className="w-auto text-center" clean>
+            <DialogBox className="w-auto text-center">
               <p className="text-center text-gameboy-900">
                 Characters typed: {characterCount} | Error count: {errorCount}
               </p>
