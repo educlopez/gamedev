@@ -32,7 +32,15 @@ export default function Memotest() {
 
       <section className="flex justify-center my-10">
         {time !== 0 && play == false && (
-          <Retrobutton onClick={handleReset}>Play</Retrobutton>
+          <div className="flex flex-col items-center gap-5">
+            <DialogBox
+              className="w-auto text-center"
+              message="Write as fast as you can"
+            />
+            <Retrobutton onClick={handleReset} className="flex w-auto">
+              Play
+            </Retrobutton>
+          </div>
         )}
         {play && (
           <>

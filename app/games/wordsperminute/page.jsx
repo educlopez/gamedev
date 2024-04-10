@@ -48,7 +48,7 @@ export default function WordPerMinute() {
     <>
       <Head>
         <title>Words per minute</title>
-        <meta name="description" content="" />
+        <meta name="description" content="Write as fast as you can" />
         <meta
           name="keywords"
           content="Words per minute, online game, tailwind css, next.js, web game"
@@ -93,15 +93,21 @@ export default function WordPerMinute() {
             </DialogBox>
           </>
         ) : (
-          <Retrobutton
-            onClick={() => {
-              setTime(60)
-              setCharacterCount(0)
-              setErrorCount(0)
-            }}
-          >
-            Play
-          </Retrobutton>
+          <>
+            <DialogBox
+              className="w-auto text-center"
+              message="Write as fast as you can"
+            />
+            <Retrobutton
+              onClick={() => {
+                setTime(60)
+                setCharacterCount(0)
+                setErrorCount(0)
+              }}
+            >
+              Play
+            </Retrobutton>
+          </>
         )}
       </section>
     </>
