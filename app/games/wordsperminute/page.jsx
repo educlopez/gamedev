@@ -21,7 +21,7 @@ export default function WordPerMinute() {
   function handleSubmit(event) {
     event.preventDefault()
 
-    if (buffer === word) {
+    if (buffer.toLowerCase() === word.toLowerCase()) {
       setWord(WORDS[(Math.random() * WORDS.length) | 0])
       setCharacterCount((characterCount) => characterCount + word.length)
     } else {
