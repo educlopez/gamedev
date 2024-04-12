@@ -24,7 +24,7 @@ export default function Whoisthatpokemon() {
     setError(null)
     try {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`, {
-        next: { revalidate: 10 },
+        cache: "force-cache",
       })
       const data = await res.json()
       const pokemonData = data.results
@@ -80,16 +80,16 @@ export default function Whoisthatpokemon() {
     const inputs = document.querySelectorAll("input")
     if (userGuess.toLowerCase() === pokemon.name.toLowerCase()) {
       setGuessMessage("Correct! You won!")
-      confetti({
-        particleCount: 200,
-        spread: 80,
-        colors: ["#8D9571", "#1F1F1F", "#4E533E"],
-      })
       setPokemonList([...pokemonList, pokemon.name])
       setCorrectGuesses(correctGuesses + 1)
       inputs[0].focus()
       if (correctGuesses + 1 === 10) {
         setGuessMessage("You have guessed 10 correct Pokémon. Congratulations!")
+        confetti({
+          particleCount: 200,
+          spread: 80,
+          colors: ["#8D9571", "#1F1F1F", "#4E533E"],
+        })
       }
     } else {
       setGuessMessage("Incorrect. Try again.")
@@ -99,7 +99,7 @@ export default function Whoisthatpokemon() {
   }
   const isAllowedKey = (key) => {
     const allowedKeys = ["Backspace", "Delete", "Tab", "Enter"]
-    return /^[a-z]{1}$/i.test(key) || allowedKeys.includes(key) || key.metaKey
+    return /^[a-z-]{1}$/i.test(key) || allowedKeys.includes(key) || key.metaKey
   }
 
   const handleKeyDown = (e) => {
@@ -148,13 +148,23 @@ export default function Whoisthatpokemon() {
         <div className="flex flex-col items-center justify-center">
           {pokemon.name ? (
             <>
-              <Image
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokemon.id}.png`}
-                alt="pokemon sprite"
-                width={96}
-                height={96}
-                unoptimized
-              />
+              {correctGuesses !== 10 ? (
+                <Image
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokemon.id}.png`}
+                  alt="pokemon sprite"
+                  width={96}
+                  height={96}
+                  unoptimized
+                />
+              ) : (
+                <Image
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/25.png`}
+                  alt="pokemon sprite"
+                  width={96}
+                  height={96}
+                  unoptimized
+                />
+              )}
               <div>
                 {guessMessage ===
                 "All pokemons have been guessed, congratulations!" ? (
@@ -191,6 +201,7 @@ export default function Whoisthatpokemon() {
                         />
                       ))}
                     </div>
+                    <p>{pokemon.name}</p>
                     <Retrobutton type="submit">Guess</Retrobutton>
                   </form>
                 )}
