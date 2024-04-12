@@ -1,38 +1,11 @@
 import { createContext, Fragment, useContext } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import { motion } from "framer-motion"
 import { create } from "zustand"
 
 import { Header } from "@/components/Header"
+import { MenuIcon, XIcon } from "@/components/Icons"
 import { Navigation } from "@/components/Navigation"
-
-function MenuIcon(props) {
-  return (
-    <svg
-      viewBox="0 0 10 9"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M.5 1h9M.5 8h9M.5 4.5h9" />
-    </svg>
-  )
-}
-
-function XIcon(props) {
-  return (
-    <svg
-      viewBox="0 0 10 9"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m1.5 1 7 7M8.5 1l-7 7" />
-    </svg>
-  )
-}
+import { Retrobutton } from "@/components/RetroBtn"
 
 const IsInsideMobileNavigationContext = createContext(false)
 
@@ -48,20 +21,20 @@ export const useMobileNavigationStore = create((set) => ({
 }))
 
 export function MobileNavigation() {
-  let isInsideMobileNavigation = useIsInsideMobileNavigation()
+  const isInsideMobileNavigation = useIsInsideMobileNavigation()
   let { isOpen, toggle, close } = useMobileNavigationStore()
-  let ToggleIcon = isOpen ? XIcon : MenuIcon
+  const ToggleIcon = isOpen ? XIcon : MenuIcon
 
   return (
     <IsInsideMobileNavigationContext.Provider value={true}>
-      <button
+      <Retrobutton
         type="button"
-        className="flex items-center justify-center w-6 h-6 transition rounded-md hover:bg-gameboy-900"
+        className="flex items-center justify-center w-auto h-auto transition rounded-md hover:bg-gameboy-900"
         aria-label="Toggle navigation"
         onClick={toggle}
       >
         <ToggleIcon className="w-6 stroke-2 stroke-gameboy-900" />
-      </button>
+      </Retrobutton>
       {!isInsideMobileNavigation && (
         <Transition.Root show={isOpen} as={Fragment}>
           <Dialog onClose={close} className="fixed inset-0 z-50 lg:hidden">
@@ -87,12 +60,9 @@ export function MobileNavigation() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <motion.div
-                  layoutScroll
-                  className="fixed left-0 top-0 pt-24 bottom-0 w-full overflow-y-auto bg-gameboy-100 px-4 pb-4 shadow-lg shadow-gameboy-900 ring-1 ring-zinc-900/7.5 min-[416px]:max-w-sm sm:px-6 sm:pb-10 pixel-bg"
-                >
+                <div className="ring-zinc-900/7.5 pixel-bg fixed bottom-0 left-0 top-0 w-full overflow-y-auto bg-gameboy-100 px-4 pb-4 pt-24 shadow-lg shadow-gameboy-900 ring-1 min-[416px]:max-w-sm sm:px-6 sm:pb-10">
                   <Navigation onClick={close} />
-                </motion.div>
+                </div>
               </Transition.Child>
             </Dialog.Panel>
           </Dialog>

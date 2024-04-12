@@ -64,13 +64,13 @@ export default function RootLayout({ children }) {
   return (
     <html className="h-full antialiased" lang="en">
       <body
-        className={`flex flex-col h-full antialiased pixel-bg ${silkscreen.className}`}
+        className={`pixel-bg flex h-full flex-col antialiased ${silkscreen.className}`}
       >
-        <div className="fixed top-0 left-0 z-50 w-full h-screen pointer-events-none crt"></div>
+        <div className="crt pointer-events-none fixed left-0 top-0 z-50 h-screen w-full" />
         <NoiseBackground />
         <div className="relative overflow-scroll">
           <Header />
-          <div className="relative max-w-2xl px-4 pb-16 mx-auto space-y-10 pt-14 sm:px-6 lg:px-8 lg:max-w-5xl">
+          <div className="relative mx-auto max-w-2xl space-y-10 px-4 pb-16 pt-14 sm:px-6 lg:max-w-5xl lg:px-8">
             <main className="py-16">{children}</main>
             <Footer />
           </div>

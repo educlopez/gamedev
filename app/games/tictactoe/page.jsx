@@ -2,19 +2,16 @@
 
 import { useEffect, useState } from "react"
 import Head from "next/head"
+import { Square } from "@/games/tictactoe/components/Square.jsx"
+import { WinnerModal } from "@/games/tictactoe/components/WinnerModal.jsx"
 import { checkEndGame, checkWinnerFrom } from "@/logic/board.js"
 import confetti from "canvas-confetti"
-import { motion } from "framer-motion"
 
-import {
-  FADE_DOWN_ANIMATION_VARIANTS,
-  FADE_IN_ANIMATION_CARD,
-  TURNS,
-} from "@/lib/constants.js"
+import { TURNS } from "@/lib/constants.js"
+import DialogBox from "@/components/DialogBox"
+import { Modal } from "@/components/Modal"
 import { Retrobutton } from "@/components/RetroBtn"
-import { Square } from "@/components/Square.jsx"
 import { Text } from "@/components/Text"
-import { WinnerModal } from "@/components/WinnerModal.jsx"
 
 function Tictactoe() {
   const initialBoard = Array(9).fill(null)
@@ -115,58 +112,36 @@ function Tictactoe() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
-        <Text title="TicTacToe" as="h2" size="h2" />
-      </motion.div>
-
-      <motion.section
-        className="flex justify-center my-10"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
-        <Square
-          isSelected={turn === TURNS.X}
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-          onClick="-"
-          isInteractive={false}
-        >
+      <Text title="TicTacToe" as="h2" size="h2" className="fade-down-ct" />
+      <section className="flex justify-center gap-1 my-10">
+        <Square isSelected={turn === TURNS.X} onClick="-" isInteractive={false}>
           {TURNS.X}
         </Square>
-        <Square
-          isSelected={turn === TURNS.O}
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-          isInteractive={false}
-        >
+        <Square isSelected={turn === TURNS.O} isInteractive={false}>
           {TURNS.O}
         </Square>
-      </motion.section>
-      <motion.section
-        className="grid grid-cols-3 gap-4 mx-auto max-w-fit"
-        variants={FADE_DOWN_ANIMATION_VARIANTS}
-      >
+      </section>
+      <DialogBox className="grid grid-cols-3 gap-1 mx-auto max-w-fit">
         {board.map((square, index) => {
           return (
-            <Square
-              key={index}
-              index={index}
-              updateBoard={updateBoard}
-              variants={FADE_DOWN_ANIMATION_VARIANTS}
-            >
+            <Square key={index} index={index} updateBoard={updateBoard}>
               {square}
             </Square>
           )
         })}
-      </motion.section>
-      <motion.div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
-        <Retrobutton
-          onClick={resetGame}
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
+      </DialogBox>
+      <div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
+        <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
+      </div>
+      {/* <WinnerModal resetGame={resetGame} winner={winner} /> */}
+      {winner !== null && (
+        <Modal
+          titleTop={winner === false ? "Tie" : "Winner!"}
+          reset={resetGame}
         >
-          Reset Game
-        </Retrobutton>
-      </motion.div>
-      <motion.div {...FADE_IN_ANIMATION_CARD}>
-        <WinnerModal resetGame={resetGame} winner={winner} />
-      </motion.div>
+          {winner !== false && <Square>{winner}</Square>}
+        </Modal>
+      )}
     </>
   )
 }

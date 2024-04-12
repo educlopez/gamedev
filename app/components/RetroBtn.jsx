@@ -1,10 +1,10 @@
 import Link from "next/link"
-import clsx from "clsx"
+import { cn } from "@/utils/cn"
 
 export function Retrobutton({ className, children, ...props }) {
-  let Component = props.href ? Link : "button"
+  const Component = props.href ? Link : "button"
 
-  className = clsx("retro-btn", className)
+  className = cn("retro-btn flex flex-row gap-1", className)
   return (
     <Component className={className} {...props}>
       {children}
