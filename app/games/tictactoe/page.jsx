@@ -99,7 +99,7 @@ function Tictactoe() {
   }, [])
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>TicTacToe</title>
         <meta
           name="description"
@@ -111,7 +111,7 @@ function Tictactoe() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> */}
       <Text title="TicTacToe" as="h2" size="h2" className="fade-down-ct" />
       <section className="flex justify-center gap-1 my-10">
         <Square isSelected={turn === TURNS.X} onClick="-" isInteractive={false}>

@@ -46,7 +46,7 @@ export default function WordPerMinute() {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>Words per minute</title>
         <meta name="description" content="Write as fast as you can" />
         <meta
@@ -55,7 +55,7 @@ export default function WordPerMinute() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> */}
 
       <Text
         title="Words per minute"

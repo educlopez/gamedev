@@ -17,16 +17,19 @@ export default function Memotest() {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>MemoTest</title>
-        <meta name="description" content="" />
+        <meta
+          name="description"
+          content="Browse through the retro characters and find each one's partner in a memorization game"
+        />
         <meta
           name="keywords"
           content="memotest, online game, tailwind css, next.js, web game"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> */}
 
       <Text title="MemoTest" as="h2" size="h2" className="fade-down-ct" />
 
@@ -35,7 +38,7 @@ export default function Memotest() {
           <div className="flex flex-col items-center gap-5">
             <DialogBox
               className="w-auto text-center"
-              message="Write as fast as you can"
+              message="Browse through the retro characters and find each one's partner in a memorization game"
             />
             <Retrobutton onClick={handleReset} className="flex w-auto">
               Play

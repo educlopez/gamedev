@@ -128,7 +128,7 @@ export default function Whoisthatpokemon() {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>Who is that Pokemon</title>
         <meta name="description" content="" />
         <meta
@@ -137,7 +137,7 @@ export default function Whoisthatpokemon() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head> */}
       <Text
         title="Who's that pokemon"
         as="h2"
