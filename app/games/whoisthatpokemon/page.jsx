@@ -200,7 +200,7 @@ export default function Whoisthatpokemon() {
                         />
                       ))}
                     </div>
-                    <p>{pokemon.name}</p>
+                    {/* <p>{pokemon.name}</p> */}
                     <Retrobutton type="submit">Guess</Retrobutton>
                   </form>
                 )}
