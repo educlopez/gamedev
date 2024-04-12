@@ -97,22 +97,20 @@ export default function Whoisthatpokemon() {
     }
     setPokemonNameLetters(Array(pokemon.name.length).fill(""))
   }
+  const isAllowedKey = (key) => {
+    const allowedKeys = ["Backspace", "Delete", "Tab", "Enter"]
+    return /^[a-z]{1}$/i.test(key) || allowedKeys.includes(key) || key.metaKey
+  }
+
   const handleKeyDown = (e) => {
-    if (
-      !/^[a-z]{1}$/i.test(e.key) && // Cambiado para aceptar solo letras
-      e.key !== "Backspace" &&
-      e.key !== "Delete" &&
-      e.key !== "Tab" &&
-      e.key !== "Enter" &&
-      !e.metaKey
-    ) {
+    if (!isAllowedKey(e.key)) {
       e.preventDefault()
     }
 
-    if (e.key === "Delete" || e.key === "Backspace") {
+    if (["Backspace", "Delete"].includes(e.key)) {
       const inputs = document.querySelectorAll("input")
       const index = Array.from(inputs).indexOf(e.target)
-      if (index >= 0) {
+      if (index > 0) {
         inputs[index - 1].value = ""
         inputs[index - 1].focus()
       }
@@ -146,7 +144,7 @@ export default function Whoisthatpokemon() {
         size="h2"
         className="fade-down-ct"
       />
-      <section className="my-10 flex flex-col justify-center">
+      <section className="flex flex-col justify-center my-10">
         <div className="flex flex-col items-center justify-center">
           {pokemon.name ? (
             <>
@@ -162,14 +160,14 @@ export default function Whoisthatpokemon() {
                 "All pokemons have been guessed, congratulations!" ? (
                   <div>
                     <p className="text-gameboy-900">{guessMessage}</p>
-                    <div className="mt-6 flex justify-center">
+                    <div className="flex justify-center mt-6">
                       <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                     </div>
                   </div>
                 ) : correctGuesses === 10 ? (
                   <div>
                     <p className="text-gameboy-900">{guessMessage}</p>
-                    <div className="mt-6 flex justify-center">
+                    <div className="flex justify-center mt-6">
                       <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                     </div>
                   </div>
@@ -189,7 +187,7 @@ export default function Whoisthatpokemon() {
                           onChange={(e) => handleLetterChange(e, index)}
                           onKeyDown={handleKeyDown}
                           onFocus={handleFocus}
-                          className="h-10 w-10 border-b-2 border-gameboy-900 bg-gameboy-100 p-3 text-center text-sm text-gameboy-900 transition placeholder:text-gameboy-700"
+                          className="w-10 h-10 p-3 text-sm text-center transition border-b-2 border-gameboy-900 bg-gameboy-100 text-gameboy-900 placeholder:text-gameboy-700"
                         />
                       ))}
                     </div>
@@ -198,14 +196,14 @@ export default function Whoisthatpokemon() {
                 )}
               </div>
               <DialogBox className="w-auto text-center">
-                <p className="my-4 text-center text-xs text-gameboy-900">
+                <p className="my-4 text-xs text-center text-gameboy-900">
                   Remember, if a pokemon have spaces in her name use `-`
                 </p>
                 <p className="mb-4 text-center text-gameboy-900">
                   Correct Guesses: {correctGuesses} / 10
                 </p>
                 {correctGuesses > 0 && (
-                  <div className="mt-10 grid grid-flow-row grid-cols-5 justify-items-center gap-5">
+                  <div className="grid grid-flow-row grid-cols-5 gap-5 mt-10 justify-items-center">
                     {pokemonList.map((pokemon) => {
                       return (
                         <Image
