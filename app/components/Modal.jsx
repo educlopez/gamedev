@@ -7,7 +7,7 @@ export function Modal({ reset, children, titleTop }) {
       <div className="relative z-10">
         <div className="fixed inset-0 transition-opacity bg-gameboy-900/30 backdrop-blur-sm" />
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
+          <div className="flex items-center justify-center min-h-full p-4 text-center sm:p-0">
             <div className="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform border rounded-lg shadow-xl pixel-bg border-gameboy-400 bg-gameboy-400 sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
               <div>
                 <div className="text-center">

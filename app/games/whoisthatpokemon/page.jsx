@@ -168,14 +168,18 @@ export default function Whoisthatpokemon() {
                 {guessMessage ===
                 "All pokemons have been guessed, congratulations!" ? (
                   <div>
-                    <p className="text-gameboy-900">{guessMessage}</p>
+                    <p className="text-center text-gameboy-900">
+                      {guessMessage}
+                    </p>
                     <div className="flex justify-center mt-6">
                       <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                     </div>
                   </div>
                 ) : correctGuesses === 10 ? (
                   <div>
-                    <p className="text-gameboy-900">{guessMessage}</p>
+                    <p className="text-center text-gameboy-900">
+                      {guessMessage}
+                    </p>
                     <div className="flex justify-center mt-6">
                       <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
                     </div>
@@ -196,7 +200,7 @@ export default function Whoisthatpokemon() {
                           onChange={(e) => handleLetterChange(e, index)}
                           onKeyDown={handleKeyDown}
                           onFocus={handleFocus}
-                          className="w-10 h-10 p-3 text-sm text-center transition border-b-2 border-gameboy-900 bg-gameboy-100 text-gameboy-900 placeholder:text-gameboy-700"
+                          className="w-8 h-8 p-1 text-sm text-center transition border-b-2 border-gameboy-900 bg-gameboy-100 text-gameboy-900 placeholder:text-gameboy-700 md:h-10 md:w-10 md:p-3"
                         />
                       ))}
                     </div>
