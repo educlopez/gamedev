@@ -3,6 +3,7 @@ import Link from "next/link"
 import Catridgememotest from "@/images/games/cartridge-memotest.png"
 import Catridgepokemon from "@/images/games/cartridge-pokemon.png"
 import Catridgetictactoe from "@/images/games/cartridge-tictactoe.png"
+import Catridgewordle from "@/images/games/cartridge-wordle.png"
 import Catridgewordpreminute from "@/images/games/cartridge-wordsperminute.png"
 
 import { Text } from "@/components/Text"
@@ -46,6 +47,15 @@ const Games = [
     logo: Catridgepokemon,
     image: Catridgepokemon,
   },
+  {
+    id: 5,
+    title: "Wordle",
+    name: "Wordle",
+    designation: "Wordle",
+    url: "/games/wordle",
+    logo: Catridgewordle,
+    image: Catridgewordle,
+  },
 ]
 
 function Home() {
@@ -53,14 +63,14 @@ function Home() {
     <>
       <Text title="GameDev" as="h1" size="h1" className="fade-up-ct" />
 
-      <div className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-10 text-center">
+      <div className="flex flex-col flex-1 justify-center items-center px-4 mt-10 w-full text-center">
         <DialogBox
           as="p"
           className="fade-up-ct"
           message="Welcome to GameDev, select and insert one game"
         />
 
-        <div className="grid items-center justify-center grid-cols-2 gap-5 mt-6 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-5 justify-center items-center mt-6 md:grid-cols-3">
           {Games.map((game, index) => {
             return (
               <Link
@@ -74,9 +84,9 @@ function Home() {
                   alt={game.title}
                   width={193}
                   priority
-                  className="transition-all shadow-xl shadow-gameboy-400/30 hover:translate-y-3 hover:shadow-lg"
+                  className="shadow-xl transition-all shadow-gameboy-400/30 hover:translate-y-3 hover:shadow-lg"
                 />
-                <p className="flex items-center justify-center h-10 pt-2 ">
+                <p className="flex justify-center items-center pt-2 h-10">
                   <span className="hidden text-sm text-center transition group-hover:block">
                     Insert
                   </span>
