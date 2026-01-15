@@ -17,9 +17,9 @@ function ArrowIcon(props: ComponentPropsWithoutRef<'svg'>) {
 
 const variantStyles = {
   primary:
-    'rounded-sm bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-900',
+    'rounded-xs bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-900',
   secondary:
-    'rounded-sm bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-400',
+    'rounded-xs bg-gameboy-700 py-1 px-3 text-gameboy-100 hover:bg-gameboy-400',
 } as const
 
 type ButtonProps = {

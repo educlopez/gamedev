@@ -57,7 +57,7 @@ type KeyProps = {
 }
 
 function Key({ keyValue, onClick, status }: KeyProps) {
-  const baseClasses = 'px-2 py-3 rounded font-bold cursor-pointer'
+  const baseClasses = 'px-2 py-3 rounded-sm font-bold cursor-pointer'
   const statusClasses = {
     unused: 'bg-gameboy-400 text-gameboy-900',
     correct: 'bg-green-500 text-white',

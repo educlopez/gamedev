@@ -67,7 +67,7 @@ export default function WordPerMinute() {
                 type="text"
                 value={buffer}
                 autoFocus
-                className=" flex h-8 w-full items-center gap-2 rounded-sm bg-gameboy-100 p-3 text-center text-sm text-gameboy-900 ring-1 ring-gameboy-700 transition placeholder:text-gameboy-700 hover:ring-gameboy-900 focus:[&:not(:focus-visible)]:outline-none"
+                className=" flex h-8 w-full items-center gap-2 rounded-xs bg-gameboy-100 p-3 text-center text-sm text-gameboy-900 ring-1 ring-gameboy-700 transition placeholder:text-gameboy-700 hover:ring-gameboy-900 focus:not-focus-visible:outline-hidden"
                 onChange={(e) => setBuffer(e.target.value)}
               />
               <Retrobutton className="mt-4" type="submit">

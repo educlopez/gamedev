@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
-import { gameFont } from '@/logic/fonts'
-import { cn } from '@/utils/cn'
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+import { useEffect, useState } from "react"
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react"
+import { gameFont } from "@/logic/fonts"
+import { cn } from "@/utils/cn"
 
 const sizeStyles = {
-  small: 'text-[12px] leading-[14px] md:text-[16px] md:leading-[18px]',
-  medium: 'text-[32px] leading-[40px]',
-  h2: 'md:text-[70px] md:leading-[80px] text-[32px] leading-[40px]',
-  h1: 'md:text-[132px] md:leading-[140px] text-[44px] leading-[52px]',
+  small: "text-[12px] leading-[14px] md:text-[16px] md:leading-[18px]",
+  medium: "text-[32px] leading-[40px]",
+  h2: "md:text-[70px] md:leading-[80px] text-[32px] leading-[40px]",
+  h1: "md:text-[132px] md:leading-[140px] text-[44px] leading-[52px]",
 } as const
 
 type TextProps = {
@@ -17,12 +17,12 @@ type TextProps = {
   title: ReactNode
   as?: ElementType
   className?: string
-} & ComponentPropsWithoutRef<'div'>
+} & ComponentPropsWithoutRef<"div">
 
 export function Text({
-  size = 'medium',
+  size = "medium",
   title,
-  as: Component = 'div',
+  as: Component = "div",
   className,
   ...props
 }: TextProps) {
@@ -31,7 +31,7 @@ export function Text({
     sizeStyles[size],
     className
   )
-  const [id, setId] = useState('')
+  const [id, setId] = useState("")
 
   useEffect(() => {
     setId(`mask${Math.floor(Math.random() * 10_000)}`)
@@ -39,10 +39,14 @@ export function Text({
 
   return (
     <div className={className} {...props}>
-      <Component className={`text-original mx-auto w-max ${size}`}>
+      <Component className={`mx-auto w-max text-original ${size}`}>
         {title}
       </Component>
-      <svg height="100%" width="100%" className="pointer-events-none center">
+      <svg
+        height="100%"
+        width="100%"
+        className="absolute top-0 pointer-events-none"
+      >
         <defs>
           <mask height="100%" width="100%" x="0" y="0" id={id}>
             <rect fill="black" height="100%" width="100%" x="0" y="0" />

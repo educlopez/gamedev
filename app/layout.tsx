@@ -1,47 +1,46 @@
-import './globals.css'
-import './gameboy.css'
-import 'focus-visible'
+import "./globals.css"
+import "focus-visible"
 
-import { Silkscreen } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/react'
-import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react"
+import type { Metadata } from "next"
+import { Silkscreen } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
 
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
-import NoiseBackground from '@/components/NoiseBackground'
+import { Footer } from "@/components/Footer"
+import { Header } from "@/components/Header"
+import NoiseBackground from "@/components/NoiseBackground"
 
 const silkscreen = Silkscreen({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--display-gameboy',
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--display-gameboy",
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://gamedev.educalvolopez.com'),
+  metadataBase: new URL("https://gamedev.educalvolopez.com"),
   title: {
-    default: 'GameDev',
-    template: '%s | GameDev',
+    default: "GameDev",
+    template: "%s | GameDev",
   },
   description: `Discover a world of fun and challenge with our wide selection of mini-games. Play Who's That Pokemon, Memory, Tic Tac Toe, and more. Improve your cognitive skills and have fun at the same time. Play now!`,
   keywords: [
     `mini games, who's that pokemon, memory, tic tac toe, cognitive skills, fun, challenge, play now`,
   ],
   openGraph: {
-    title: 'GameDev',
+    title: "GameDev",
     description: `Discover a world of fun and challenge with our wide selection of mini-games. Play Who's That Pokemon, Memory, Tic Tac Toe, and more. Improve your cognitive skills and have fun at the same time. Play now!`,
-    url: 'https://gamedev.educalvolopez.com',
-    siteName: 'GameDev',
+    url: "https://gamedev.educalvolopez.com",
+    siteName: "GameDev",
     images: [
       {
-        url: 'https://gamedev.educalvolopez.com/og.jpg',
+        url: "https://gamedev.educalvolopez.com/og.jpg",
         width: 1920,
         height: 1080,
       },
     ],
-    locale: 'en_EN',
-    type: 'website',
+    locale: "en_EN",
+    type: "website",
   },
   robots: {
     index: true,
@@ -49,35 +48,31 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   twitter: {
-    title: 'GameDev',
-    card: 'summary_large_image',
+    title: "GameDev",
+    card: "summary_large_image",
   },
   icons: {
-    shortcut: '/favicon.ico',
+    shortcut: "/favicon.ico",
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className="h-full antialiased" lang="en">
       <body
         className={`pixel-bg flex h-full flex-col antialiased ${silkscreen.className}`}
       >
-        <div className="crt pointer-events-none fixed left-0 top-0 z-50 h-screen w-full" />
+        <div className="fixed top-0 left-0 z-50 w-full h-screen pointer-events-none crt" />
         <NoiseBackground />
-        <div className="relative overflow-scroll">
+        <div className="overflow-scroll relative">
           <Header />
-          <div className="relative mx-auto max-w-2xl space-y-10 px-4 pb-16 pt-14 sm:px-6 lg:max-w-5xl lg:px-8">
+          <div className="relative px-4 pt-14 pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 lg:max-w-5xl lg:px-8">
             <main className="py-16">{children}</main>
             <Footer />
           </div>

@@ -93,7 +93,7 @@ export default function NoiseBackground() {
       ref={canvasRef}
       id="noise"
       aria-label="Efecto de ruido de fondo"
-      className="z-1 animate-fade-in fixed top-0"
+      className="z-[100] animate-fade-in fixed top-0 left-0 pointer-events-none"
     ></canvas>
   )
 }

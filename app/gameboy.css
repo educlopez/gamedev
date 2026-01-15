@@ -1,10 +1,10 @@
 :root {
-  --pixelbglight: theme("colors.gameboy.100");
-  --pixelbgdark: theme("colors.gameboy.200");
+  --pixelbglight: var(--color-gameboy-100);
+  --pixelbgdark: var(--color-gameboy-200);
 }
 ::selection {
-  color: theme("colors.gameboy.100");
-  background: theme("colors.gameboy.900");
+  color: var(--color-gameboy-100);
+  background: var(--color-gameboy-900);
 }
 .noise {
   animation: bg-animation 0.2s infinite;
@@ -62,7 +62,7 @@
   --shadow: 1px;
 }
 .text-original {
-  --color: theme("colors.gameboy.900");
+  --color: #071821;
   --sn: calc(var(--shadow) * -1);
   --s: var(--shadow);
   --sd: calc(var(--shadow) * 2);
@@ -96,20 +96,18 @@
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .pixel-bg {
-  background-color: var(--pixelbglight);
-  background-image: linear-gradient(
-      180deg,
-      transparent 50%,
-      var(--pixelbgdark) 50%
-    ),
-    linear-gradient(90deg, transparent 50%, var(--pixelbgdark) 50%);
+  background-color: var(--color-gameboy-100);
+  background-image:
+    linear-gradient(180deg, transparent 50%, var(--color-gameboy-200) 50%),
+    linear-gradient(90deg, transparent 50%, var(--color-gameboy-200) 50%);
   background-size:
     0.1em 0.2em,
     0.1em 0.2em;
 }
 
 html {
-  cursor: url('data:image/svg+xml,<svg width="32" height="30" viewBox="0 0 32 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H22V2H16V0ZM16 4V2H12V4H8V2H6V0H2V2H0V8H2V10H4V18H6V20H8V22H10V24H16V28H18V30H22V28H24V26H26V24H28V22H30V20H32V16H30V14H28V8H26V4H24V2H22V4H24V8H26V14V16H24V18H26V16H30V20H28V22H26V24H24V26H18V24V22H20V20H18V22H10V20H8V16H10V14H8V12H6V10H4V8H2V2H6V4H8V6H12V8H14V6H12V4H16ZM16 4H18V6H16V4ZM24 10H22V8H20V10H22V12H24V10ZM20 12H18V10H16V12H18V14H20V12Z" fill="%23071821"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6 2H2V8H4V10H6V12H8V14H10V16H8V20H10V22H14H18V26H24V24H26V22H28V20H30V16H26V12V10V8H24V4H22V2H20H18H16V4H12V6H8V4H6V2ZM12 6H14V8H12V6ZM16 4H18V6H16V4ZM24 10H22V8H20V10H22V12H24V10ZM26 16V18H24V16H26ZM18 22V20H20V22H18ZM18 10H16V12H18V14H20V12H18V10Z" fill="%23DFF7CE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2H16V4H18V2ZM14 4H12V6H14V4ZM8 16H10V18V20H8V18V16ZM18 22H10V20H18V22ZM24 24V26H18V24V22H20V24H24ZM26 22H24V24H26V22ZM26 22V20H28V22H26ZM26 16H28V18H26V16ZM10 12H8V10H6V8H4V6H2V8H4V10H6V12H8V14H10V12ZM24 8H22V10H24V8ZM18 10H20V12H18V10Z" fill="%23316950"/></svg>'),
+  cursor:
+    url('data:image/svg+xml,<svg width="32" height="30" viewBox="0 0 32 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 0H22V2H16V0ZM16 4V2H12V4H8V2H6V0H2V2H0V8H2V10H4V18H6V20H8V22H10V24H16V28H18V30H22V28H24V26H26V24H28V22H30V20H32V16H30V14H28V8H26V4H24V2H22V4H24V8H26V14V16H24V18H26V16H30V20H28V22H26V24H24V26H18V24V22H20V20H18V22H10V20H8V16H10V14H8V12H6V10H4V8H2V2H6V4H8V6H12V8H14V6H12V4H16ZM16 4H18V6H16V4ZM24 10H22V8H20V10H22V12H24V10ZM20 12H18V10H16V12H18V14H20V12Z" fill="%23071821"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6 2H2V8H4V10H6V12H8V14H10V16H8V20H10V22H14H18V26H24V24H26V22H28V20H30V16H26V12V10V8H24V4H22V2H20H18H16V4H12V6H8V4H6V2ZM12 6H14V8H12V6ZM16 4H18V6H16V4ZM24 10H22V8H20V10H22V12H24V10ZM26 16V18H24V16H26ZM18 22V20H20V22H18ZM18 10H16V12H18V14H20V12H18V10Z" fill="%23DFF7CE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 2H16V4H18V2ZM14 4H12V6H14V4ZM8 16H10V18V20H8V18V16ZM18 22H10V20H18V22ZM24 24V26H18V24V22H20V24H24ZM26 22H24V24H26V22ZM26 22V20H28V22H26ZM26 16H28V18H26V16ZM10 12H8V10H6V8H4V6H2V8H4V10H6V12H8V14H10V12ZM24 8H22V10H24V8ZM18 10H20V12H18V10Z" fill="%23316950"/></svg>'),
     auto;
 }
 
@@ -129,15 +127,14 @@ button,
   border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="hsla(201, 65%, 8%, 1)" /></svg>');
   border-image-outset: 2;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   padding: 2px 4px;
-  text-align: center;
-  vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  @apply bg-gameboy-100 text-gameboy-900;
+  background-color: var(--color-gameboy-100);
+  color: var(--color-gameboy-900);
 }
 
 .retro-btn::after {
@@ -147,25 +144,25 @@ button,
   bottom: -6px;
   left: -4px;
   content: "";
-  box-shadow: inset -4px -4px theme("colors.gameboy.700");
+  box-shadow: inset -4px -4px var(--color-gameboy-700);
 }
 
 .retro-btn:hover {
   color: #212529;
   text-decoration: none;
-  @apply bg-gameboy-400;
+  background-color: var(--color-gameboy-400);
 }
 
 .retro-btn:hover::after {
-  box-shadow: inset -6px -6px theme("colors.gameboy.700");
+  box-shadow: inset -6px -6px var(--color-gameboy-700);
 }
 
 .retro-btn:focus {
-  box-shadow: 0 0 0 6px rgba(173, 175, 188, 0.3);
+  box-shadow: 0 0 0 6px var(--color-gameboy-400);
 }
 
 .retro-btn:active:not(.is-disabled)::after {
-  box-shadow: inset 4px 4px theme("colors.gameboy.700");
+  box-shadow: inset 4px 4px var(--color-gameboy-700);
 }
 
 .retro-btn:focus {
@@ -178,8 +175,8 @@ button,
 }
 
 .framed.primary {
-  background: theme("colors.gameboy.100");
-  color: theme("colors.gameboy.900");
+  background: #dff7ce;
+  color: #071821;
 }
 .framed {
   position: relative;
