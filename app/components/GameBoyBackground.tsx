@@ -3,11 +3,16 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+import { useLoadingStore } from "@/components/useLoadingStore";
+
 export function GameBoyBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
+  const setGameBoyBackgroundReady = useLoadingStore(
+    (state) => state.setGameBoyBackgroundReady
+  );
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -100,6 +105,9 @@ export function GameBoyBackground() {
 
     animate();
 
+    // Signal that GameBoy background is ready
+    setGameBoyBackgroundReady(true);
+
     const handleResize = () => {
       if (!(containerRef.current && rendererRef.current)) return;
 
@@ -129,7 +137,7 @@ export function GameBoyBackground() {
       geometry.dispose();
       material.dispose();
     };
-  }, []);
+  }, [setGameBoyBackgroundReady]);
 
   return (
     <div

@@ -2,8 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
+import { useLoadingStore } from "@/components/useLoadingStore";
+
 export default function NoiseBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const setNoiseBackgroundReady = useLoadingStore(
+    (state) => state.setNoiseBackgroundReady
+  );
   let wWidth: number;
   let wHeight: number;
   const noiseData: ImageData[] = [];
@@ -69,6 +74,9 @@ export default function NoiseBackground() {
 
     setup(ctx);
 
+    // Signal that noise background is ready
+    setNoiseBackgroundReady(true);
+
     const resizeHandler = () => {
       window.clearTimeout(resizeThrottle);
 
@@ -86,7 +94,7 @@ export default function NoiseBackground() {
       window.clearTimeout(loopTimeout);
       window.clearTimeout(resizeThrottle);
     };
-  }, []);
+  }, [setNoiseBackgroundReady]);
 
   return (
     <canvas

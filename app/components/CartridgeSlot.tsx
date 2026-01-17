@@ -28,6 +28,20 @@ export function CartridgeSlot({ game, index }: CartridgeSlotProps) {
     const image = imageRef.current;
     const label = labelRef.current;
 
+    // Kill any existing animations
+    gsap.killTweensOf([slot, image, label]);
+
+    // Reset to visible state immediately (no animation delay)
+    gsap.set(slot, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      zIndex: 1,
+      clearProps: "boxShadow,borderColor",
+    });
+    gsap.set(image, { y: 0 });
+    gsap.set(label, { backgroundColor: "var(--color-gameboy-900)" });
+
     const handleMouseEnter = () => {
       gsap.to(slot, {
         scale: 1.1,
@@ -88,18 +102,33 @@ export function CartridgeSlot({ game, index }: CartridgeSlotProps) {
     slot.addEventListener("mouseenter", handleMouseEnter);
     slot.addEventListener("mouseleave", handleMouseLeave);
 
-    const animationDelay = index * 0.1;
-    gsap.from(slot, {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      delay: animationDelay,
-      ease: "power2.out",
-    });
+    // Animate entrance only if element is not already visible
+    // This prevents animation issues when navigating back
+    const currentOpacity = window.getComputedStyle(slot).opacity;
+    const isVisible = Number.parseFloat(currentOpacity) > 0.5;
+
+    if (!isVisible) {
+      const animationDelay = index * 0.1;
+      gsap.fromTo(
+        slot,
+        {
+          opacity: 0,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: animationDelay,
+          ease: "power2.out",
+        }
+      );
+    }
 
     return () => {
       slot.removeEventListener("mouseenter", handleMouseEnter);
       slot.removeEventListener("mouseleave", handleMouseLeave);
+      gsap.killTweensOf([slot, image, label]);
     };
   }, [index]);
 
