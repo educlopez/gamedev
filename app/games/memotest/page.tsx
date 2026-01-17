@@ -1,31 +1,30 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { IMAGES } from '@/games/memotest/data'
+import Image from "next/image";
+import DialogBox from "@/components/DialogBox";
+import { Modal } from "@/components/Modal";
+import { Retrobutton } from "@/components/RetroBtn";
+import { Text } from "@/components/Text";
+import { IMAGES } from "@/games/memotest/data";
 
-import DialogBox from '@/components/DialogBox'
-import { Modal } from '@/components/Modal'
-import { Retrobutton } from '@/components/RetroBtn'
-import { Text } from '@/components/Text'
-
-import { useGameState } from './components/useGameState'
+import { useGameState } from "./components/useGameState";
 
 export default function Memotest() {
   const { guessed, selected, isGameWon, time, play, setSelected, handleReset } =
-    useGameState()
+    useGameState();
 
   return (
     <>
-      <Text title="MemoTest" as="h2" size="h2" className="fade-down-ct" />
+      <Text as="h2" className="fade-down-ct" size="h2" title="MemoTest" />
 
-      <section className="flex justify-center my-10">
+      <section className="my-10 flex justify-center">
         {time !== 0 && play === false && (
           <div className="flex flex-col items-center gap-5">
             <DialogBox
               className="w-auto text-center"
               message="Browse through the retro characters and find each one's partner in a memorization game"
             />
-            <Retrobutton onClick={handleReset} className="flex w-auto">
+            <Retrobutton className="flex w-auto" onClick={handleReset}>
               Play
             </Retrobutton>
           </div>
@@ -46,12 +45,12 @@ export default function Memotest() {
             ) : (
               <ul className="grid grid-cols-4 gap-1">
                 {IMAGES.map((image) => {
-                  const [, url] = image.split('|')
+                  const [, url] = image.split("|");
 
                   return (
                     <li
+                      className="cursor-pointer select-none bg-gameboy-100 p-2 hover:bg-gameboy-400"
                       key={image}
-                      className="p-2 cursor-pointer select-none bg-gameboy-100 hover:bg-gameboy-400"
                       onClick={() =>
                         selected.length < 2 &&
                         setSelected((selected) => selected.concat(image))
@@ -59,18 +58,18 @@ export default function Memotest() {
                     >
                       {selected.includes(image) || guessed.includes(image) ? (
                         <Image
-                          src={url}
                           alt="surprise"
-                          width={64}
                           height={64}
                           priority
+                          src={url}
+                          width={64}
                         />
                       ) : (
                         <svg
+                          className="h-16 w-16 text-gameboy-900"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
-                          className="w-16 h-16 text-gameboy-900"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M6 2h8v2H6V2zM4 6V4h2v2H4zm0 8H2V6h2v8zm2 2H4v-2h2v2zm8 0v2H6v-2h8zm2-2h-2v2h2v2h2v2h2v2h2v-2h-2v-2h-2v-2h-2v-2zm0-8h2v8h-2V6zm0 0V4h-2v2h2z"
@@ -79,7 +78,7 @@ export default function Memotest() {
                         </svg>
                       )}
                     </li>
-                  )
+                  );
                 })}
               </ul>
             )}
@@ -95,8 +94,12 @@ export default function Memotest() {
           />
         )}
 
-        {time === 0 && <Modal titleTop="Game Over" reset={handleReset}>{null}</Modal>}
+        {time === 0 && (
+          <Modal reset={handleReset} titleTop="Game Over">
+            {null}
+          </Modal>
+        )}
       </section>
     </>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import type { NextConfig } from 'next'
+import type { NextConfig } from "next";
 
 const ContentSecurityPolicy = `
     default-src 'self' vercel.live;
@@ -9,60 +9,60 @@ const ContentSecurityPolicy = `
     connect-src *;
     font-src 'self' data:;
     frame-src 'self' *.codesandbox.io vercel.live;
-`
+`;
 
 const securityHeaders = [
   {
-    key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\n/g, ''),
+    key: "Content-Security-Policy",
+    value: ContentSecurityPolicy.replace(/\n/g, ""),
   },
   {
-    key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin',
+    key: "Referrer-Policy",
+    value: "origin-when-cross-origin",
   },
   {
-    key: 'X-Frame-Options',
-    value: 'DENY',
+    key: "X-Frame-Options",
+    value: "DENY",
   },
   {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff',
+    key: "X-Content-Type-Options",
+    value: "nosniff",
   },
   {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'on',
+    key: "X-DNS-Prefetch-Control",
+    value: "on",
   },
   {
-    key: 'Strict-Transport-Security',
-    value: 'max-age=31536000; includeSubDomains; preload',
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
   },
   {
-    key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=()',
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=()",
   },
-]
+];
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'icongr.am',
+        protocol: "https",
+        hostname: "icongr.am",
       },
       {
-        protocol: 'https',
-        hostname: 'raw.githubusercontent.com',
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
       },
     ],
   },
   headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: securityHeaders,
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

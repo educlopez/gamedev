@@ -1,22 +1,22 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react"
-import Link from "next/link"
-import { cn } from "@/utils/cn"
+import Link from "next/link";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { cn } from "@/utils/cn";
 
 type RetrobuttonProps = {
-  className?: string
-  children: ReactNode
-  variant?: "primary" | "secondary"
+  className?: string;
+  children: ReactNode;
+  variant?: "primary" | "secondary";
 } & (
   | (ComponentPropsWithoutRef<"button"> & { href?: never })
   | (ComponentPropsWithoutRef<typeof Link> & { href: string })
-)
+);
 
 export function Retrobutton({
   className,
   children,
   ...props
 }: RetrobuttonProps) {
-  className = cn("retro-btn flex flex-row gap-1", className)
+  className = cn("retro-btn flex flex-row gap-1", className);
 
   if (props.href) {
     return (
@@ -26,7 +26,7 @@ export function Retrobutton({
       >
         {children}
       </Link>
-    )
+    );
   }
 
   return (
@@ -36,5 +36,5 @@ export function Retrobutton({
     >
       {children}
     </button>
-  )
+  );
 }

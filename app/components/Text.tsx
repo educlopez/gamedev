@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react"
-import { gameFont } from "@/logic/fonts"
-import { cn } from "@/utils/cn"
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { gameFont } from "@/logic/fonts";
+import { cn } from "@/utils/cn";
 
 const sizeStyles = {
   small: "text-[12px] leading-[14px] md:text-[16px] md:leading-[18px]",
   medium: "text-[32px] leading-[40px]",
   h2: "md:text-[70px] md:leading-[80px] text-[32px] leading-[40px]",
   h1: "md:text-[132px] md:leading-[140px] text-[44px] leading-[52px]",
-} as const
+} as const;
 
 type TextProps = {
-  size?: keyof typeof sizeStyles
-  title: ReactNode
-  as?: ElementType
-  className?: string
-} & ComponentPropsWithoutRef<"div">
+  size?: keyof typeof sizeStyles;
+  title: ReactNode;
+  as?: ElementType;
+  className?: string;
+} & ComponentPropsWithoutRef<"div">;
 
 export function Text({
   size = "medium",
@@ -30,12 +30,12 @@ export function Text({
     `${gameFont.className} relative uppercase text-gameboy-700`,
     sizeStyles[size],
     className
-  )
-  const [id, setId] = useState("")
+  );
+  const [id, setId] = useState("");
 
   useEffect(() => {
-    setId(`mask${Math.floor(Math.random() * 10_000)}`)
-  }, [])
+    setId(`mask${Math.floor(Math.random() * 10_000)}`);
+  }, []);
 
   return (
     <div className={className} {...props}>
@@ -43,12 +43,12 @@ export function Text({
         {title}
       </Component>
       <svg
+        className="pointer-events-none absolute top-0"
         height="100%"
         width="100%"
-        className="absolute top-0 pointer-events-none"
       >
         <defs>
-          <mask height="100%" width="100%" x="0" y="0" id={id}>
+          <mask height="100%" id={id} width="100%" x="0" y="0">
             <rect fill="black" height="100%" width="100%" x="0" y="0" />
             <text
               dominantBaseline="middle"
@@ -62,16 +62,16 @@ export function Text({
           </mask>
         </defs>
         <text
-          dominantBaseline="middle"
           className="fill-gameboy-100"
+          dominantBaseline="middle"
+          mask={`url(#${id})`}
           textAnchor="middle"
           x="50%"
           y="47%"
-          mask={`url(#${id})`}
         >
           {title}
         </text>
       </svg>
     </div>
-  )
+  );
 }

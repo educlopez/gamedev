@@ -1,24 +1,24 @@
-declare module 'canvas-confetti' {
+declare module "canvas-confetti" {
   interface ConfettiOptions {
-    particleCount?: number
-    angle?: number
-    spread?: number
-    startVelocity?: number
-    decay?: number
-    gravity?: number
-    drift?: number
-    ticks?: number
+    particleCount?: number;
+    angle?: number;
+    spread?: number;
+    startVelocity?: number;
+    decay?: number;
+    gravity?: number;
+    drift?: number;
+    ticks?: number;
     origin?: {
-      x?: number
-      y?: number
-    }
-    colors?: string[]
-    shapes?: ('square' | 'circle')[]
-    scalar?: number
-    zIndex?: number
-    disableForReducedMotion?: boolean
+      x?: number;
+      y?: number;
+    };
+    colors?: string[];
+    shapes?: ("square" | "circle")[];
+    scalar?: number;
+    zIndex?: number;
+    disableForReducedMotion?: boolean;
   }
 
-  function confetti(options?: ConfettiOptions): Promise<null>
-  export default confetti
+  function confetti(options?: ConfettiOptions): Promise<null>;
+  export default confetti;
 }

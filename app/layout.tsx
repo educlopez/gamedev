@@ -1,21 +1,25 @@
-import "./globals.css"
-import "focus-visible"
+import "./globals.css";
+import "focus-visible";
 
-import type { ReactNode } from "react"
-import type { Metadata } from "next"
-import { Silkscreen } from "next/font/google"
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
+import { Silkscreen } from "next/font/google";
+import type { ReactNode } from "react";
 
-import { Footer } from "@/components/Footer"
-import { Header } from "@/components/Header"
-import NoiseBackground from "@/components/NoiseBackground"
+import { Footer } from "@/components/Footer";
+import { GameBoyBackground } from "@/components/GameBoyBackground";
+import { GameBoyEffects } from "@/components/GameBoyEffects";
+import { GameBoyIntro } from "@/components/GameBoyIntro";
+import { Header } from "@/components/Header";
+import NoiseBackground from "@/components/NoiseBackground";
+import { PageTransition } from "@/components/PageTransition";
 
 const silkscreen = Silkscreen({
   weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
   variable: "--display-gameboy",
-})
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://gamedev.educalvolopez.com"),
@@ -60,7 +64,7 @@ export const metadata: Metadata = {
   icons: {
     shortcut: "/favicon.ico",
   },
-}
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -68,17 +72,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`pixel-bg flex h-full flex-col antialiased ${silkscreen.className}`}
       >
-        <div className="fixed top-0 left-0 z-50 w-full h-screen pointer-events-none crt" />
+        <GameBoyIntro />
+        <GameBoyBackground />
+        <div className="crt pointer-events-none fixed top-0 left-0 z-50 h-screen w-full" />
         <NoiseBackground />
-        <div className="overflow-scroll relative">
-          <Header />
-          <div className="relative px-4 pt-14 pb-16 mx-auto space-y-10 max-w-2xl sm:px-6 lg:max-w-5xl lg:px-8">
-            <main className="py-16">{children}</main>
-            <Footer />
+        <GameBoyEffects />
+        <PageTransition>
+          <div className="relative overflow-scroll">
+            <Header />
+            <div className="relative mx-auto max-w-2xl space-y-10 px-4 pt-14 pb-16 sm:px-6 lg:max-w-5xl lg:px-8">
+              <main className="py-16">{children}</main>
+              <Footer />
+            </div>
           </div>
-        </div>
+        </PageTransition>
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

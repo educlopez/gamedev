@@ -1,14 +1,14 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
-import { CircleIcon, CrossIcon } from '@/components/Icons'
+import { CircleIcon, CrossIcon } from "@/components/Icons";
 
 type SquareProps = {
-  children?: ReactNode
-  isSelected?: boolean
-  updateBoard?: (index: number) => void
-  index?: number
-  isInteractive?: boolean
-}
+  children?: ReactNode;
+  isSelected?: boolean;
+  updateBoard?: (index: number) => void;
+  index?: number;
+  isInteractive?: boolean;
+};
 
 export const Square = ({
   children,
@@ -18,24 +18,24 @@ export const Square = ({
   isInteractive = true,
 }: SquareProps) => {
   const className = `w-20 h-20 grid place-items-center text-4xl bg-gameboy-100 ring-gameboy-900  ring-inset  ${
-    isSelected ? 'ring-4' : 'ring-2'
-  }`
+    isSelected ? "ring-4" : "ring-2"
+  }`;
 
   const handleClick = () => {
     if (isInteractive && updateBoard && index !== undefined) {
-      updateBoard(index)
+      updateBoard(index);
     }
-  }
+  };
 
   return (
-    <div onClick={handleClick} className={className}>
-      {children === 'X' ? (
+    <div className={className} onClick={handleClick}>
+      {children === "X" ? (
         <CrossIcon className="w-10" />
-      ) : children === 'O' ? (
+      ) : children === "O" ? (
         <CircleIcon className="w-10" />
       ) : (
         children
       )}
     </div>
-  )
-}
+  );
+};

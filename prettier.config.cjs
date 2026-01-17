@@ -1,3 +1,4 @@
+"use strict";
 /** @type {import('prettier').Config} */
 module.exports = {
   endOfLine: "lf",
@@ -33,4 +34,4 @@ module.exports = {
     "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss",
   ],
-}
+};
