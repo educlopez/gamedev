@@ -2,33 +2,20 @@
 
 import { forwardRef } from "react";
 import { GitHubIcon, HouseIcon } from "@/components/Icons";
-import {
-  MobileNavigation,
-  useIsInsideMobileNavigation,
-  useMobileNavigationStore,
-} from "@/components/MobileNavigation";
+import { MobileNavigation } from "@/components/MobileNavigation";
 import { Retrobutton } from "@/components/RetroBtn";
 import { cn } from "@/utils/cn";
 
 export const Header = forwardRef<HTMLDivElement, { className?: string }>(
   function Header({ className }, ref) {
-    const { isOpen: mobileNavIsOpen } = useMobileNavigationStore();
-    const isInsideMobileNavigation = useIsInsideMobileNavigation();
-
     return (
       <div
         className={cn(
           className,
-          "fixed inset-x-0 top-4 z-40 flex h-20 items-center justify-between gap-12 px-4 transition sm:px-6 lg:z-30 lg:px-10"
+          "fixed top-4 right-4 left-4 z-40 mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 transition sm:right-6 sm:left-6 sm:px-6 lg:right-8 lg:left-8 lg:z-30 lg:px-8"
         )}
         ref={ref}
       >
-        <div
-          className={cn(
-            "absolute inset-x-0 top-full h-px transition",
-            (isInsideMobileNavigation || !mobileNavIsOpen) && "bg-zinc-900/7.5"
-          )}
-        />
         <Retrobutton
           aria-label="Home"
           className="hidden items-center lg:flex"
@@ -41,7 +28,7 @@ export const Header = forwardRef<HTMLDivElement, { className?: string }>(
         <div className="flex items-center gap-5 lg:hidden">
           <MobileNavigation />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <div className="hidden min-[416px]:contents">
             <Retrobutton
               href="https://github.com/educlopez/gamedev"
@@ -52,7 +39,7 @@ export const Header = forwardRef<HTMLDivElement, { className?: string }>(
               Github
             </Retrobutton>
           </div>
-          <div className="hidden md:block md:h-5 md:w-px md:bg-gameboy-900/10" />
+          <div className="hidden h-8 w-px bg-gameboy-900/20 md:block" />
         </div>
       </div>
     );

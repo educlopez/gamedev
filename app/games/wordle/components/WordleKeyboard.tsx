@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { checkGuess } from "../../../utils/wordleUtils";
 
 const KEYS = [
@@ -12,7 +13,7 @@ type WordleKeyboardProps = {
   targetWord: string;
 };
 
-export default function WordleKeyboard({
+function WordleKeyboard({
   onKeyPress,
   guesses,
   targetWord,
@@ -35,7 +36,11 @@ export default function WordleKeyboard({
   };
 
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div
+      aria-label="Wordle keyboard"
+      className="flex flex-col items-center gap-1"
+      role="group"
+    >
       {KEYS.map((row, i) => (
         <div className="flex gap-1" key={i}>
           {row.map((key) => (
@@ -52,27 +57,41 @@ export default function WordleKeyboard({
   );
 }
 
+export default memo(WordleKeyboard);
+
 type KeyProps = {
   keyValue: string;
   onClick: () => void;
   status: "unused" | "correct" | "present" | "absent";
 };
 
-function Key({ keyValue, onClick, status }: KeyProps) {
-  const baseClasses = "px-2 py-3 rounded-sm font-bold cursor-pointer";
+const Key = memo(function Key({ keyValue, onClick, status }: KeyProps) {
+  const baseClasses =
+    "px-3 py-2.5 min-w-[2.5rem] border-4 border-gameboy-900 font-bold cursor-pointer text-sm transition-all duration-75 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gameboy-400";
   const statusClasses = {
-    unused: "bg-gameboy-400 text-gameboy-900",
-    correct: "bg-green-500 text-white",
-    present: "bg-yellow-500 text-white",
-    absent: "bg-gray-500 text-white",
+    unused:
+      "bg-gameboy-400 text-gameboy-900 shadow-[inset_2px_2px_0_var(--color-gameboy-200),inset_-2px_-2px_0_var(--color-gameboy-700)] hover:bg-gameboy-200",
+    correct:
+      "bg-[#86c06c] text-gameboy-900 shadow-[inset_2px_2px_0_var(--color-gameboy-400),inset_-2px_-2px_0_var(--color-gameboy-700)]",
+    present:
+      "bg-[#dff7ce] text-gameboy-900 shadow-[inset_2px_2px_0_var(--color-gameboy-100),inset_-2px_-2px_0_var(--color-gameboy-700)]",
+    absent:
+      "bg-gameboy-200 text-gameboy-900 shadow-[inset_2px_2px_0_var(--color-gameboy-200),inset_-2px_-2px_0_var(--color-gameboy-700)]",
   };
+
+  const displayValue = useMemo(
+    () => (keyValue === "Backspace" ? "←" : keyValue),
+    [keyValue]
+  );
 
   return (
     <button
+      aria-label={`${keyValue} key, ${status}`}
       className={`${baseClasses} ${statusClasses[status]}`}
       onClick={onClick}
+      type="button"
     >
-      {keyValue === "Backspace" ? "←" : keyValue}
+      {displayValue}
     </button>
   );
-}
+});

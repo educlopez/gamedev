@@ -1,6 +1,15 @@
 import confetti from "canvas-confetti";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IMAGES } from "@/games/memotest/data";
+
+function shuffle(array: string[]) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 export function useGameState() {
   const [guessed, setGuessed] = useState<string[]>([]);
@@ -8,19 +17,28 @@ export function useGameState() {
   const [play, setPlay] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [time, setTime] = useState(60);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (selected.length === 2) {
       const [firstImage, secondImage] = selected;
+      const firstId = firstImage.split("|")[1];
+      const secondId = secondImage.split("|")[1];
 
-      if (firstImage.split("|")[1] === secondImage.split("|")[1]) {
-        setGuessed((guessed) => guessed.concat(selected));
+      if (firstId === secondId) {
+        setGuessed((prev) => prev.concat(selected));
       }
 
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setSelected([]);
       }, 1000);
     }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [selected]);
 
   useEffect(() => {
@@ -37,28 +55,34 @@ export function useGameState() {
     }
   }, [guessed]);
 
-  function shuffle(array: string[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
   useEffect(() => {
-    if (time !== 0 && play === true && !isGameWon) {
-      const timeout = setTimeout(() => setTime(time - 1), 1000);
+    if (time > 0 && play && !isGameWon) {
+      const timeout = setTimeout(() => setTime((prev) => prev - 1), 1000);
       return () => clearTimeout(timeout);
     }
   }, [time, isGameWon, play]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setGuessed([]);
     setSelected([]);
     setPlay(true);
     setIsGameWon(false);
     shuffle([...IMAGES]);
     setTime(60);
-  };
+  }, []);
+
+  const handleCardSelect = useCallback(
+    (image: string) => {
+      if (
+        selected.length < 2 &&
+        !selected.includes(image) &&
+        !guessed.includes(image)
+      ) {
+        setSelected((prev) => prev.concat(image));
+      }
+    },
+    [selected, guessed]
+  );
 
   return {
     guessed,
@@ -66,9 +90,7 @@ export function useGameState() {
     isGameWon,
     time,
     play,
-    setGuessed,
-    setSelected,
-    setIsGameWon,
+    handleCardSelect,
     handleReset,
   };
 }

@@ -6,7 +6,6 @@ import { create } from "zustand";
 import { Header } from "@/components/Header";
 import { MenuIcon, XIcon } from "@/components/Icons";
 import { Navigation } from "@/components/Navigation";
-import { Retrobutton } from "@/components/RetroBtn";
 
 const IsInsideMobileNavigationContext = createContext(false);
 
@@ -66,7 +65,9 @@ export function MobileNavigation() {
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -97,14 +98,14 @@ export function MobileNavigation() {
 
   return (
     <IsInsideMobileNavigationContext.Provider value={true}>
-      <Retrobutton
+      <button
         aria-label="Toggle navigation"
-        className="flex h-auto w-auto items-center justify-center rounded-md transition hover:bg-gameboy-900"
+        className="flex h-10 w-10 items-center justify-center border-4 border-gameboy-900 bg-gameboy-100 shadow-[inset_2px_2px_0_var(--color-gameboy-200),inset_-2px_-2px_0_var(--color-gameboy-700)] transition-all hover:bg-gameboy-200 hover:shadow-[inset_2px_2px_0_var(--color-gameboy-400),inset_-2px_-2px_0_var(--color-gameboy-700)] focus:outline-none focus:ring-2 focus:ring-gameboy-400 focus:ring-offset-2 active:shadow-[inset_1px_1px_0_var(--color-gameboy-700),inset_-1px_-1px_0_var(--color-gameboy-200)]"
         onClick={toggle}
         type="button"
       >
         <ToggleIcon className="w-6 stroke-2 stroke-gameboy-900" />
-      </Retrobutton>
+      </button>
       {!isInsideMobileNavigation && shouldRender && (
         <div
           aria-hidden={!isOpen}
@@ -124,7 +125,7 @@ export function MobileNavigation() {
           />
           <div aria-hidden="true" className="pointer-events-none fixed inset-0">
             <div
-              className={`pixel-bg pointer-events-auto fixed top-0 bottom-0 left-0 w-full overflow-y-auto bg-gameboy-100 px-4 pt-24 pb-4 shadow-gameboy-900 shadow-lg ring-1 ring-zinc-900/7.5 transition-transform duration-500 ease-in-out sm:px-6 sm:pb-10 min-[416px]:max-w-sm ${isOpen ? "translate-x-0" : "-translate-x-full"}
+              className={`pixel-bg pointer-events-auto fixed top-0 bottom-0 left-0 w-full max-w-sm overflow-y-auto border-gameboy-900 border-r-4 bg-gameboy-200 px-4 pt-24 pb-4 shadow-[inset_2px_2px_0_var(--color-gameboy-100),inset_-2px_-2px_0_var(--color-gameboy-700),8px_0_16px_rgba(7,24,33,0.4)] transition-transform duration-500 ease-in-out sm:px-6 sm:pb-10 ${isOpen ? "translate-x-0" : "-translate-x-full"}
               `}
               ref={panelRef}
             >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import DialogBox from "@/components/DialogBox";
 import { Retrobutton } from "@/components/RetroBtn";
 import { Text } from "@/components/Text";
@@ -31,12 +31,7 @@ export default function Wordle() {
     "playing"
   );
 
-  useEffect(() => {
-    // Fetch a random 5-letter word from an API or use a predefined list
-    fetchWordOfTheDay();
-  }, []);
-
-  const fetchWordOfTheDay = () => {
+  const fetchWordOfTheDay = useCallback(() => {
     const today = new Date();
     const dayOfYear = Math.floor(
       (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
@@ -45,38 +40,47 @@ export default function Wordle() {
     const wordIndex = dayOfYear % WORD_LIST.length;
     const wordOfTheDay = WORD_LIST[wordIndex];
     setTargetWord(wordOfTheDay);
-    console.log("Debug - Word of the day:", wordOfTheDay); // Debug log
-  };
+  }, []);
 
-  const handleKeyPress = (key: string) => {
-    if (gameStatus !== "playing") return;
+  useEffect(() => {
+    fetchWordOfTheDay();
+  }, [fetchWordOfTheDay]);
 
-    if (key === "Backspace") {
-      setCurrentGuess(currentGuess.slice(0, -1));
-    } else if (key === "Enter") {
-      if (currentGuess.length === WORD_LENGTH) {
-        const newGuesses = [...guesses, currentGuess];
-        setGuesses(newGuesses);
+  const handleKeyPress = useCallback(
+    (key: string) => {
+      if (gameStatus !== "playing") return;
 
-        if (currentGuess.toLowerCase() === targetWord.toLowerCase()) {
-          setGameStatus("won");
-        } else if (newGuesses.length === MAX_GUESSES) {
-          setGameStatus("lost");
+      if (key === "Backspace") {
+        setCurrentGuess((prev) => prev.slice(0, -1));
+      } else if (key === "Enter") {
+        if (currentGuess.length === WORD_LENGTH) {
+          const normalizedGuess = currentGuess.toLowerCase();
+          const newGuesses = [...guesses, normalizedGuess];
+          setGuesses(newGuesses);
+
+          if (normalizedGuess === targetWord.toLowerCase()) {
+            setGameStatus("won");
+          } else if (newGuesses.length === MAX_GUESSES) {
+            setGameStatus("lost");
+          }
+
+          setCurrentGuess("");
         }
-
-        setCurrentGuess("");
+      } else if (currentGuess.length < WORD_LENGTH && /^[A-Za-z]$/.test(key)) {
+        setCurrentGuess((prev) => prev + key.toLowerCase());
       }
-    } else if (currentGuess.length < WORD_LENGTH && /^[A-Za-z]$/.test(key)) {
-      setCurrentGuess(currentGuess + key.toLowerCase());
-    }
-  };
+    },
+    [gameStatus, currentGuess, guesses, targetWord]
+  );
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setGuesses([]);
     setCurrentGuess("");
     setGameStatus("playing");
     fetchWordOfTheDay();
-  };
+  }, [fetchWordOfTheDay]);
+
+  const showGameOver = useMemo(() => gameStatus !== "playing", [gameStatus]);
 
   return (
     <>
@@ -92,7 +96,7 @@ export default function Wordle() {
           onKeyPress={handleKeyPress}
           targetWord={targetWord}
         />
-        {gameStatus !== "playing" && (
+        {showGameOver && (
           <DialogBox className="w-auto text-center">
             <p className="text-gameboy-900">
               {gameStatus === "won"

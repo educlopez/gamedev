@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Silkscreen } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { CRTEffect } from "@/components/CRTEffect";
 import { Footer } from "@/components/Footer";
 import { GameBoyBackground } from "@/components/GameBoyBackground";
 import { GameBoyEffects } from "@/components/GameBoyEffects";
@@ -74,11 +75,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <LoadingScreen />
         <GameBoyBackground />
         <div className="crt pointer-events-none fixed top-0 left-0 z-50 h-screen w-full" />
+        <CRTEffect />
         <NoiseBackground />
         <GameBoyEffects />
-        <div className="relative overflow-scroll">
+        <div className="relative">
           <Header />
-          <div className="relative mx-auto max-w-2xl space-y-10 px-4 pt-14 pb-16 sm:px-6 lg:max-w-5xl lg:px-8">
+          <div className="relative mx-auto max-w-2xl space-y-10 px-4 pt-32 pb-16 sm:px-6 lg:max-w-5xl lg:px-8">
             <main className="py-16">{children}</main>
             <Footer />
           </div>

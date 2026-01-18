@@ -1,37 +1,50 @@
 "use client";
 
 import confetti from "canvas-confetti";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import DialogBox from "@/components/DialogBox";
 import { Retrobutton } from "@/components/RetroBtn";
 import { Text } from "@/components/Text";
 import { WORDS } from "@/games/wordsperminute/data";
 
+function getRandomWord() {
+  return WORDS[Math.floor(Math.random() * WORDS.length)];
+}
+
 export default function WordPerMinute() {
-  const [word, setWord] = useState(
-    () => WORDS[Math.floor(Math.random() * WORDS.length)]
-  );
+  const [word, setWord] = useState(() => getRandomWord());
   const [characterCount, setCharacterCount] = useState(0);
   const [buffer, setBuffer] = useState("");
   const [time, setTime] = useState(0);
   const [errorCount, setErrorCount] = useState(0);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    if (buffer.toLowerCase() === word.toLowerCase()) {
-      setWord(WORDS[Math.floor(Math.random() * WORDS.length)]);
-      setCharacterCount((characterCount) => characterCount + word.length);
-    } else {
-      setErrorCount(errorCount + 1);
-    }
+      if (buffer.toLowerCase() === word.toLowerCase()) {
+        setWord(getRandomWord());
+        setCharacterCount((prev) => prev + word.length);
+      } else {
+        setErrorCount((prev) => prev + 1);
+      }
 
+      setBuffer("");
+    },
+    [buffer, word]
+  );
+
+  const handleStart = useCallback(() => {
+    setTime(60);
+    setCharacterCount(0);
+    setErrorCount(0);
     setBuffer("");
-  }
+    setWord(getRandomWord());
+  }, []);
 
   useEffect(() => {
-    if (time !== 0) {
-      const timeout = setTimeout(() => setTime(time - 1), 1000);
+    if (time > 0) {
+      const timeout = setTimeout(() => setTime((prev) => prev - 1), 1000);
       return () => clearTimeout(timeout);
     }
     if (time === 0 && characterCount > 0) {
@@ -43,6 +56,8 @@ export default function WordPerMinute() {
     }
   }, [time, characterCount]);
 
+  const isPlaying = useMemo(() => time > 0, [time]);
+
   return (
     <>
       <Text
@@ -53,18 +68,23 @@ export default function WordPerMinute() {
       />
 
       <section className="my-10 flex flex-col items-center justify-center gap-5">
-        {Boolean(time) && (
+        {isPlaying && (
           <DialogBox className="w-auto text-center" clean message={word} />
         )}
-        {time ? (
+        {isPlaying ? (
           <>
             <form
               className="flex flex-col items-center justify-center gap-2"
               onSubmit={handleSubmit}
             >
+              <label className="sr-only" htmlFor="word-input">
+                Type the word above
+              </label>
               <input
+                aria-label="Type the word shown above"
                 autoFocus
-                className="flex h-8 w-full items-center gap-2 rounded-xs bg-gameboy-100 p-3 text-center text-gameboy-900 text-sm ring-1 ring-gameboy-700 transition placeholder:text-gameboy-700 hover:ring-gameboy-900 focus:not-focus-visible:outline-hidden"
+                className="w-full min-w-[200px] border-4 border-gameboy-900 bg-gameboy-100 p-3 text-center font-bold text-gameboy-900 text-lg shadow-[inset_3px_3px_0_var(--color-gameboy-200),inset_-3px_-3px_0_var(--color-gameboy-700)] transition-all placeholder:text-gameboy-700 focus:outline-none focus:ring-4 focus:ring-gameboy-400 focus:ring-offset-2"
+                id="word-input"
                 onChange={(e) => setBuffer(e.target.value)}
                 type="text"
                 value={buffer}
@@ -86,15 +106,7 @@ export default function WordPerMinute() {
               className="w-auto text-center"
               message="Write as fast as you can"
             />
-            <Retrobutton
-              onClick={() => {
-                setTime(60);
-                setCharacterCount(0);
-                setErrorCount(0);
-              }}
-            >
-              Play
-            </Retrobutton>
+            <Retrobutton onClick={handleStart}>Play</Retrobutton>
           </>
         )}
       </section>

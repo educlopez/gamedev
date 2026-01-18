@@ -22,7 +22,7 @@ function TopLevelNavItem({
   return (
     <li className="md:hidden">
       <Link
-        className="block py-1 text-gameboy-700 text-sm transition hover:text-gameboy-900"
+        className="block w-full rounded-lg border-4 border-gameboy-900 bg-gameboy-100 px-4 py-3 font-bold text-gameboy-900 shadow-[inset_2px_2px_0_var(--color-gameboy-200),inset_-2px_-2px_0_var(--color-gameboy-700)] transition-all hover:bg-gameboy-200 hover:shadow-[inset_2px_2px_0_var(--color-gameboy-400),inset_-2px_-2px_0_var(--color-gameboy-700)] focus:outline-none focus:ring-2 focus:ring-gameboy-400 focus:ring-offset-2 active:shadow-[inset_1px_1px_0_var(--color-gameboy-700),inset_-1px_-1px_0_var(--color-gameboy-200)]"
         href={href}
         rel={rel}
         target={target}
@@ -38,7 +38,7 @@ function TopLevelNavItem({
 export function Navigation(props: ComponentPropsWithoutRef<"nav">) {
   return (
     <nav {...props}>
-      <ul className="flex flex-col items-center gap-10" role="list">
+      <ul className="flex flex-col items-center gap-10">
         <TopLevelNavItem href="/games/tictactoe">TicTacToe</TopLevelNavItem>
         <TopLevelNavItem href="/games/memotest">Memotest</TopLevelNavItem>
         <TopLevelNavItem href="/games/wordsperminute">

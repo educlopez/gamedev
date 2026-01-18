@@ -2,7 +2,7 @@
 
 import confetti from "canvas-confetti";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import DialogBox from "@/components/DialogBox";
 import { Retrobutton } from "@/components/RetroBtn";
@@ -13,15 +13,19 @@ type Pokemon = {
   name: string;
 };
 
+const ALL_POKEMON_GUESSED_MESSAGE =
+  "All Pokémons have been guessed, congratulations!";
+const MAX_CORRECT_GUESSES = 10;
+
 export default function Whoisthatpokemon() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [pokemonList, setPokemonList] = useState<string[]>([]);
-  const [userGuess, setUserGuess] = useState("");
   const [guessMessage, setGuessMessage] = useState("");
   const [correctGuesses, setCorrectGuesses] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pokemonNameLetters, setPokemonNameLetters] = useState<string[]>([]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const fetchPokemon = useCallback(async () => {
     setIsLoading(true);
@@ -30,6 +34,9 @@ export default function Whoisthatpokemon() {
       const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151", {
         cache: "force-cache",
       });
+      if (!res.ok) {
+        throw new Error(`Failed to fetch: ${res.statusText}`);
+      }
       const data = await res.json();
       const pokemonData = data.results
         .filter(
@@ -38,13 +45,17 @@ export default function Whoisthatpokemon() {
         .map((p: { url: string }) => p.url);
 
       if (!pokemonData.length) {
-        setGuessMessage("All Pokémons have been guessed, congratulations!");
+        setGuessMessage(ALL_POKEMON_GUESSED_MESSAGE);
+        setIsLoading(false);
         return;
       }
 
       const randomPokemon =
         pokemonData[Math.floor(Math.random() * pokemonData.length)];
       const pokemonRes = await fetch(randomPokemon);
+      if (!pokemonRes.ok) {
+        throw new Error(`Failed to fetch pokemon: ${pokemonRes.statusText}`);
+      }
       const pokemonInfo = await pokemonRes.json();
       setPokemonNameLetters(Array(pokemonInfo.name.length).fill(""));
       setPokemon(pokemonInfo);
@@ -59,83 +70,125 @@ export default function Whoisthatpokemon() {
     fetchPokemon();
   }, [fetchPokemon]);
 
-  const handleLetterChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const newLetters = [...pokemonNameLetters];
-    newLetters[index] = e.target.value;
-    setPokemonNameLetters(newLetters);
-    const inputs = document.querySelectorAll("input");
-    if (index < inputs.length - 1) {
-      inputs[index + 1].focus();
-    } else {
-      const submitBtn = document.querySelector(
-        "button[type=submit]"
-      ) as HTMLButtonElement;
-      submitBtn?.focus();
-    }
-  };
+  const handleLetterChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+      const value = e.target.value;
+      if (!/^[a-z-]$/i.test(value) && value !== "") return;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!pokemon) return;
-    const userGuess = pokemonNameLetters.join("");
-    const inputs = document.querySelectorAll("input");
-    if (userGuess.toLowerCase() === pokemon.name.toLowerCase()) {
-      setGuessMessage("Correct! You won!");
-      setPokemonList([...pokemonList, pokemon.name]);
-      setCorrectGuesses(correctGuesses + 1);
-      inputs[0]?.focus();
-      if (correctGuesses + 1 === 10) {
-        setGuessMessage(
-          "You have guessed 10 correct Pokémon. Congratulations!"
-        );
-        confetti({
-          particleCount: 200,
-          spread: 80,
-          colors: ["#8D9571", "#1F1F1F", "#4E533E"],
-        });
+      setPokemonNameLetters((prev) => {
+        const newLetters = [...prev];
+        newLetters[index] = value;
+        return newLetters;
+      });
+
+      if (value && index < inputRefs.current.length - 1) {
+        inputRefs.current[index + 1]?.focus();
       }
-    } else {
-      setGuessMessage("Incorrect. Try again.");
-      inputs[0]?.focus();
-    }
-    setPokemonNameLetters(Array(pokemon.name.length).fill(""));
-  };
+    },
+    []
+  );
 
-  const isAllowedKey = (key: string) => {
-    const allowedKeys = ["Backspace", "Delete", "Tab", "Enter"];
-    return (
-      /^[a-z-]{1}$/i.test(key) || allowedKeys.includes(key) || key === "Meta"
-    );
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!isAllowedKey(e.key)) {
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-    }
+      if (!pokemon) return;
 
-    if (["Backspace", "Delete"].includes(e.key)) {
-      const inputs = document.querySelectorAll("input");
-      const index = Array.from(inputs).indexOf(e.target as HTMLInputElement);
-      if (index > 0) {
-        (inputs[index - 1] as HTMLInputElement).value = "";
-        (inputs[index - 1] as HTMLInputElement).focus();
+      const userGuess = pokemonNameLetters.join("");
+      if (userGuess.toLowerCase() === pokemon.name.toLowerCase()) {
+        const newCorrectGuesses = correctGuesses + 1;
+        setGuessMessage("Correct! You won!");
+        setPokemonList((prev) => [...prev, pokemon.name]);
+        setCorrectGuesses(newCorrectGuesses);
+
+        if (newCorrectGuesses === MAX_CORRECT_GUESSES) {
+          setGuessMessage(
+            "You have guessed 10 correct Pokémon. Congratulations!"
+          );
+          confetti({
+            particleCount: 200,
+            spread: 80,
+            colors: ["#8D9571", "#1F1F1F", "#4E533E"],
+          });
+        }
+      } else {
+        setGuessMessage("Incorrect. Try again.");
       }
-    }
-  };
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      setPokemonNameLetters(Array(pokemon.name.length).fill(""));
+      inputRefs.current[0]?.focus();
+    },
+    [pokemon, pokemonNameLetters, correctGuesses]
+  );
+
+  const isAllowedKey = useCallback((key: string) => {
+    const allowedKeys = ["Backspace", "Delete", "Tab", "Enter"];
+    return /^[a-z-]$/i.test(key) || allowedKeys.includes(key) || key === "Meta";
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+      if (!isAllowedKey(e.key)) {
+        e.preventDefault();
+      }
+
+      if (["Backspace", "Delete"].includes(e.key) && index > 0) {
+        setPokemonNameLetters((prev) => {
+          const newLetters = [...prev];
+          newLetters[index - 1] = "";
+          return newLetters;
+        });
+        inputRefs.current[index - 1]?.focus();
+      }
+    },
+    [isAllowedKey]
+  );
+
+  const handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     e.target.select();
-  };
+  }, []);
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setPokemonList([]);
     setGuessMessage("");
-    setUserGuess("");
     setCorrectGuesses(0);
-  };
+    setPokemonNameLetters([]);
+    inputRefs.current[0]?.focus();
+  }, []);
+
+  const showAllGuessedMessage = useMemo(
+    () => guessMessage === ALL_POKEMON_GUESSED_MESSAGE,
+    [guessMessage]
+  );
+
+  const showMaxGuessesMessage = useMemo(
+    () => correctGuesses === MAX_CORRECT_GUESSES,
+    [correctGuesses]
+  );
+
+  const pokemonImageUrl = useMemo(() => {
+    if (showMaxGuessesMessage) {
+      return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/25.png";
+    }
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokemon?.id}.png`;
+  }, [pokemon?.id, showMaxGuessesMessage]);
+
+  if (error) {
+    return (
+      <>
+        <Text
+          as="h2"
+          className="fade-down-ct"
+          size="h2"
+          title="Who's that pokemon"
+        />
+        <DialogBox
+          as="p"
+          className="w-auto text-center text-gameboy-900"
+          message={`Error: ${error}`}
+        />
+      </>
+    );
+  }
 
   return (
     <>
@@ -149,37 +202,19 @@ export default function Whoisthatpokemon() {
         <div className="flex flex-col items-center justify-center">
           {pokemon?.name ? (
             <>
-              {correctGuesses !== 10 ? (
-                <Image
-                  alt="pokemon sprite"
-                  height={96}
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/${pokemon.id}.png`}
-                  unoptimized
-                  width={96}
-                />
-              ) : (
-                <Image
-                  alt="pokemon sprite"
-                  height={96}
-                  src={
-                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/25.png"
-                  }
-                  unoptimized
-                  width={96}
-                />
-              )}
+              <Image
+                alt={
+                  showMaxGuessesMessage
+                    ? "Pikachu celebration sprite"
+                    : "Pokemon sprite to guess"
+                }
+                height={96}
+                src={pokemonImageUrl}
+                unoptimized
+                width={96}
+              />
               <div>
-                {guessMessage ===
-                "All pokemons have been guessed, congratulations!" ? (
-                  <div>
-                    <p className="text-center text-gameboy-900">
-                      {guessMessage}
-                    </p>
-                    <div className="mt-6 flex justify-center">
-                      <Retrobutton onClick={resetGame}>Reset Game</Retrobutton>
-                    </div>
-                  </div>
-                ) : correctGuesses === 10 ? (
+                {showAllGuessedMessage || showMaxGuessesMessage ? (
                   <div>
                     <p className="text-center text-gameboy-900">
                       {guessMessage}
@@ -193,16 +228,24 @@ export default function Whoisthatpokemon() {
                     className="flex flex-col items-center gap-5"
                     onSubmit={handleSubmit}
                   >
-                    <div className="flex flex-row gap-2">
+                    <div
+                      aria-label="Pokemon name letters"
+                      className="flex flex-row gap-2 rounded-lg border-4 border-gameboy-900 bg-gameboy-200 p-3 shadow-[0_4px_8px_rgba(7,24,33,0.3)]"
+                      role="group"
+                    >
                       {pokemonNameLetters.map((letter, index) => (
                         <input
-                          className="h-8 w-8 border-gameboy-900 border-b-2 bg-gameboy-100 p-1 text-center text-gameboy-900 text-sm transition placeholder:text-gameboy-700 md:h-10 md:w-10 md:p-3"
+                          aria-label={`Letter ${index + 1} of ${pokemonNameLetters.length}`}
+                          className="h-10 w-10 border-4 border-gameboy-900 bg-gameboy-100 p-1 text-center font-bold text-gameboy-900 text-lg shadow-[inset_2px_2px_0_var(--color-gameboy-200),inset_-2px_-2px_0_var(--color-gameboy-700)] transition-all placeholder:text-gameboy-700 focus:outline-none focus:ring-2 focus:ring-gameboy-400 focus:ring-offset-1 md:h-12 md:w-12 md:p-2 md:text-xl"
                           key={index}
                           maxLength={1}
                           onChange={(e) => handleLetterChange(e, index)}
                           onFocus={handleFocus}
-                          onKeyDown={handleKeyDown}
+                          onKeyDown={(e) => handleKeyDown(e, index)}
                           placeholder="?"
+                          ref={(el) => {
+                            inputRefs.current[index] = el;
+                          }}
                           type="text"
                           value={letter}
                         />
@@ -217,21 +260,19 @@ export default function Whoisthatpokemon() {
                   Remember, if a pokemon have spaces in her name use `-`
                 </p>
                 <p className="mb-4 text-center text-gameboy-900">
-                  Correct Guesses: {correctGuesses} / 10
+                  Correct Guesses: {correctGuesses} / {MAX_CORRECT_GUESSES}
                 </p>
                 {correctGuesses > 0 && (
                   <div className="mt-10 grid grid-flow-row grid-cols-5 justify-items-center gap-5">
-                    {pokemonList.map((pokemon) => {
-                      return (
-                        <Image
-                          alt={pokemon}
-                          height={36}
-                          key={pokemon}
-                          src={`https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${pokemon}.png`}
-                          width={48}
-                        />
-                      );
-                    })}
+                    {pokemonList.map((pokemonName) => (
+                      <Image
+                        alt={`${pokemonName} sprite`}
+                        height={36}
+                        key={pokemonName}
+                        src={`https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen8/regular/${pokemonName}.png`}
+                        width={48}
+                      />
+                    ))}
                   </div>
                 )}
               </DialogBox>
@@ -240,7 +281,7 @@ export default function Whoisthatpokemon() {
             <DialogBox
               as="p"
               className="w-auto text-center text-gameboy-900"
-              message="Loading..."
+              message={isLoading ? "Loading..." : "No pokemon available"}
             />
           )}
         </div>
