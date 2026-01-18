@@ -71,10 +71,10 @@ export function CRTEffect() {
       uniform float time;
       uniform vec2 resolution;
       varying vec2 vUv;
-      
+
       void main() {
         vec2 uv = vUv;
-        
+
         // Screen curvature effect
         vec2 center = vec2(0.5, 0.5);
         vec2 coord = uv - center;
@@ -82,18 +82,18 @@ export function CRTEffect() {
         float curvature = 0.1;
         float distortion = dist * dist * curvature;
         uv = center + coord * (1.0 + distortion);
-        
+
         // Vignette effect
         float vignette = 1.0 - smoothstep(0.3, 1.0, dist * 1.5);
-        
+
         // Color bleeding (green phosphor glow) - more visible
         float greenGlow = sin(time * 0.5) * 0.05 + 0.95;
         vec3 color = vec3(0.0, greenGlow * 0.25, 0.0) * vignette;
-        
+
         // Scanline interference pattern - more visible
         float scanline = sin(uv.y * resolution.y * 0.5 + time * 2.0) * 0.05 + 0.95;
         color += vec3(scanline * 0.15);
-        
+
         // Add more pronounced vignette
         gl_FragColor = vec4(color, vignette * 0.3);
       }
