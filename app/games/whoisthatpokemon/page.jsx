@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import confetti from "canvas-confetti"
 
@@ -18,39 +18,50 @@ export default function Whoisthatpokemon() {
   const [error, setError] = useState(null)
   const [pokemonNameLetters, setPokemonNameLetters] = useState([])
 
-  const fetchPokemon = useCallback(async () => {
-    setIsLoading(true)
-    setError(null)
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`, {
-        cache: "force-cache",
-      })
-      const data = await res.json()
-      const pokemonData = data.results
-        .filter((p) => !pokemonList.includes(p.name.toLowerCase()))
-        .map((p) => p.url)
+  useEffect(() => {
+    let cancelled = false
 
-      if (!pokemonData.length) {
-        setGuessMessage("All Pokémons have been guessed, congratulations!")
-        return
+    async function load() {
+      try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`, {
+          cache: "force-cache",
+        })
+        const data = await res.json()
+        if (cancelled) return
+
+        const pokemonData = data.results
+          .filter((p) => !pokemonList.includes(p.name.toLowerCase()))
+          .map((p) => p.url)
+
+        if (!pokemonData.length) {
+          setGuessMessage("All Pokémons have been guessed, congratulations!")
+          setIsLoading(false)
+          return
+        }
+
+        const randomPokemon =
+          pokemonData[Math.floor(Math.random() * pokemonData.length)]
+        const pokemonRes = await fetch(randomPokemon)
+        const pokemonInfo = await pokemonRes.json()
+        if (cancelled) return
+
+        setPokemonNameLetters(Array(pokemonInfo.name.length).fill(""))
+        setPokemon(pokemonInfo)
+        setError(null)
+        setIsLoading(false)
+      } catch (err) {
+        if (cancelled) return
+        setError(err.message)
+        setIsLoading(false)
       }
+    }
 
-      const randomPokemon =
-        pokemonData[Math.floor(Math.random() * pokemonData.length)]
-      const pokemonRes = await fetch(randomPokemon)
-      const pokemonInfo = await pokemonRes.json()
-      setPokemonNameLetters(Array(pokemonInfo.name.length).fill(""))
-      setPokemon(pokemonInfo)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setIsLoading(false)
+    load()
+
+    return () => {
+      cancelled = true
     }
   }, [pokemonList])
-
-  useEffect(() => {
-    fetchPokemon()
-  }, [fetchPokemon])
 
   // const handleGuess = (e) => {
   //   setUserGuess(e.target.value)

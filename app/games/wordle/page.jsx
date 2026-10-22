@@ -1,7 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { checkGuess } from "@/utils/wordleUtils"
+import { useState } from "react"
 
 import DialogBox from "@/components/DialogBox"
 import { Retrobutton } from "@/components/RetroBtn"
@@ -25,27 +24,20 @@ const WORD_LIST = [
   "build",
 ]
 
+function getWordOfTheDay() {
+  const today = new Date()
+  const dayOfYear = Math.floor(
+    (today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24)
+  )
+  const wordIndex = dayOfYear % WORD_LIST.length
+  return WORD_LIST[wordIndex]
+}
+
 export default function Wordle() {
-  const [targetWord, setTargetWord] = useState("")
+  const [targetWord, setTargetWord] = useState(getWordOfTheDay)
   const [guesses, setGuesses] = useState([])
   const [currentGuess, setCurrentGuess] = useState("")
   const [gameStatus, setGameStatus] = useState("playing")
-
-  useEffect(() => {
-    // Fetch a random 5-letter word from an API or use a predefined list
-    fetchWordOfTheDay()
-  }, [])
-
-  const fetchWordOfTheDay = () => {
-    const today = new Date()
-    const dayOfYear = Math.floor(
-      (today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24)
-    )
-    const wordIndex = dayOfYear % WORD_LIST.length
-    const wordOfTheDay = WORD_LIST[wordIndex]
-    setTargetWord(wordOfTheDay)
-    console.log("Debug - Word of the day:", wordOfTheDay) // Debug log
-  }
 
   const handleKeyPress = (key) => {
     if (gameStatus !== "playing") return
@@ -74,7 +66,7 @@ export default function Wordle() {
     setGuesses([])
     setCurrentGuess("")
     setGameStatus("playing")
-    fetchWordOfTheDay()
+    setTargetWord(getWordOfTheDay())
   }
 
   return (

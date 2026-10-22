@@ -9,33 +9,35 @@ export function useGameState() {
   const [isGameWon, setIsGameWon] = useState(false)
   const [time, setTime] = useState(60)
 
-  useEffect(() => {
-    if (selected.length === 2) {
-      const [firstImage, secondImage] = selected
+  function handleSelect(image) {
+    if (selected.length >= 2) return
 
-      if (firstImage.split("|")[1] === secondImage.split("|")[1]) {
-        setGuessed((guessed) => guessed.concat(selected))
+    const nextSelected = selected.concat(image)
+    setSelected(nextSelected)
+
+    if (nextSelected.length !== 2) return
+
+    const [firstImage, secondImage] = nextSelected
+    if (firstImage.split("|")[1] === secondImage.split("|")[1]) {
+      const nextGuessed = guessed.concat(nextSelected)
+      setGuessed(nextGuessed)
+      if (nextGuessed.length === IMAGES.length) {
+        setIsGameWon(true)
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: {
+            y: 0.6,
+          },
+          colors: ["#8D9571", "#1F1F1F", "#4E533E"],
+        })
       }
-
-      setTimeout(() => {
-        setSelected([])
-      }, 1000)
     }
-  }, [selected])
 
-  useEffect(() => {
-    if (guessed.length === IMAGES.length) {
-      setIsGameWon(true)
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: {
-          y: 0.6,
-        },
-        colors: ["#8D9571", "#1F1F1F", "#4E533E"],
-      })
-    }
-  }, [guessed])
+    setTimeout(() => {
+      setSelected([])
+    }, 1000)
+  }
 
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -43,6 +45,7 @@ export function useGameState() {
       ;[array[i], array[j]] = [array[j], array[i]]
     }
   }
+
   useEffect(() => {
     if (time !== 0 && play == true && !isGameWon) {
       const timeout = setTimeout(() => setTime(time - 1), 1000)
@@ -65,9 +68,7 @@ export function useGameState() {
     isGameWon,
     time,
     play,
-    setGuessed,
-    setSelected,
-    setIsGameWon,
+    handleSelect,
     handleReset,
   }
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useId } from "react"
 import { gameFont } from "@/logic/fonts"
 import { cn } from "@/utils/cn"
 
@@ -23,11 +23,7 @@ export function Text({
     sizeStyles[size],
     className
   )
-  const [id, setId] = useState("")
-
-  useEffect(() => {
-    setId(`mask${Math.floor(Math.random() * 10_000)}`)
-  }, [])
+  const id = `mask${useId().replace(/:/g, "")}`
 
   return (
     <div className={className} {...props}>
