@@ -11,7 +11,7 @@ import { Text } from "@/components/Text"
 import { useGameState } from "./components/useGameState"
 
 export default function Memotest() {
-  const { guessed, selected, isGameWon, time, play, setSelected, handleReset } =
+  const { guessed, selected, isGameWon, time, play, handleSelect, handleReset } =
     useGameState()
 
   return (
@@ -66,10 +66,7 @@ export default function Memotest() {
                     <li
                       key={image}
                       className="p-2 cursor-pointer select-none bg-gameboy-100 hover:bg-gameboy-400"
-                      onClick={() =>
-                        selected.length < 2 &&
-                        setSelected((selected) => selected.concat(image))
-                      }
+                      onClick={() => handleSelect(image)}
                     >
                       {selected.includes(image) || guessed.includes(image) ? (
                         <Image

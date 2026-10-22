@@ -1,4 +1,5 @@
 import "./globals.css"
+import "./gameboy.css"
 import "focus-visible"
 
 import { Silkscreen } from "next/font/google"

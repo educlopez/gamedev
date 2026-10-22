@@ -12,19 +12,8 @@ import { Retrobutton } from "@/components/RetroBtn"
 import { Text } from "@/components/Text"
 
 function Tictactoe() {
-  const initialBoard = Array(9).fill(null)
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const boardFromStorage = window.localStorage.getItem("board")
-      if (boardFromStorage) setBoard(JSON.parse(boardFromStorage))
-
-      const turnFromStorage = window.localStorage.getItem("turn")
-      if (turnFromStorage) setTurn(turnFromStorage)
-    }
-  }, [])
 
   // null es que no hay ganador, false es que hay un empate
   const [winner, setWinner] = useState(null)
@@ -81,19 +70,17 @@ function Tictactoe() {
 
     return gameState
   }
-  function clearSavedGameState() {
-    localStorage.removeItem("ticTacToeGameState")
-  }
   useEffect(() => {
     const savedGameState = loadGameFromStorage()
 
-    if (savedGameState) {
+    if (!savedGameState) return
+
+    const timeout = window.setTimeout(() => {
       setBoard(savedGameState.board)
       setTurn(savedGameState.turn)
-    } else {
-      setBoard(initialBoard)
-      setTurn(TURNS.X)
-    }
+    }, 0)
+
+    return () => window.clearTimeout(timeout)
   }, [])
   return (
     <>
