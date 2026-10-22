@@ -12,6 +12,7 @@ pnpm-lock.yaml
 # next.js
 /.next/
 /out/
+*.tsbuildinfo
 
 # production
 /build
