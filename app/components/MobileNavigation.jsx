@@ -1,5 +1,10 @@
 import { createContext, Fragment, useContext } from "react"
-import { Dialog, Transition } from "@headlessui/react"
+import {
+  Dialog,
+  DialogPanel,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react"
 import { create } from "zustand"
 
 import { Header } from "@/components/Header"
@@ -36,10 +41,10 @@ export function MobileNavigation() {
         <ToggleIcon className="w-6 stroke-2 stroke-gameboy-900" />
       </Retrobutton>
       {!isInsideMobileNavigation && (
-        <Transition.Root show={isOpen} as={Fragment}>
+        <Transition show={isOpen} as={Fragment}>
           <Dialog onClose={close} className="fixed inset-0 z-50 lg:hidden">
-            <Dialog.Panel>
-              <Transition.Child
+            <DialogPanel>
+              <TransitionChild
                 as={Fragment}
                 enter="duration-300 ease-out"
                 enterFrom="opacity-0"
@@ -49,9 +54,9 @@ export function MobileNavigation() {
                 leaveTo="opacity-0"
               >
                 <Header />
-              </Transition.Child>
+              </TransitionChild>
 
-              <Transition.Child
+              <TransitionChild
                 as={Fragment}
                 enter="duration-500 ease-in-out"
                 enterFrom="-translate-x-full"
@@ -63,10 +68,10 @@ export function MobileNavigation() {
                 <div className="ring-zinc-900/7.5 pixel-bg fixed bottom-0 left-0 top-0 w-full overflow-y-auto bg-gameboy-100 px-4 pb-4 pt-24 shadow-lg shadow-gameboy-900 ring-1 min-[416px]:max-w-sm sm:px-6 sm:pb-10">
                   <Navigation onClick={close} />
                 </div>
-              </Transition.Child>
-            </Dialog.Panel>
+              </TransitionChild>
+            </DialogPanel>
           </Dialog>
-        </Transition.Root>
+        </Transition>
       )}
     </IsInsideMobileNavigationContext.Provider>
   )
