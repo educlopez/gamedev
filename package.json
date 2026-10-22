@@ -9,28 +9,56 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^1.7.19",
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
-    "@tailwindcss/typography": "^0.5.12",
+    "@tailwindcss/typography": "^0.5.20",
     "@vercel/analytics": "^1.2.2",
     "autoprefixer": "^10.4.19",
     "canvas-confetti": "1.9.2",
     "clsx": "^2.1.0",
     "focus-visible": "^5.2.0",
-    "next": "14.2.0",
+    "next": "14.2.35",
     "postcss-focus-visible": "^9.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-wrap-balancer": "^1.1.0",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.19",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
     "eslint": "9.0.0",
-    "eslint-config-next": "14.2.0",
+    "eslint-config-next": "14.2.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.13"
+  },
+  "overrides": {
+    "@babel/runtime": "^7.26.10",
+    "ajv@6": "^6.14.0",
+    "brace-expansion@1": "^1.1.21",
+    "brace-expansion@2": "^2.1.7",
+    "braces": "^3.0.3",
+    "browserslist": "^4.28.7",
+    "cross-spawn": "^7.0.5",
+    "eslint-config-next": {
+      "eslint": "$eslint"
+    },
+    "@next/eslint-plugin-next": {
+      "glob": "^10.5.0"
+    },
+    "flatted": "^3.4.2",
+    "js-yaml@3": "^3.15.2",
+    "js-yaml@4": "^4.3.2",
+    "micromatch": "^4.0.8",
+    "minimatch@3": "^3.1.5",
+    "nanoid@3": "^3.3.18",
+    "picomatch@2": "^2.3.2",
+    "postcss": "^8.5.23",
+    "semver@6": "^6.3.1",
+    "semver@7": "^7.5.2",
+    "source-map-js": "^1.2.2",
+    "word-wrap": "^1.2.4",
+    "yaml@1": "^1.10.3"
   }
 }
