@@ -58,6 +58,12 @@ const Games = [
   },
 ]
 
+// Canonical only on the home page: setting it in the root layout would make
+// every game page point at "/".
+export const metadata = {
+  alternates: { canonical: "/" },
+}
+
 function Home() {
   return (
     <>
