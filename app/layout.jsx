@@ -19,16 +19,16 @@ const silkscreen = Silkscreen({
 export const metadata = {
   metadataBase: new URL("https://gamedev.educalvolopez.com"),
   title: {
-    default: "GameDev",
+    default: "GameDev — Retro mini-games in your browser",
     template: "%s | GameDev",
   },
-  description: `Discover a world of fun and challenge with our wide selection of mini-games. Play Who's That Pokemon, Memory, Tic Tac Toe, and more. Improve your cognitive skills and have fun at the same time. Play now!`,
+  description: `Play retro mini-games in your browser: Who's That Pokemon, Memotest, Tic Tac Toe, Wordle and Words per minute. Free, no sign-up, built with Next.js.`,
   keywords: [
     `mini games, who's that pokemon, memory, tic tac toe, cognitive skills, fun, challenge, play now`,
   ],
   openGraph: {
     title: "GameDev",
-    description: `Discover a world of fun and challenge with our wide selection of mini-games. Play Who's That Pokemon, Memory, Tic Tac Toe, and more. Improve your cognitive skills and have fun at the same time. Play now!`,
+    description: `Play retro mini-games in your browser: Who's That Pokemon, Memotest, Tic Tac Toe, Wordle and Words per minute. Free, no sign-up, built with Next.js.`,
     url: "https://gamedev.educalvolopez.com",
     siteName: "GameDev",
     images: [
@@ -38,7 +38,7 @@ export const metadata = {
         height: 1080,
       },
     ],
-    locale: "en_EN",
+    locale: "en_US",
     type: "website",
   },
   robots: {
